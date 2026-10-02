@@ -1,0 +1,3458 @@
+osi_version: "1.0"
+semantic_model:
+  name: duodata
+  datasets:
+    - name: CRM_SHARED
+      description: Cross-brand customer relationship system holding subscriber,
+        ticket, campaign and channel records for both Nationale Postcode Loterij
+        and VriendenLoterij. System of record for participant identity,
+        acquisition and churn events.
+      fields:
+        - name: CAMPAIGN_BK
+          custom_extensions:
+            duodata:
+              name: Campaign
+              identifier: CAMPAIGN_BK
+              description: Grain of an acquisition or retention marketing campaign
+                attributable to subscription events, used for CAC and
+                channel-effectiveness analysis.
+              synonyms:
+                - Marketing Campaign
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: CRM_SHARED
+              release: null
+              values: null
+              rollsUpTo:
+                - CHANNEL
+                - LOTTERY_BRAND
+              tags:
+                - Participant-Growth
+          description: Grain of an acquisition or retention marketing campaign
+            attributable to subscription events, used for CAC and
+            channel-effectiveness analysis.
+          ai_context: Marketing Campaign
+        - name: PARTICIPANT_BK
+          custom_extensions:
+            duodata:
+              name: Participant
+              identifier: PARTICIPANT_BK
+              description: Grain of a distinct subscriber (deelnemer) holding at least one
+                active ticket in either lottery brand. Spine entity for
+                acquisition, churn, tickets-per-participant and
+                household-overlap analysis.
+              synonyms:
+                - Subscriber
+                - Deelnemer
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: CRM_SHARED
+              release: null
+              values: null
+              rollsUpTo:
+                - CHANNEL
+                - COHORT
+                - LEGAL_ENTITY
+                - LOTTERY_BRAND
+                - PARTICIPANT_TYPE
+                - POSTCODE
+              tags:
+                - Cross-Brand
+                - Participant-Growth
+          description: Grain of a distinct subscriber (deelnemer) holding at least one
+            active ticket in either lottery brand. Spine entity for acquisition,
+            churn, tickets-per-participant and household-overlap analysis.
+          ai_context: Subscriber; Deelnemer
+        - name: SUBSCRIPTION_BK
+          custom_extensions:
+            duodata:
+              name: Ticket / Subscription
+              identifier: SUBSCRIPTION_BK
+              description: Grain of a recurring lot (lot) held by a participant, defining
+                product tier, brand, status and the stake collected each draw.
+                Basis for tickets in play and inleg identity (tickets × price).
+              synonyms:
+                - Lot
+                - Recurring Lot
+                - Subscription
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: CRM_SHARED
+              release: null
+              values: null
+              rollsUpTo:
+                - CAMPAIGN_BK
+                - CHANNEL
+                - LOTTERY_BRAND
+                - PARTICIPANT_BK
+                - PRODUCT_TIER
+                - SUBSCRIPTION_STATUS
+              tags:
+                - Participant-Growth
+          description: Grain of a recurring lot (lot) held by a participant, defining
+            product tier, brand, status and the stake collected each draw. Basis
+            for tickets in play and inleg identity (tickets × price).
+          ai_context: Lot; Recurring Lot; Subscription
+      metrics:
+        - name: active_participants
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Active Participants (Deelnemers)
+              identifier: active_participants
+              description: Distinct subscribers holding at least one active recurring lot in
+                the period, across both brands and all acquisition channels.
+                Deduplicated on participant, so a person holding multiple lots
+                or both brands counts once per brand grain. Excludes cancelled
+                and suspended subscribers. It is the denominator for tickets per
+                participant, churn rate and afdracht per participant, and is the
+                core customer-base measure watched by the CRM team. Sensitive to
+                seasonal acquisition campaigns and collection failures that
+                trigger deactivation.
+              synonyms:
+                - deelnemers
+                - active subscribers
+              unit: count
+              status: Implemented
+              period: Monthly
+              businessOwner: CRM & Participant Team
+              implementationOwner: null
+              source: CRM_SHARED
+              release: null
+              formula: null
+              slices:
+                - CHANNEL
+                - LOTTERY_BRAND
+                - MONTH
+                - PARTICIPANT_BK
+                - PROVINCE
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - afdracht_per_participant
+                - churn_rate
+                - tickets_per_participant
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - participation
+          description: Distinct subscribers holding at least one active recurring lot in
+            the period, across both brands and all acquisition channels.
+            Deduplicated on participant, so a person holding multiple lots or
+            both brands counts once per brand grain. Excludes cancelled and
+            suspended subscribers. It is the denominator for tickets per
+            participant, churn rate and afdracht per participant, and is the
+            core customer-base measure watched by the CRM team. Sensitive to
+            seasonal acquisition campaigns and collection failures that trigger
+            deactivation.
+          ai_context: deelnemers; active subscribers
+        - name: cancellations
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Cancellations (Opzeggingen)
+              identifier: cancellations
+              description: Count of subscribers who cancelled all their active lots in the
+                period, ending their participation with a brand. Includes
+                voluntary opzeggingen and involuntary terminations after
+                repeated collection failure; excludes temporary payment retries
+                still in progress. It combines with new participants to give net
+                growth and with the active base to give churn rate. Sensitive to
+                price increases, prize-perception, and direct-debit reliability.
+                A key retention signal for the CRM & Participant Team.
+              synonyms:
+                - opzeggingen
+                - churned subscribers
+              unit: count
+              status: Implemented
+              period: Monthly
+              businessOwner: CRM & Participant Team
+              implementationOwner: null
+              source: CRM_SHARED
+              release: null
+              formula: null
+              slices:
+                - CHANNEL
+                - LOTTERY_BRAND
+                - MONTH
+                - PARTICIPANT_BK
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - churn_rate
+                - net_participant_growth
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - retention
+          description: Count of subscribers who cancelled all their active lots in the
+            period, ending their participation with a brand. Includes voluntary
+            opzeggingen and involuntary terminations after repeated collection
+            failure; excludes temporary payment retries still in progress. It
+            combines with new participants to give net growth and with the
+            active base to give churn rate. Sensitive to price increases,
+            prize-perception, and direct-debit reliability. A key retention
+            signal for the CRM & Participant Team.
+          ai_context: opzeggingen; churned subscribers
+        - name: new_participants
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: New Participants (Acquisitions)
+              identifier: new_participants
+              description: Count of newly acquired subscribers who started at least one
+                recurring lot in the period, attributed to campaign, channel and
+                acquisition cohort. Includes reactivations only where a fresh
+                subscription is created; excludes existing subscribers adding
+                extra lots. It feeds net participant growth and is the volume
+                base for CAC per ticket. Highly sensitive to campaign spend,
+                door-to-door and media activity, and to product-tier promotions.
+                A core input to the participant growth model.
+              synonyms:
+                - acquisitions
+              unit: count
+              status: Implemented
+              period: Monthly
+              businessOwner: CRM & Participant Team
+              implementationOwner: null
+              source: CRM_SHARED
+              release: null
+              formula: null
+              slices:
+                - CAMPAIGN_BK
+                - CHANNEL
+                - COHORT
+                - MONTH
+                - PARTICIPANT_BK
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - cac_per_ticket
+                - net_participant_growth
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - growth
+          description: Count of newly acquired subscribers who started at least one
+            recurring lot in the period, attributed to campaign, channel and
+            acquisition cohort. Includes reactivations only where a fresh
+            subscription is created; excludes existing subscribers adding extra
+            lots. It feeds net participant growth and is the volume base for CAC
+            per ticket. Highly sensitive to campaign spend, door-to-door and
+            media activity, and to product-tier promotions. A core input to the
+            participant growth model.
+          ai_context: acquisitions
+        - name: vip_kaart_redemptions
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: VIP-KAART Redemptions
+              identifier: vip_kaart_redemptions
+              description: Count of VIP-KAART visits redeemed by VriendenLoterij participants,
+                granting free or discounted access to partnered cultural and
+                leisure venues. Segmented by visit and participant. Excludes
+                issued-but-unused cards. It is an engagement and
+                value-perception indicator specific to VriendenLoterij,
+                complementing prize value in explaining retention. Sensitive to
+                venue partnerships, seasonality and communication campaigns
+                encouraging redemption.
+              synonyms:
+                - VIP visits
+              unit: count
+              status: Implemented
+              period: Monthly
+              businessOwner: CRM & Participant Team
+              implementationOwner: null
+              source: CRM_SHARED
+              release: null
+              formula: null
+              slices:
+                - MONTH
+                - PARTICIPANT_BK
+                - VIPVISIT_BK
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - engagement
+                - VriendenLoterij
+          description: Count of VIP-KAART visits redeemed by VriendenLoterij participants,
+            granting free or discounted access to partnered cultural and leisure
+            venues. Segmented by visit and participant. Excludes
+            issued-but-unused cards. It is an engagement and value-perception
+            indicator specific to VriendenLoterij, complementing prize value in
+            explaining retention. Sensitive to venue partnerships, seasonality
+            and communication campaigns encouraging redemption.
+          ai_context: VIP visits
+      custom_extensions:
+        duodata:
+          source:
+            name: Shared CRM Platform
+            identifier: CRM_SHARED
+            description: Cross-brand customer relationship system holding subscriber,
+              ticket, campaign and channel records for both Nationale Postcode
+              Loterij and VriendenLoterij. System of record for participant
+              identity, acquisition and churn events.
+            synonyms:
+              - CRM
+              - Subscriber System
+            type: operational-system
+            tags:
+              - Cross-Brand
+              - Participant-Growth
+    - name: DIM_BENEFICIARY
+      description: "FCT_AFDRACHT with DIM_BENEFICIARY: allocation records linking
+        transferred proceeds to good causes, including ANBI registration,
+        beneficiary type, theme and (for VL) player-designated amounts."
+      fields:
+        - name: ALLOCATION_BK
+          custom_extensions:
+            duodata:
+              name: Charity Allocation
+              identifier: ALLOCATION_BK
+              description: Grain of a single afdracht allocation transferring proceeds to a
+                beneficiary in a licence year, including player-designated (VL
+                player-choice) attribution where applicable.
+              synonyms:
+                - Afdracht Allocation
+                - Proceeds Transfer
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: DIM_BENEFICIARY
+              release: null
+              values: null
+              rollsUpTo:
+                - ALLOCATION_THEME
+                - BENEFICIARY_BK
+                - LOTTERY_BRAND
+                - YEAR
+              tags:
+                - Afdracht-Floor
+                - Toekenningenraad
+          description: Grain of a single afdracht allocation transferring proceeds to a
+            beneficiary in a licence year, including player-designated (VL
+            player-choice) attribution where applicable.
+          ai_context: Afdracht Allocation; Proceeds Transfer
+        - name: BENEFICIARY_BK
+          custom_extensions:
+            duodata:
+              name: Beneficiary
+              identifier: BENEFICIARY_BK
+              description: Grain of a good cause receiving funds (multi-year partner, one-off
+                grant, Droomfonds, cultural partner or club/association),
+                qualified by ANBI status and allocation theme.
+              synonyms:
+                - Good Cause
+                - Partner
+                - Goed Doel
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: DIM_BENEFICIARY
+              release: null
+              values: null
+              rollsUpTo:
+                - ALLOCATION_THEME
+                - ANBI_STATUS
+                - BENEFICIARY_TYPE
+                - LOTTERY_BRAND
+              tags:
+                - ANBI-Compliance
+                - CBF-Erkend
+                - Toekenningenraad
+          description: Grain of a good cause receiving funds (multi-year partner, one-off
+            grant, Droomfonds, cultural partner or club/association), qualified
+            by ANBI status and allocation theme.
+          ai_context: Good Cause; Partner; Goed Doel
+      metrics:
+        - name: afdracht
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Afdracht to Good Causes
+              identifier: afdracht
+              description: Total funds transferred to good causes from lottery proceeds, the
+                north-star metric of the charity subscription lottery. Measured
+                per beneficiary, allocation and theme; includes both freely
+                allocated and player-designated amounts. Excludes prize payouts,
+                gaming tax and organisation costs, which sit alongside afdracht
+                rather than being netted through it. By licence at least 40% of
+                gross inleg must become afdracht each calendar year. It drives
+                afdracht percentage, ANBI share and afdracht per participant,
+                and is the group's core purpose measure.
+              synonyms:
+                - charity contribution
+                - proceeds to beneficiaries
+              unit: EUR
+              status: Implemented
+              period: Annual
+              businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad
+                support)
+              implementationOwner: null
+              source: DIM_BENEFICIARY
+              release: null
+              formula: null
+              slices:
+                - ALLOCATION_BK
+                - ALLOCATION_THEME
+                - BENEFICIARY_BK
+                - LOTTERY_BRAND
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - afdracht_headroom
+                - afdracht_pct
+                - afdracht_per_participant
+                - anbi_share
+                - net_result
+              impactedMetrics: []
+              impactingMetrics:
+                - metric: player_designated_afdracht
+                  reason: Player-designated amounts are a component of the total afdracht to good
+                    causes.
+              tags:
+                - licence
+                - northstar
+          description: Total funds transferred to good causes from lottery proceeds, the
+            north-star metric of the charity subscription lottery. Measured per
+            beneficiary, allocation and theme; includes both freely allocated
+            and player-designated amounts. Excludes prize payouts, gaming tax
+            and organisation costs, which sit alongside afdracht rather than
+            being netted through it. By licence at least 40% of gross inleg must
+            become afdracht each calendar year. It drives afdracht percentage,
+            ANBI share and afdracht per participant, and is the group's core
+            purpose measure.
+          ai_context: charity contribution; proceeds to beneficiaries
+        - name: afdracht_pct
+          expression: afdracht / gross_inleg
+          custom_extensions:
+            duodata:
+              name: Afdracht Percentage
+              identifier: afdracht_pct
+              description: Ratio of afdracht to gross inleg, the licence-critical contribution
+                rate that must be at least 40% per calendar year for a charity
+                lottery. This is the headline measure of how much of every euro
+                staked reaches good causes; 2024 combined was roughly 42%.
+                Excludes prize and cost effects except through their impact on
+                the numerator and denominator. Highly sensitive to inleg growth
+                outpacing allocation timing and to special-year effects. It is
+                the single most scrutinised KSA compliance figure.
+              synonyms:
+                - contribution rate
+                - payout-to-charity %
+              unit: "%"
+              status: Implemented
+              period: Calendar Year (Licence)
+              businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad
+                support)
+              implementationOwner: null
+              source: DIM_BENEFICIARY
+              release: null
+              formula:
+                pretty: afdracht / gross_inleg
+                variables:
+                  - afdracht
+                  - gross_inleg
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: afdracht
+                    - type: operator
+                      value: /
+                    - type: metric
+                      value: gross_inleg
+              slices:
+                - LOTTERY_BRAND
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics:
+                - afdracht
+                - gross_inleg
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - kpi
+                - licence
+          description: Ratio of afdracht to gross inleg, the licence-critical contribution
+            rate that must be at least 40% per calendar year for a charity
+            lottery. This is the headline measure of how much of every euro
+            staked reaches good causes; 2024 combined was roughly 42%. Excludes
+            prize and cost effects except through their impact on the numerator
+            and denominator. Highly sensitive to inleg growth outpacing
+            allocation timing and to special-year effects. It is the single most
+            scrutinised KSA compliance figure.
+          ai_context: contribution rate; payout-to-charity %
+        - name: anbi_afdracht
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: ANBI-Directed Afdracht
+              identifier: anbi_afdracht
+              description: Portion of afdracht transferred to beneficiaries holding ANBI
+                (public benefit organisation) registration. Segmented by
+                beneficiary and ANBI status. At least 80% of total afdracht must
+                flow to ANBI-registered bodies under the charity-lottery
+                licence, so this metric is the numerator for the ANBI share
+                compliance ratio. Excludes allocations to non-ANBI partners and
+                internal programme costs. Sensitive to changes in the
+                beneficiary portfolio and to any beneficiary losing or gaining
+                ANBI status during the year.
+              synonyms:
+                - ANBI afdracht
+              unit: EUR
+              status: Implemented
+              period: Annual
+              businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad
+                support)
+              implementationOwner: null
+              source: DIM_BENEFICIARY
+              release: null
+              formula: null
+              slices:
+                - ANBI_STATUS
+                - BENEFICIARY_BK
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - anbi_share
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - licence
+          description: Portion of afdracht transferred to beneficiaries holding ANBI
+            (public benefit organisation) registration. Segmented by beneficiary
+            and ANBI status. At least 80% of total afdracht must flow to
+            ANBI-registered bodies under the charity-lottery licence, so this
+            metric is the numerator for the ANBI share compliance ratio.
+            Excludes allocations to non-ANBI partners and internal programme
+            costs. Sensitive to changes in the beneficiary portfolio and to any
+            beneficiary losing or gaining ANBI status during the year.
+          ai_context: ANBI afdracht
+        - name: anbi_share
+          expression: anbi_afdracht / afdracht
+          custom_extensions:
+            duodata:
+              name: ANBI Share of Afdracht
+              identifier: anbi_share
+              description: Share of total afdracht directed to ANBI-registered beneficiaries,
+                computed as ANBI-directed afdracht divided by total afdracht.
+                Licence rules require at least 80%. It confirms that lottery
+                proceeds predominantly reach recognised public-benefit
+                organisations. Sensitive to the beneficiary portfolio
+                composition and any status changes during the year. Reported to
+                the KSA alongside the afdracht percentage.
+              synonyms:
+                - ANBI %
+              unit: "%"
+              status: Implemented
+              period: Calendar Year (Licence)
+              businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad
+                support)
+              implementationOwner: null
+              source: DIM_BENEFICIARY
+              release: null
+              formula:
+                pretty: anbi_afdracht / afdracht
+                variables:
+                  - anbi_afdracht
+                  - afdracht
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: anbi_afdracht
+                    - type: operator
+                      value: /
+                    - type: metric
+                      value: afdracht
+              slices:
+                - ANBI_STATUS
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics:
+                - afdracht
+                - anbi_afdracht
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - kpi
+                - licence
+          description: Share of total afdracht directed to ANBI-registered beneficiaries,
+            computed as ANBI-directed afdracht divided by total afdracht.
+            Licence rules require at least 80%. It confirms that lottery
+            proceeds predominantly reach recognised public-benefit
+            organisations. Sensitive to the beneficiary portfolio composition
+            and any status changes during the year. Reported to the KSA
+            alongside the afdracht percentage.
+          ai_context: ANBI %
+        - name: partners_funded
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Beneficiary Partners Funded
+              identifier: partners_funded
+              description: Count of distinct good-cause organisations receiving funds in the
+                allocation year, segmented by beneficiary type and allocation
+                theme. Includes structural partners and project grants; excludes
+                prospective partners not yet awarded. It measures the breadth of
+                societal impact alongside the monetary afdracht and supports the
+                Toekenningenraad allocation narrative. Sensitive to portfolio
+                decisions to concentrate or broaden funding and to ANBI
+                eligibility of new partners.
+              synonyms:
+                - good causes supported
+              unit: count
+              status: Implemented
+              period: Annual
+              businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad
+                support)
+              implementationOwner: null
+              source: DIM_BENEFICIARY
+              release: null
+              formula: null
+              slices:
+                - ALLOCATION_THEME
+                - BENEFICIARY_BK
+                - BENEFICIARY_TYPE
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - impact
+          description: Count of distinct good-cause organisations receiving funds in the
+            allocation year, segmented by beneficiary type and allocation theme.
+            Includes structural partners and project grants; excludes
+            prospective partners not yet awarded. It measures the breadth of
+            societal impact alongside the monetary afdracht and supports the
+            Toekenningenraad allocation narrative. Sensitive to portfolio
+            decisions to concentrate or broaden funding and to ANBI eligibility
+            of new partners.
+          ai_context: good causes supported
+        - name: player_designated_afdracht
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Player-Designated Afdracht
+              identifier: player_designated_afdracht
+              description: Portion of VriendenLoterij afdracht steered to the beneficiary
+                personally chosen by each participant (player-choice mechanic).
+                Segmented by beneficiary, allocation and participant. Included
+                within total afdracht but tracked separately to show
+                participant-directed impact. Excludes freely allocated proceeds
+                decided by the Toekenningenraad. Sensitive to participant
+                designation behaviour and to which partner clubs and causes are
+                promoted, and it distinguishes VriendenLoterij's model from
+                Nationale Postcode Loterij.
+              synonyms:
+                - player-choice afdracht
+              unit: EUR
+              status: Implemented
+              period: Annual
+              businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad
+                support)
+              implementationOwner: null
+              source: DIM_BENEFICIARY
+              release: null
+              formula: null
+              slices:
+                - ALLOCATION_BK
+                - BENEFICIARY_BK
+                - PARTICIPANT_BK
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics: []
+              impactedMetrics:
+                - metric: afdracht
+                  reason: Player-designated amounts are a component of the total afdracht to good
+                    causes.
+              impactingMetrics: []
+              tags:
+                - afdracht
+                - VriendenLoterij
+          description: Portion of VriendenLoterij afdracht steered to the beneficiary
+            personally chosen by each participant (player-choice mechanic).
+            Segmented by beneficiary, allocation and participant. Included
+            within total afdracht but tracked separately to show
+            participant-directed impact. Excludes freely allocated proceeds
+            decided by the Toekenningenraad. Sensitive to participant
+            designation behaviour and to which partner clubs and causes are
+            promoted, and it distinguishes VriendenLoterij's model from
+            Nationale Postcode Loterij.
+          ai_context: player-choice afdracht
+      custom_extensions:
+        duodata:
+          source:
+            name: Beneficiary & Afdracht Store
+            identifier: DIM_BENEFICIARY
+            description: "FCT_AFDRACHT with DIM_BENEFICIARY: allocation records linking
+              transferred proceeds to good causes, including ANBI registration,
+              beneficiary type, theme and (for VL) player-designated amounts."
+            synonyms:
+              - Afdracht Store
+              - Beneficiary Dimension
+            type: data-warehouse
+            tags:
+              - ANBI-Compliance
+              - CBF-Erkend
+              - Toekenningenraad
+    - name: DRAW_PRIZE_ENGINE
+      description: System executing draws and allocating prizes, including
+        postcode/street/neighbourhood win logic and per-draw prize computation.
+        Source of draw events, prize values and gaming-tax base.
+      fields:
+        - name: DRAW_BK
+          custom_extensions:
+            duodata:
+              name: Draw
+              identifier: DRAW_BK
+              description: Grain of an individual lottery draw event (monthly, extra and
+                seasonal draws plus weekly street/bingo draws) for a given
+                brand. Time anchor for prize allocation and per-draw ticket
+                stock.
+              synonyms:
+                - Trekking
+                - Draw Event
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: DRAW_PRIZE_ENGINE
+              release: null
+              values: null
+              rollsUpTo:
+                - DAY
+                - DRAW_TYPE
+                - LOTTERY_BRAND
+              tags:
+                - Prize-Economics
+          description: Grain of an individual lottery draw event (monthly, extra and
+            seasonal draws plus weekly street/bingo draws) for a given brand.
+            Time anchor for prize allocation and per-draw ticket stock.
+          ai_context: Trekking; Draw Event
+        - name: PRIZE_BK
+          custom_extensions:
+            duodata:
+              name: Prize
+              identifier: PRIZE_BK
+              description: Grain of an individual prize awarded within a draw, carrying gross
+                prize value, net prize cost after in-kind supplier discounts,
+                and the gaming-tax base for prizes above €449.
+              synonyms:
+                - Prijs
+                - Prijzengeld
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: DRAW_PRIZE_ENGINE
+              release: null
+              values: null
+              rollsUpTo:
+                - DRAW_BK
+                - LOTTERY_BRAND
+                - POSTCODE
+              tags:
+                - KSA-Licence
+                - Prize-Economics
+          description: Grain of an individual prize awarded within a draw, carrying gross
+            prize value, net prize cost after in-kind supplier discounts, and
+            the gaming-tax base for prizes above €449.
+          ai_context: Prijs; Prijzengeld
+      metrics:
+        - name: draws_held
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Draws Held
+              identifier: draws_held
+              description: Count of lottery draws conducted in the period across both brands,
+                segmented by draw type (regular monthly, special, jackpot) and
+                brand. Excludes cancelled or rescheduled draws. It
+                contextualises prize value and participation, and is an
+                operational throughput measure for the Lottery Operations & Draw
+                Team. Sensitive to the draw calendar and special-event
+                scheduling such as the PostcodeKanjer.
+              synonyms:
+                - number of draws
+              unit: count
+              status: Implemented
+              period: Monthly
+              businessOwner: Lottery Operations & Draw Team
+              implementationOwner: null
+              source: DRAW_PRIZE_ENGINE
+              release: null
+              formula: null
+              slices:
+                - DRAW_BK
+                - DRAW_TYPE
+                - LOTTERY_BRAND
+                - MONTH
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - operations
+          description: Count of lottery draws conducted in the period across both brands,
+            segmented by draw type (regular monthly, special, jackpot) and
+            brand. Excludes cancelled or rescheduled draws. It contextualises
+            prize value and participation, and is an operational throughput
+            measure for the Lottery Operations & Draw Team. Sensitive to the
+            draw calendar and special-event scheduling such as the
+            PostcodeKanjer.
+          ai_context: number of draws
+        - name: gross_prize_value
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Gross Prize Value
+              identifier: gross_prize_value
+              description: Consumer-facing value of all prizes awarded across draws, including
+                cash prizes, goods and experiences valued at retail. Segmented
+                by prize, draw, draw type and brand. Excludes supplier in-kind
+                discounts that reduce actual cost and excludes gaming tax. Gross
+                prize value is what participants perceive as winnable and is
+                used to compute the prize payout ratio; after subtracting
+                supplier discounts it yields net prize cost. Sensitive to
+                jackpot design, special draws (e.g. PostcodeKanjer) and in-kind
+                sponsorships.
+              synonyms:
+                - prijzengeld
+                - prize value
+              unit: EUR
+              status: Implemented
+              period: Monthly
+              businessOwner: Lottery Operations & Draw Team
+              implementationOwner: null
+              source: DRAW_PRIZE_ENGINE
+              release: null
+              formula: null
+              slices:
+                - DRAW_BK
+                - DRAW_TYPE
+                - LOTTERY_BRAND
+                - MONTH
+                - PRIZE_BK
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - net_prize_cost
+                - prize_payout_ratio
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - prizes
+          description: Consumer-facing value of all prizes awarded across draws, including
+            cash prizes, goods and experiences valued at retail. Segmented by
+            prize, draw, draw type and brand. Excludes supplier in-kind
+            discounts that reduce actual cost and excludes gaming tax. Gross
+            prize value is what participants perceive as winnable and is used to
+            compute the prize payout ratio; after subtracting supplier discounts
+            it yields net prize cost. Sensitive to jackpot design, special draws
+            (e.g. PostcodeKanjer) and in-kind sponsorships.
+          ai_context: prijzengeld; prize value
+        - name: in_kind_supplier_discount
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: In-Kind Supplier Discount on Prizes
+              identifier: in_kind_supplier_discount
+              description: Value of discounts, sponsorships and in-kind supply that reduce the
+                actual cash cost of prizes below their consumer-facing gross
+                value (e.g. cars, holidays or goods provided below retail).
+                Segmented by prize and draw. This is subtracted from gross prize
+                value to derive net prize cost, the amount actually borne by the
+                lottery. Excludes gaming tax. Sensitive to supplier negotiations
+                and the mix of physical versus cash prizes in each draw.
+              synonyms:
+                - prize supplier discount
+              unit: EUR
+              status: Implemented
+              period: Monthly
+              businessOwner: Lottery Operations & Draw Team
+              implementationOwner: null
+              source: DRAW_PRIZE_ENGINE
+              release: null
+              formula: null
+              slices:
+                - DRAW_BK
+                - MONTH
+                - PRIZE_BK
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - net_prize_cost
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - prizes
+          description: Value of discounts, sponsorships and in-kind supply that reduce the
+            actual cash cost of prizes below their consumer-facing gross value
+            (e.g. cars, holidays or goods provided below retail). Segmented by
+            prize and draw. This is subtracted from gross prize value to derive
+            net prize cost, the amount actually borne by the lottery. Excludes
+            gaming tax. Sensitive to supplier negotiations and the mix of
+            physical versus cash prizes in each draw.
+          ai_context: prize supplier discount
+        - name: plus_premium_tickets
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Plus/Premium Tickets in Play
+              identifier: plus_premium_tickets
+              description: Stock of active lots subscribed at the higher Plus (€18.50) and
+                Premium (€21) price tiers rather than the €16 standard tier,
+                primarily at Nationale Postcode Loterij. Segmented by
+                subscription and product tier. Divided by total tickets in play
+                it gives the Plus/Premium mix, a lever on average price and
+                therefore inleg and afdracht. Sensitive to upsell campaigns and
+                tier-benefit perception.
+              synonyms:
+                - premium lots
+              unit: count
+              status: Implemented
+              period: Monthly
+              businessOwner: CRM & Participant Team
+              implementationOwner: null
+              source: DRAW_PRIZE_ENGINE
+              release: null
+              formula: null
+              slices:
+                - MONTH
+                - PRODUCT_TIER
+                - SUBSCRIPTION_BK
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - plus_premium_mix
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - product-mix
+          description: Stock of active lots subscribed at the higher Plus (€18.50) and
+            Premium (€21) price tiers rather than the €16 standard tier,
+            primarily at Nationale Postcode Loterij. Segmented by subscription
+            and product tier. Divided by total tickets in play it gives the
+            Plus/Premium mix, a lever on average price and therefore inleg and
+            afdracht. Sensitive to upsell campaigns and tier-benefit perception.
+          ai_context: premium lots
+        - name: tickets_in_play
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Tickets in Play (Loten)
+              identifier: tickets_in_play
+              description: Stock of active recurring lots participating in a given draw,
+                aggregated across brands, product tiers and postcodes. Counts
+                each subscribed lot once per draw; excludes cancelled or lapsed
+                subscriptions and one-off promotional entries. It drives inleg
+                (tickets times price) and underpins participation KPIs such as
+                tickets per participant and Plus/Premium mix. Sensitive to
+                acquisition, churn and multi-lot upsell. For Nationale Postcode
+                Loterij it also determines the postcode win mechanic where
+                neighbours win together.
+              synonyms:
+                - loten
+                - subscriptions in play
+              unit: count
+              status: Implemented
+              period: Per Draw
+              businessOwner: Lottery Operations & Draw Team
+              implementationOwner: null
+              source: DRAW_PRIZE_ENGINE
+              release: null
+              formula: null
+              slices:
+                - DRAW_BK
+                - LOTTERY_BRAND
+                - POSTCODE
+                - PRODUCT_TIER
+                - SUBSCRIPTION_BK
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - plus_premium_mix
+                - tickets_per_participant
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - participation
+          description: Stock of active recurring lots participating in a given draw,
+            aggregated across brands, product tiers and postcodes. Counts each
+            subscribed lot once per draw; excludes cancelled or lapsed
+            subscriptions and one-off promotional entries. It drives inleg
+            (tickets times price) and underpins participation KPIs such as
+            tickets per participant and Plus/Premium mix. Sensitive to
+            acquisition, churn and multi-lot upsell. For Nationale Postcode
+            Loterij it also determines the postcode win mechanic where
+            neighbours win together.
+          ai_context: loten; subscriptions in play
+      custom_extensions:
+        duodata:
+          source:
+            name: Draw & Prize Engine
+            identifier: DRAW_PRIZE_ENGINE
+            description: System executing draws and allocating prizes, including
+              postcode/street/neighbourhood win logic and per-draw prize
+              computation. Source of draw events, prize values and gaming-tax
+              base.
+            synonyms:
+              - Draw Engine
+              - Prize Allocation System
+            type: operational-system
+            tags:
+              - KSA-Licence
+              - Prize-Economics
+    - name: DWH_FACTS
+      description: "Curated warehouse fact tables (FCT_FINANCE_MONTH, FCT_TICKET_DRAW,
+        FCT_SUBSCRIPTION_EVENT, FCT_PRIZE, FCT_VIP_REDEMPTION). Modeling rule:
+        never sum inleg from FINANCE and TICKET_DRAW facts in one query."
+      fields:
+        - name: VIPVISIT_BK
+          custom_extensions:
+            duodata:
+              name: VIP-KAART Visit
+              identifier: VIPVISIT_BK
+              description: Grain of a VriendenLoterij VIP-KAART redemption (VIP visit) by a
+                participant, tracking usage of the every-player VIP benefit.
+              synonyms:
+                - VIP Visit
+                - VIP-KAART Redemption
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              values: null
+              rollsUpTo:
+                - DAY
+                - LOTTERY_BRAND
+                - PARTICIPANT_BK
+              tags:
+                - Participant-Growth
+          description: Grain of a VriendenLoterij VIP-KAART redemption (VIP visit) by a
+            participant, tracking usage of the every-player VIP benefit.
+          ai_context: VIP Visit; VIP-KAART Redemption
+      metrics:
+        - name: afdracht_headroom
+          expression: afdracht - min_required_afdracht
+          custom_extensions:
+            duodata:
+              name: Afdracht Compliance Headroom
+              identifier: afdracht_headroom
+              description: Buffer between actual afdracht and the licence-floor minimum,
+                computed as afdracht minus minimum required afdracht. A positive
+                value confirms compliance with the 40% rule with margin; a
+                negative value signals licence risk requiring corrective
+                allocation. Excludes ANBI-share compliance. Sensitive to inleg
+                growth timing versus allocation decisions. Used by compliance to
+                trigger year-end top-ups to good causes.
+              synonyms:
+                - licence headroom
+              unit: EUR
+              status: Approved
+              period: Calendar Year (Licence)
+              businessOwner: Responsible-Play & Compliance Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula:
+                pretty: afdracht - min_required_afdracht
+                variables:
+                  - afdracht
+                  - min_required_afdracht
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: afdracht
+                    - type: operator
+                      value: "-"
+                    - type: metric
+                      value: min_required_afdracht
+              slices:
+                - LOTTERY_BRAND
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics:
+                - afdracht
+                - min_required_afdracht
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - compliance
+                - kpi
+                - licence
+          description: Buffer between actual afdracht and the licence-floor minimum,
+            computed as afdracht minus minimum required afdracht. A positive
+            value confirms compliance with the 40% rule with margin; a negative
+            value signals licence risk requiring corrective allocation. Excludes
+            ANBI-share compliance. Sensitive to inleg growth timing versus
+            allocation decisions. Used by compliance to trigger year-end top-ups
+            to good causes.
+          ai_context: licence headroom
+        - name: afdracht_per_participant
+          expression: afdracht / active_participants
+          custom_extensions:
+            duodata:
+              name: Afdracht per Participant
+              identifier: afdracht_per_participant
+              description: Average good-cause contribution generated per active participant,
+                computed as total afdracht divided by active participants. It
+                expresses the societal impact each subscriber enables and links
+                participation growth to charitable outcome. Excludes prize and
+                cost effects. Sensitive to tier mix, tickets per participant and
+                pricing. Useful for communicating participant impact and for
+                modelling the afdracht consequences of base growth.
+              synonyms:
+                - impact per subscriber
+              unit: EUR
+              status: Approved
+              period: Annual
+              businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad
+                support)
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula:
+                pretty: afdracht / active_participants
+                variables:
+                  - afdracht
+                  - active_participants
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: afdracht
+                    - type: operator
+                      value: /
+                    - type: metric
+                      value: active_participants
+              slices:
+                - LOTTERY_BRAND
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics:
+                - active_participants
+                - afdracht
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - impact
+                - kpi
+          description: Average good-cause contribution generated per active participant,
+            computed as total afdracht divided by active participants. It
+            expresses the societal impact each subscriber enables and links
+            participation growth to charitable outcome. Excludes prize and cost
+            effects. Sensitive to tier mix, tickets per participant and pricing.
+            Useful for communicating participant impact and for modelling the
+            afdracht consequences of base growth.
+          ai_context: impact per subscriber
+        - name: cac_per_ticket
+          expression: cac_total / new_participants
+          custom_extensions:
+            duodata:
+              name: CAC per Ticket
+              identifier: cac_per_ticket
+              description: Acquisition cost per newly acquired subscriber, computed as total
+                acquisition cost divided by new participants. It measures
+                acquisition efficiency and is compared against ticket lifetime
+                value to judge whether growth spend is sustainable for a
+                cost-disciplined non-profit. Excludes retention spend. Sensitive
+                to channel mix and campaign intensity. A core input to the
+                LTV-to-CAC decision metric.
+              synonyms:
+                - CAC
+              unit: EUR
+              status: Implemented
+              period: Monthly
+              businessOwner: CRM & Participant Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula:
+                pretty: cac_total / new_participants
+                variables:
+                  - cac_total
+                  - new_participants
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: cac_total
+                    - type: operator
+                      value: /
+                    - type: metric
+                      value: new_participants
+              slices:
+                - CHANNEL
+                - COHORT
+                - LOTTERY_BRAND
+                - MONTH
+              excludedSlices: []
+              upstreamMetrics:
+                - cac_total
+                - new_participants
+              downstreamMetrics:
+                - ltv_to_cac
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - growth
+                - kpi
+          description: Acquisition cost per newly acquired subscriber, computed as total
+            acquisition cost divided by new participants. It measures
+            acquisition efficiency and is compared against ticket lifetime value
+            to judge whether growth spend is sustainable for a cost-disciplined
+            non-profit. Excludes retention spend. Sensitive to channel mix and
+            campaign intensity. A core input to the LTV-to-CAC decision metric.
+          ai_context: CAC
+        - name: cac_total
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Total Acquisition Cost
+              identifier: cac_total
+              description: Total spend to acquire new subscribers in the period, including
+                door-to-door, telemarketing, media and campaign production,
+                attributed to campaign, channel and cohort. Excludes retention
+                and servicing costs. Divided by new participants it produces CAC
+                per ticket, which is compared against ticket lifetime value to
+                judge acquisition efficiency. Highly sensitive to channel mix
+                and campaign intensity; as a non-profit, the group balances
+                acquisition spend against the licence cost ratio and the
+                afdracht objective.
+              synonyms:
+                - acquisition spend
+              unit: EUR
+              status: Implemented
+              period: Monthly
+              businessOwner: CRM & Participant Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula: null
+              slices:
+                - CAMPAIGN_BK
+                - CHANNEL
+                - COHORT
+                - MONTH
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - cac_per_ticket
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - cost
+                - growth
+          description: Total spend to acquire new subscribers in the period, including
+            door-to-door, telemarketing, media and campaign production,
+            attributed to campaign, channel and cohort. Excludes retention and
+            servicing costs. Divided by new participants it produces CAC per
+            ticket, which is compared against ticket lifetime value to judge
+            acquisition efficiency. Highly sensitive to channel mix and campaign
+            intensity; as a non-profit, the group balances acquisition spend
+            against the licence cost ratio and the afdracht objective.
+          ai_context: acquisition spend
+        - name: churn_rate
+          expression: cancellations / active_participants
+          custom_extensions:
+            duodata:
+              name: Churn Rate
+              identifier: churn_rate
+              description: Rate of subscriber attrition, computed as cancellations divided by
+                active participants in the period. It quantifies retention
+                pressure and, combined with acquisition, determines net base
+                momentum. Excludes single-lot downgrades that retain the
+                subscriber. Highly sensitive to price increases, direct-debit
+                failures and prize perception. A core retention KPI feeding the
+                LTV model via expected duration.
+              synonyms:
+                - attrition rate
+                - opzeg rate
+              unit: "%"
+              status: Implemented
+              period: Monthly
+              businessOwner: CRM & Participant Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula:
+                pretty: cancellations / active_participants
+                variables:
+                  - cancellations
+                  - active_participants
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: cancellations
+                    - type: operator
+                      value: /
+                    - type: metric
+                      value: active_participants
+              slices:
+                - CHANNEL
+                - LOTTERY_BRAND
+                - MONTH
+              excludedSlices: []
+              upstreamMetrics:
+                - active_participants
+                - cancellations
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - kpi
+                - retention
+          description: Rate of subscriber attrition, computed as cancellations divided by
+            active participants in the period. It quantifies retention pressure
+            and, combined with acquisition, determines net base momentum.
+            Excludes single-lot downgrades that retain the subscriber. Highly
+            sensitive to price increases, direct-debit failures and prize
+            perception. A core retention KPI feeding the LTV model via expected
+            duration.
+          ai_context: attrition rate; opzeg rate
+        - name: collection_success_rate
+          expression: successful_collections / attempted_collections
+          custom_extensions:
+            duodata:
+              name: Direct-Debit Collection Success Rate
+              identifier: collection_success_rate
+              description: Share of recurring collection attempts that settle successfully,
+                computed as successful collections divided by attempted
+                collections. It is a critical operational and revenue-quality
+                KPI because failed incasso directly reduces realised inleg and
+                can trigger involuntary churn. Excludes manual repairs booked
+                outside the period. Sensitive to mandate hygiene, bank reversals
+                and household financial stress.
+              synonyms:
+                - incasso success rate
+              unit: "%"
+              status: Implemented
+              period: Monthly
+              businessOwner: Finance Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula:
+                pretty: successful_collections / attempted_collections
+                variables:
+                  - successful_collections
+                  - attempted_collections
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: successful_collections
+                    - type: operator
+                      value: /
+                    - type: metric
+                      value: attempted_collections
+              slices:
+                - CHANNEL
+                - MONTH
+                - PAYMENT_STATUS
+              excludedSlices: []
+              upstreamMetrics:
+                - attempted_collections
+                - successful_collections
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - collections
+                - kpi
+          description: Share of recurring collection attempts that settle successfully,
+            computed as successful collections divided by attempted collections.
+            It is a critical operational and revenue-quality KPI because failed
+            incasso directly reduces realised inleg and can trigger involuntary
+            churn. Excludes manual repairs booked outside the period. Sensitive
+            to mandate hygiene, bank reversals and household financial stress.
+          ai_context: incasso success rate
+        - name: household_overlap
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: NPL–VL Household Overlap
+              identifier: household_overlap
+              description: Count of households subscribed to both Nationale Postcode Loterij
+                and VriendenLoterij, identified by matching participant records
+                at address/postcode level. Excludes single-brand households. It
+                measures cross-brand penetration and informs shared-CRM
+                cross-sell strategy and cannibalisation risk. Sensitive to
+                matching quality and to cross-brand campaign activity. Reported
+                by the Data & Analytics Team as part of the group participant
+                model.
+              synonyms:
+                - cross-brand overlap
+              unit: count
+              status: Approved
+              period: Annual
+              businessOwner: Data & Analytics Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula: null
+              slices:
+                - PARTICIPANT_BK
+                - POSTCODE
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - Cross-Brand
+          description: Count of households subscribed to both Nationale Postcode Loterij
+            and VriendenLoterij, identified by matching participant records at
+            address/postcode level. Excludes single-brand households. It
+            measures cross-brand penetration and informs shared-CRM cross-sell
+            strategy and cannibalisation risk. Sensitive to matching quality and
+            to cross-brand campaign activity. Reported by the Data & Analytics
+            Team as part of the group participant model.
+          ai_context: cross-brand overlap
+        - name: ltv_to_cac
+          expression: ticket_ltv / cac_per_ticket
+          custom_extensions:
+            duodata:
+              name: LTV-to-CAC Ratio
+              identifier: ltv_to_cac
+              description: Ratio of ticket lifetime value to CAC per ticket, indicating
+                whether the expected value of an acquired lot exceeds its
+                acquisition cost. It guides channel and campaign investment
+                decisions within the participant growth model; a healthy ratio
+                supports sustainable base expansion and future afdracht.
+                Sensitive to churn assumptions in LTV and to acquisition-cost
+                inflation. A three-hop derived metric building on cohort
+                economics.
+              synonyms:
+                - LTV/CAC
+              unit: ratio
+              status: Approved
+              period: Annual
+              businessOwner: Data & Analytics Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula:
+                pretty: ticket_ltv / cac_per_ticket
+                variables:
+                  - ticket_ltv
+                  - cac_per_ticket
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: ticket_ltv
+                    - type: operator
+                      value: /
+                    - type: metric
+                      value: cac_per_ticket
+              slices:
+                - COHORT
+                - LOTTERY_BRAND
+                - PRODUCT_TIER
+              excludedSlices: []
+              upstreamMetrics:
+                - cac_per_ticket
+                - ticket_ltv
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - growth
+                - kpi
+          description: Ratio of ticket lifetime value to CAC per ticket, indicating
+            whether the expected value of an acquired lot exceeds its
+            acquisition cost. It guides channel and campaign investment
+            decisions within the participant growth model; a healthy ratio
+            supports sustainable base expansion and future afdracht. Sensitive
+            to churn assumptions in LTV and to acquisition-cost inflation. A
+            three-hop derived metric building on cohort economics.
+          ai_context: LTV/CAC
+        - name: min_required_afdracht
+          expression: gross_inleg * 0.40
+          custom_extensions:
+            duodata:
+              name: Minimum Required Afdracht (Licence Floor)
+              identifier: min_required_afdracht
+              description: The licence-floor amount of afdracht implied by the 40% minimum
+                contribution rule, computed as 40% of gross inleg for the
+                calendar year. It represents the least the lottery must transfer
+                to good causes to remain compliant, and is subtracted from
+                actual afdracht to reveal compliance headroom. Excludes
+                ANBI-specific requirements. Sensitive purely to inleg volume. A
+                modelling anchor for licence-risk monitoring.
+              synonyms:
+                - licence floor
+              unit: EUR
+              status: Approved
+              period: Calendar Year (Licence)
+              businessOwner: Responsible-Play & Compliance Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula:
+                pretty: gross_inleg * 0.40
+                variables:
+                  - gross_inleg
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: gross_inleg
+                    - type: operator
+                      value: "*"
+                    - type: constant
+                      value: "0.40"
+              slices:
+                - LOTTERY_BRAND
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics:
+                - gross_inleg
+              downstreamMetrics:
+                - afdracht_headroom
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - compliance
+                - licence
+          description: The licence-floor amount of afdracht implied by the 40% minimum
+            contribution rule, computed as 40% of gross inleg for the calendar
+            year. It represents the least the lottery must transfer to good
+            causes to remain compliant, and is subtracted from actual afdracht
+            to reveal compliance headroom. Excludes ANBI-specific requirements.
+            Sensitive purely to inleg volume. A modelling anchor for
+            licence-risk monitoring.
+          ai_context: licence floor
+        - name: net_participant_growth
+          expression: new_participants - cancellations
+          custom_extensions:
+            duodata:
+              name: Net Participant Growth
+              identifier: net_participant_growth
+              description: Net change in the subscriber base in the period, computed as new
+                participants minus cancellations. It shows whether acquisition
+                is outpacing churn, driving the trajectory of the active base
+                and future inleg and afdracht. Excludes lot-level upsell within
+                existing subscribers. Sensitive to campaign timing and to
+                collection-driven involuntary churn. A headline growth KPI for
+                the CRM & Participant Team.
+              synonyms:
+                - net adds
+              unit: count
+              status: Implemented
+              period: Monthly
+              businessOwner: CRM & Participant Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula:
+                pretty: new_participants - cancellations
+                variables:
+                  - new_participants
+                  - cancellations
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: new_participants
+                    - type: operator
+                      value: "-"
+                    - type: metric
+                      value: cancellations
+              slices:
+                - CHANNEL
+                - LOTTERY_BRAND
+                - MONTH
+              excludedSlices: []
+              upstreamMetrics:
+                - cancellations
+                - new_participants
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - growth
+                - kpi
+          description: Net change in the subscriber base in the period, computed as new
+            participants minus cancellations. It shows whether acquisition is
+            outpacing churn, driving the trajectory of the active base and
+            future inleg and afdracht. Excludes lot-level upsell within existing
+            subscribers. Sensitive to campaign timing and to collection-driven
+            involuntary churn. A headline growth KPI for the CRM & Participant
+            Team.
+          ai_context: net adds
+        - name: plus_premium_mix
+          expression: plus_premium_tickets / tickets_in_play
+          custom_extensions:
+            duodata:
+              name: Plus/Premium Mix
+              identifier: plus_premium_mix
+              description: Share of tickets in play subscribed at Plus and Premium tiers,
+                computed as Plus/Premium tickets divided by total tickets in
+                play. It is a key driver of average price and therefore inleg
+                and afdracht at Nationale Postcode Loterij. Excludes
+                standard-tier lots. Sensitive to upsell campaigns and perceived
+                tier value. Monitored by the CRM team as a monetisation lever
+                that raises stakes without new acquisition cost.
+              synonyms:
+                - product mix
+              unit: "%"
+              status: Implemented
+              period: Monthly
+              businessOwner: CRM & Participant Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula:
+                pretty: plus_premium_tickets / tickets_in_play
+                variables:
+                  - plus_premium_tickets
+                  - tickets_in_play
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: plus_premium_tickets
+                    - type: operator
+                      value: /
+                    - type: metric
+                      value: tickets_in_play
+              slices:
+                - LOTTERY_BRAND
+                - MONTH
+                - PRODUCT_TIER
+              excludedSlices: []
+              upstreamMetrics:
+                - plus_premium_tickets
+                - tickets_in_play
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - kpi
+                - product-mix
+          description: Share of tickets in play subscribed at Plus and Premium tiers,
+            computed as Plus/Premium tickets divided by total tickets in play.
+            It is a key driver of average price and therefore inleg and afdracht
+            at Nationale Postcode Loterij. Excludes standard-tier lots.
+            Sensitive to upsell campaigns and perceived tier value. Monitored by
+            the CRM team as a monetisation lever that raises stakes without new
+            acquisition cost.
+          ai_context: product mix
+        - name: prize_payout_ratio
+          expression: gross_prize_value / gross_inleg
+          custom_extensions:
+            duodata:
+              name: Prize Payout Ratio
+              identifier: prize_payout_ratio
+              description: Consumer-facing prize value as a share of gross inleg, computed as
+                gross prize value divided by gross inleg. For a charity lottery
+                this sits alongside the 40% afdracht floor rather than competing
+                with it, and communicates winnable value to participants.
+                Excludes supplier discounts and gaming tax. Sensitive to jackpot
+                design and special draws. Watched by operations to balance
+                attractiveness against the afdracht objective.
+              synonyms:
+                - payout ratio
+              unit: "%"
+              status: Implemented
+              period: Monthly
+              businessOwner: Lottery Operations & Draw Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula:
+                pretty: gross_prize_value / gross_inleg
+                variables:
+                  - gross_prize_value
+                  - gross_inleg
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: gross_prize_value
+                    - type: operator
+                      value: /
+                    - type: metric
+                      value: gross_inleg
+              slices:
+                - DRAW_TYPE
+                - LOTTERY_BRAND
+                - MONTH
+              excludedSlices: []
+              upstreamMetrics:
+                - gross_inleg
+                - gross_prize_value
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - kpi
+                - prizes
+          description: Consumer-facing prize value as a share of gross inleg, computed as
+            gross prize value divided by gross inleg. For a charity lottery this
+            sits alongside the 40% afdracht floor rather than competing with it,
+            and communicates winnable value to participants. Excludes supplier
+            discounts and gaming tax. Sensitive to jackpot design and special
+            draws. Watched by operations to balance attractiveness against the
+            afdracht objective.
+          ai_context: payout ratio
+        - name: ticket_ltv
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Ticket Lifetime Value
+              identifier: ticket_ltv
+              description: Modelled expected lifetime value of an acquired lot, based on
+                average price, expected subscription duration and retention, net
+                of servicing, by cohort, tier and brand. Excludes acquisition
+                cost, which is compared separately. It is divided into by CAC
+                per ticket to yield the LTV-to-CAC ratio guiding acquisition
+                decisions. Sensitive to churn assumptions, tier mix and price
+                changes. Produced by the Data & Analytics Team within the
+                participant growth model.
+              synonyms:
+                - lot LTV
+              unit: EUR
+              status: Approved
+              period: Annual
+              businessOwner: Data & Analytics Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula: null
+              slices:
+                - COHORT
+                - LOTTERY_BRAND
+                - PRODUCT_TIER
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - ltv_to_cac
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - growth
+          description: Modelled expected lifetime value of an acquired lot, based on
+            average price, expected subscription duration and retention, net of
+            servicing, by cohort, tier and brand. Excludes acquisition cost,
+            which is compared separately. It is divided into by CAC per ticket
+            to yield the LTV-to-CAC ratio guiding acquisition decisions.
+            Sensitive to churn assumptions, tier mix and price changes. Produced
+            by the Data & Analytics Team within the participant growth model.
+          ai_context: lot LTV
+        - name: tickets_per_participant
+          expression: tickets_in_play / active_participants
+          custom_extensions:
+            duodata:
+              name: Tickets per Participant
+              identifier: tickets_per_participant
+              description: Average number of active lots held per active participant, computed
+                as tickets in play divided by active participants. It captures
+                multi-lot depth and upsell success, a key lever on inleg because
+                more lots per subscriber raises stakes without new acquisition.
+                Excludes lapsed lots. Sensitive to Plus/Premium promotions and
+                to acquisition of low-lot new subscribers that dilute the
+                average.
+              synonyms:
+                - lots per person
+              unit: ratio
+              status: Implemented
+              period: Monthly
+              businessOwner: CRM & Participant Team
+              implementationOwner: null
+              source: DWH_FACTS
+              release: null
+              formula:
+                pretty: tickets_in_play / active_participants
+                variables:
+                  - tickets_in_play
+                  - active_participants
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: tickets_in_play
+                    - type: operator
+                      value: /
+                    - type: metric
+                      value: active_participants
+              slices:
+                - LOTTERY_BRAND
+                - MONTH
+                - PRODUCT_TIER
+              excludedSlices: []
+              upstreamMetrics:
+                - active_participants
+                - tickets_in_play
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - kpi
+                - participation
+          description: Average number of active lots held per active participant, computed
+            as tickets in play divided by active participants. It captures
+            multi-lot depth and upsell success, a key lever on inleg because
+            more lots per subscriber raises stakes without new acquisition.
+            Excludes lapsed lots. Sensitive to Plus/Premium promotions and to
+            acquisition of low-lot new subscribers that dilute the average.
+          ai_context: lots per person
+      custom_extensions:
+        duodata:
+          source:
+            name: Analytics Warehouse Fact Layer
+            identifier: DWH_FACTS
+            description: "Curated warehouse fact tables (FCT_FINANCE_MONTH, FCT_TICKET_DRAW,
+              FCT_SUBSCRIPTION_EVENT, FCT_PRIZE, FCT_VIP_REDEMPTION). Modeling
+              rule: never sum inleg from FINANCE and TICKET_DRAW facts in one
+              query."
+            synonyms:
+              - DWH
+              - Fact Tables
+            type: data-warehouse
+            tags:
+              - Participant-Growth
+              - Prize-Economics
+    - name: FIN_LEDGER
+      description: General ledger producing the official statutory money split (inleg,
+        afdracht, prize cost, own-organisation cost, result) per legal entity
+        under Dutch GAAP / RJ 640. Authoritative for licence and statutory
+        reporting figures.
+      metrics:
+        - name: avg_ticket_price
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Average Lot Price
+              identifier: avg_ticket_price
+              description: Average consumer price per recurring lot, weighted by tickets in
+                play across the standard (€16), Plus (€18.50) and Premium (€21)
+                tiers of Nationale Postcode Loterij and the VriendenLoterij
+                price points. Excludes promotional discounts absorbed centrally.
+                This price, multiplied by tickets in play, yields gross inleg,
+                so it is a key sensitivity for turnover and afdracht. Movements
+                reflect deliberate tier repricing or shifts in product mix
+                rather than daily volatility.
+              synonyms:
+                - lot price
+              unit: EUR
+              status: Implemented
+              period: Monthly
+              businessOwner: Finance Team
+              implementationOwner: null
+              source: FIN_LEDGER
+              release: null
+              formula: null
+              slices:
+                - LOTTERY_BRAND
+                - MONTH
+                - PRODUCT_TIER
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - pricing
+          description: Average consumer price per recurring lot, weighted by tickets in
+            play across the standard (€16), Plus (€18.50) and Premium (€21)
+            tiers of Nationale Postcode Loterij and the VriendenLoterij price
+            points. Excludes promotional discounts absorbed centrally. This
+            price, multiplied by tickets in play, yields gross inleg, so it is a
+            key sensitivity for turnover and afdracht. Movements reflect
+            deliberate tier repricing or shifts in product mix rather than daily
+            volatility.
+          ai_context: lot price
+        - name: baten_uit_loterij
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Baten uit Loterij (Lottery Income)
+              identifier: baten_uit_loterij
+              description: Statutory lottery income recognised under Dutch GAAP (RJ 640
+                fundraising guidance), representing revenue from lottery
+                participation per legal entity and brand for the annual
+                accounts. It differs from gross inleg by recognition timing and
+                statutory presentation. It is the base for the net result and
+                net result margin, which for a non-profit lottery are designed
+                to be near zero because proceeds flow to good causes rather than
+                shareholders. Sensitive to subscriber volume, pricing and
+                accounting cut-off.
+              synonyms:
+                - lottery income
+              unit: EUR
+              status: Implemented
+              period: Annual
+              businessOwner: Finance Team
+              implementationOwner: null
+              source: FIN_LEDGER
+              release: null
+              formula: null
+              slices:
+                - LEGAL_ENTITY
+                - LOTTERY_BRAND
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - net_result
+                - net_result_margin
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - statutory
+          description: Statutory lottery income recognised under Dutch GAAP (RJ 640
+            fundraising guidance), representing revenue from lottery
+            participation per legal entity and brand for the annual accounts. It
+            differs from gross inleg by recognition timing and statutory
+            presentation. It is the base for the net result and net result
+            margin, which for a non-profit lottery are designed to be near zero
+            because proceeds flow to good causes rather than shareholders.
+            Sensitive to subscriber volume, pricing and accounting cut-off.
+          ai_context: lottery income
+        - name: gross_inleg
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Gross Inleg (Ticket Stakes)
+              identifier: gross_inleg
+              description: "Total consumer stakes across both lottery brands, computed as
+                tickets in play multiplied by lot price for each recurring
+                subscription draw. Includes standard, Plus and Premium tiers and
+                all channels; excludes gaming tax, prize value and any operating
+                cost. This is the licence-critical turnover denominator:
+                afdracht percentage, cost ratio and prize payout ratio are all
+                expressed against gross inleg. Sensitive to ticket price
+                changes, tier mix and the stock of active recurring lots. It is
+                the primary top-line volume metric for the Postcode Lottery
+                Group."
+              synonyms:
+                - inleg
+                - stake
+                - turnover
+              unit: EUR
+              status: Implemented
+              period: Monthly
+              businessOwner: Finance Team
+              implementationOwner: null
+              source: FIN_LEDGER
+              release: null
+              formula: null
+              slices:
+                - LOTTERY_BRAND
+                - MONTH
+                - PRODUCT_TIER
+                - PROVINCE
+                - SUBSCRIPTION_BK
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - afdracht_pct
+                - min_required_afdracht
+                - organisation_cost_ratio
+                - prize_payout_ratio
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - licence
+                - topline
+          description: "Total consumer stakes across both lottery brands, computed as
+            tickets in play multiplied by lot price for each recurring
+            subscription draw. Includes standard, Plus and Premium tiers and all
+            channels; excludes gaming tax, prize value and any operating cost.
+            This is the licence-critical turnover denominator: afdracht
+            percentage, cost ratio and prize payout ratio are all expressed
+            against gross inleg. Sensitive to ticket price changes, tier mix and
+            the stock of active recurring lots. It is the primary top-line
+            volume metric for the Postcode Lottery Group."
+          ai_context: inleg; stake; turnover
+        - name: kansspelbelasting
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Kansspelbelasting (Gaming Tax)
+              identifier: kansspelbelasting
+              description: Dutch gaming tax remitted by the lottery on prizes exceeding the
+                statutory threshold (34.2% in 2025, rising to 37.8% in 2026).
+                Segmented by prize and brand. This is a genuine cash outflow
+                that reduces the net result but sits alongside, not ahead of,
+                the 40% afdracht obligation. Excludes corporate taxes and VAT.
+                Highly sensitive to the tax rate change and to the volume and
+                size of taxable prizes, especially large jackpot events.
+              synonyms:
+                - KSB
+                - gaming tax
+              unit: EUR
+              status: Implemented
+              period: Monthly
+              businessOwner: Finance Team
+              implementationOwner: null
+              source: FIN_LEDGER
+              release: null
+              formula: null
+              slices:
+                - LOTTERY_BRAND
+                - MONTH
+                - PRIZE_BK
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - net_result
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - licence
+                - tax
+          description: Dutch gaming tax remitted by the lottery on prizes exceeding the
+            statutory threshold (34.2% in 2025, rising to 37.8% in 2026).
+            Segmented by prize and brand. This is a genuine cash outflow that
+            reduces the net result but sits alongside, not ahead of, the 40%
+            afdracht obligation. Excludes corporate taxes and VAT. Highly
+            sensitive to the tax rate change and to the volume and size of
+            taxable prizes, especially large jackpot events.
+          ai_context: KSB; gaming tax
+        - name: net_prize_cost
+          expression: gross_prize_value - in_kind_supplier_discount
+          custom_extensions:
+            duodata:
+              name: Net Prize Cost
+              identifier: net_prize_cost
+              description: Actual cost of prizes borne by the lottery, computed as gross prize
+                value minus in-kind supplier discounts. It reflects real cash
+                and goods outflow after sponsorships, and feeds the statutory
+                net result. Excludes gaming tax, which is tracked separately.
+                Sensitive to the proportion of in-kind versus cash prizes and to
+                supplier deal quality. Distinct from the consumer-facing gross
+                prize value used for perception and payout ratio.
+              synonyms:
+                - net cost of prizes
+              unit: EUR
+              status: Implemented
+              period: Monthly
+              businessOwner: Finance Team
+              implementationOwner: null
+              source: FIN_LEDGER
+              release: null
+              formula:
+                pretty: gross_prize_value - in_kind_supplier_discount
+                variables:
+                  - gross_prize_value
+                  - in_kind_supplier_discount
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: gross_prize_value
+                    - type: operator
+                      value: "-"
+                    - type: metric
+                      value: in_kind_supplier_discount
+              slices:
+                - DRAW_TYPE
+                - LOTTERY_BRAND
+                - MONTH
+              excludedSlices: []
+              upstreamMetrics:
+                - gross_prize_value
+                - in_kind_supplier_discount
+              downstreamMetrics:
+                - net_result
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - prizes
+          description: Actual cost of prizes borne by the lottery, computed as gross prize
+            value minus in-kind supplier discounts. It reflects real cash and
+            goods outflow after sponsorships, and feeds the statutory net
+            result. Excludes gaming tax, which is tracked separately. Sensitive
+            to the proportion of in-kind versus cash prizes and to supplier deal
+            quality. Distinct from the consumer-facing gross prize value used
+            for perception and payout ratio.
+          ai_context: net cost of prizes
+        - name: net_result
+          expression: baten_uit_loterij - afdracht - net_prize_cost - kansspelbelasting -
+            operating_cost
+          custom_extensions:
+            duodata:
+              name: Net Result (Resultaat)
+              identifier: net_result
+              description: Statutory net result, computed as lottery income minus afdracht,
+                net prize cost, gaming tax and operating cost. By design it is
+                near zero for the non-profit charity lottery because there is no
+                dividend and proceeds flow to good causes rather than profit. It
+                is presented in the Dutch statutory annual accounts. Sensitive
+                to timing differences between income recognition and allocation.
+                Divided by lottery income it yields the net result margin.
+              synonyms:
+                - resultaat
+              unit: EUR
+              status: Implemented
+              period: Annual
+              businessOwner: Finance Team
+              implementationOwner: null
+              source: FIN_LEDGER
+              release: null
+              formula:
+                pretty: baten_uit_loterij - afdracht - net_prize_cost - kansspelbelasting -
+                  operating_cost
+                variables:
+                  - baten_uit_loterij
+                  - afdracht
+                  - net_prize_cost
+                  - kansspelbelasting
+                  - operating_cost
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: baten_uit_loterij
+                    - type: operator
+                      value: "-"
+                    - type: metric
+                      value: afdracht
+                    - type: operator
+                      value: "-"
+                    - type: metric
+                      value: net_prize_cost
+                    - type: operator
+                      value: "-"
+                    - type: metric
+                      value: kansspelbelasting
+                    - type: operator
+                      value: "-"
+                    - type: metric
+                      value: operating_cost
+              slices:
+                - LEGAL_ENTITY
+                - LOTTERY_BRAND
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics:
+                - afdracht
+                - baten_uit_loterij
+                - kansspelbelasting
+                - net_prize_cost
+                - operating_cost
+              downstreamMetrics:
+                - net_result_margin
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - statutory
+          description: Statutory net result, computed as lottery income minus afdracht,
+            net prize cost, gaming tax and operating cost. By design it is near
+            zero for the non-profit charity lottery because there is no dividend
+            and proceeds flow to good causes rather than profit. It is presented
+            in the Dutch statutory annual accounts. Sensitive to timing
+            differences between income recognition and allocation. Divided by
+            lottery income it yields the net result margin.
+          ai_context: resultaat
+        - name: net_result_margin
+          expression: net_result / baten_uit_loterij
+          custom_extensions:
+            duodata:
+              name: Net Result Margin
+              identifier: net_result_margin
+              description: Net result as a share of lottery income, computed as net result
+                divided by baten uit loterij. For the charity lottery this
+                should hover near zero, confirming the no-profit, no-dividend
+                model where surplus is directed to good causes. A material
+                deviation signals timing mismatches or unusual events. Excludes
+                group consolidation effects. A three-hop derived metric that
+                builds on the net result to communicate financial neutrality to
+                the board and regulators.
+              synonyms:
+                - result margin
+              unit: "%"
+              status: Approved
+              period: Annual
+              businessOwner: Finance Team
+              implementationOwner: null
+              source: FIN_LEDGER
+              release: null
+              formula:
+                pretty: net_result / baten_uit_loterij
+                variables:
+                  - net_result
+                  - baten_uit_loterij
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: net_result
+                    - type: operator
+                      value: /
+                    - type: metric
+                      value: baten_uit_loterij
+              slices:
+                - LEGAL_ENTITY
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics:
+                - baten_uit_loterij
+                - net_result
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - kpi
+                - statutory
+          description: Net result as a share of lottery income, computed as net result
+            divided by baten uit loterij. For the charity lottery this should
+            hover near zero, confirming the no-profit, no-dividend model where
+            surplus is directed to good causes. A material deviation signals
+            timing mismatches or unusual events. Excludes group consolidation
+            effects. A three-hop derived metric that builds on the net result to
+            communicate financial neutrality to the board and regulators.
+          ai_context: result margin
+        - name: operating_cost
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Kosten Eigen Organisatie (Operating Cost)
+              identifier: operating_cost
+              description: Own-organisation operating costs of running the lotteries,
+                including personnel, media and marketing, IT, draw operations
+                and overhead, per legal entity and brand. Excludes prize cost,
+                gaming tax and afdracht. It is divided by gross inleg to produce
+                the organisation cost ratio, a key efficiency measure for a
+                non-profit lottery, and it reduces the net result. Sensitive to
+                acquisition spend intensity, campaign timing and shared
+                back-office allocation between the two brands.
+              synonyms:
+                - kosten eigen organisatie
+                - opex
+              unit: EUR
+              status: Implemented
+              period: Monthly
+              businessOwner: Finance Team
+              implementationOwner: null
+              source: FIN_LEDGER
+              release: null
+              formula: null
+              slices:
+                - LEGAL_ENTITY
+                - LOTTERY_BRAND
+                - MONTH
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - net_result
+                - organisation_cost_ratio
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - cost
+          description: Own-organisation operating costs of running the lotteries,
+            including personnel, media and marketing, IT, draw operations and
+            overhead, per legal entity and brand. Excludes prize cost, gaming
+            tax and afdracht. It is divided by gross inleg to produce the
+            organisation cost ratio, a key efficiency measure for a non-profit
+            lottery, and it reduces the net result. Sensitive to acquisition
+            spend intensity, campaign timing and shared back-office allocation
+            between the two brands.
+          ai_context: kosten eigen organisatie; opex
+        - name: organisation_cost_ratio
+          expression: operating_cost / gross_inleg
+          custom_extensions:
+            duodata:
+              name: Organisation Cost Ratio
+              identifier: organisation_cost_ratio
+              description: "Own-organisation operating cost as a share of gross inleg,
+                computed as operating cost divided by gross inleg. It measures
+                fundraising efficiency for the non-profit lottery: the lower the
+                cost ratio, the more of each euro can flow to prizes and
+                afdracht. Excludes prize cost and gaming tax. Sensitive to
+                acquisition-spend intensity and shared back-office allocation.
+                Scrutinised in both statutory accounts and public accountability
+                narratives."
+              synonyms:
+                - cost ratio
+              unit: "%"
+              status: Implemented
+              period: Annual
+              businessOwner: Finance Team
+              implementationOwner: null
+              source: FIN_LEDGER
+              release: null
+              formula:
+                pretty: operating_cost / gross_inleg
+                variables:
+                  - operating_cost
+                  - gross_inleg
+                expressionAst:
+                  type: root
+                  value: ""
+                  children:
+                    - type: metric
+                      value: operating_cost
+                    - type: operator
+                      value: /
+                    - type: metric
+                      value: gross_inleg
+              slices:
+                - LEGAL_ENTITY
+                - LOTTERY_BRAND
+                - YEAR
+              excludedSlices: []
+              upstreamMetrics:
+                - gross_inleg
+                - operating_cost
+              downstreamMetrics: []
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - cost
+                - kpi
+          description: "Own-organisation operating cost as a share of gross inleg,
+            computed as operating cost divided by gross inleg. It measures
+            fundraising efficiency for the non-profit lottery: the lower the
+            cost ratio, the more of each euro can flow to prizes and afdracht.
+            Excludes prize cost and gaming tax. Sensitive to acquisition-spend
+            intensity and shared back-office allocation. Scrutinised in both
+            statutory accounts and public accountability narratives."
+          ai_context: cost ratio
+      custom_extensions:
+        duodata:
+          source:
+            name: Finance Ledger
+            identifier: FIN_LEDGER
+            description: General ledger producing the official statutory money split (inleg,
+              afdracht, prize cost, own-organisation cost, result) per legal
+              entity under Dutch GAAP / RJ 640. Authoritative for licence and
+              statutory reporting figures.
+            synonyms:
+              - GL
+              - Statutory Ledger
+            type: erp-gl
+            tags:
+              - Afdracht-Floor
+              - RJ640-NonProfit
+    - name: INCASSO_SYS
+      description: Direct-debit and recurring collections platform managing periodic
+        ticket stake collection and payment success/failure/retry status per
+        subscription.
+      fields:
+        - name: PAYMENT_BK
+          custom_extensions:
+            duodata:
+              name: Payment / Collection
+              identifier: PAYMENT_BK
+              description: Grain of a recurring direct-debit collection attempt against a
+                subscription, capturing stake amount and collection outcome for
+                direct-debit success analysis.
+              synonyms:
+                - Incasso
+                - Collection
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: INCASSO_SYS
+              release: null
+              values: null
+              rollsUpTo:
+                - DAY
+                - PAYMENT_STATUS
+                - SUBSCRIPTION_BK
+              tags:
+                - Participant-Growth
+          description: Grain of a recurring direct-debit collection attempt against a
+            subscription, capturing stake amount and collection outcome for
+            direct-debit success analysis.
+          ai_context: Incasso; Collection
+      metrics:
+        - name: attempted_collections
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Attempted Recurring Collections
+              identifier: attempted_collections
+              description: Total recurring direct-debit collection attempts initiated in the
+                period across all mandates, per payment and status. Includes
+                first attempts and scheduled retries; excludes cancelled
+                mandates never presented. It is the denominator of the
+                collection success rate. Sensitive to the size of the active
+                subscriber base and the collection calendar. Monitored by
+                Finance to ensure billing volume matches expected inleg and to
+                detect processing anomalies.
+              synonyms:
+                - collection attempts
+              unit: count
+              status: Implemented
+              period: Daily
+              businessOwner: Finance Team
+              implementationOwner: null
+              source: INCASSO_SYS
+              release: null
+              formula: null
+              slices:
+                - MONTH
+                - PAYMENT_BK
+                - PAYMENT_STATUS
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - collection_success_rate
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - collections
+          description: Total recurring direct-debit collection attempts initiated in the
+            period across all mandates, per payment and status. Includes first
+            attempts and scheduled retries; excludes cancelled mandates never
+            presented. It is the denominator of the collection success rate.
+            Sensitive to the size of the active subscriber base and the
+            collection calendar. Monitored by Finance to ensure billing volume
+            matches expected inleg and to detect processing anomalies.
+          ai_context: collection attempts
+        - name: successful_collections
+          expression: ""
+          custom_extensions:
+            duodata:
+              name: Successful Recurring Collections
+              identifier: successful_collections
+              description: Count (and value) of recurring direct-debit collections (incasso)
+                that settled successfully in the period, per payment, status and
+                channel. Excludes first-attempt failures still within the retry
+                window and manual repairs. It is the numerator of collection
+                success rate, a critical operational KPI because failed
+                collections erode active participants and inleg. Sensitive to
+                bank reversals, insufficient funds, expired mandates and macro
+                conditions affecting household budgets.
+              synonyms:
+                - incasso success
+              unit: count
+              status: Implemented
+              period: Daily
+              businessOwner: Finance Team
+              implementationOwner: null
+              source: INCASSO_SYS
+              release: null
+              formula: null
+              slices:
+                - CHANNEL
+                - MONTH
+                - PAYMENT_BK
+                - PAYMENT_STATUS
+              excludedSlices: []
+              upstreamMetrics: []
+              downstreamMetrics:
+                - collection_success_rate
+              impactedMetrics: []
+              impactingMetrics: []
+              tags:
+                - collections
+          description: Count (and value) of recurring direct-debit collections (incasso)
+            that settled successfully in the period, per payment, status and
+            channel. Excludes first-attempt failures still within the retry
+            window and manual repairs. It is the numerator of collection success
+            rate, a critical operational KPI because failed collections erode
+            active participants and inleg. Sensitive to bank reversals,
+            insufficient funds, expired mandates and macro conditions affecting
+            household budgets.
+          ai_context: incasso success
+      custom_extensions:
+        duodata:
+          source:
+            name: Recurring Collections (Incasso) System
+            identifier: INCASSO_SYS
+            description: Direct-debit and recurring collections platform managing periodic
+              ticket stake collection and payment success/failure/retry status
+              per subscription.
+            synonyms:
+              - Direct Debit
+              - Incasso
+            type: operational-system
+            tags:
+              - Participant-Growth
+    - name: KSA_REG
+      description: External regulatory reference for charity-lottery licence
+        obligations, gaming-tax rates and addiction-prevention policy
+        requirements published by the Dutch gaming authority.
+      custom_extensions:
+        duodata:
+          source:
+            name: Kansspelautoriteit Regulatory Data
+            identifier: KSA_REG
+            description: External regulatory reference for charity-lottery licence
+              obligations, gaming-tax rates and addiction-prevention policy
+              requirements published by the Dutch gaming authority.
+            synonyms:
+              - KSA
+              - Regulator Data
+            type: market-data
+            tags:
+              - KSA-Licence
+              - Responsible-Play
+    - name: duodata_ungrouped
+      fields:
+        - name: ALLOCATION_THEME
+          custom_extensions:
+            duodata:
+              name: Allocation Theme
+              identifier: ALLOCATION_THEME
+              description: Dimension of the mission theme under which proceeds are allocated
+                to beneficiaries across the two brands.
+              synonyms:
+                - Mission Theme
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - Greener World
+                - Fairer World
+                - Healthier World
+                - Culture
+                - Sport
+                - Wellbeing
+              rollsUpTo:
+                - LOTTERY_BRAND
+              tags:
+                - Toekenningenraad
+          description: Dimension of the mission theme under which proceeds are allocated
+            to beneficiaries across the two brands.
+          ai_context: Mission Theme
+        - name: ANBI_STATUS
+          custom_extensions:
+            duodata:
+              name: ANBI Status
+              identifier: ANBI_STATUS
+              description: Dimension flagging whether a beneficiary is an ANBI-registered
+                public-benefit body, used to verify the ≥80% of afdracht to ANBI
+                obligation.
+              synonyms:
+                - ANBI %
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - ANBI-Registered
+                - Non-ANBI
+              rollsUpTo:
+                - BENEFICIARY_TYPE
+              tags:
+                - ANBI-Compliance
+          description: Dimension flagging whether a beneficiary is an ANBI-registered
+            public-benefit body, used to verify the ≥80% of afdracht to ANBI
+            obligation.
+          ai_context: ANBI %
+        - name: BENEFICIARY_TYPE
+          custom_extensions:
+            duodata:
+              name: Beneficiary Type
+              identifier: BENEFICIARY_TYPE
+              description: Dimension categorising good causes by funding relationship and
+                programme.
+              synonyms:
+                - Cause Type
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - Multi-Year Partner
+                - One-Off Grant
+                - Droomfonds
+                - Cultural Partner
+                - Club / Association
+              rollsUpTo:
+                - LOTTERY_BRAND
+              tags:
+                - CBF-Erkend
+                - Toekenningenraad
+          description: Dimension categorising good causes by funding relationship and
+            programme.
+          ai_context: Cause Type
+        - name: CHANNEL
+          custom_extensions:
+            duodata:
+              name: Channel
+              identifier: CHANNEL
+              description: Dimension of the acquisition and servicing channel through which
+                participants and subscriptions are engaged.
+              synonyms:
+                - Acquisition Channel
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - TV / Media
+                - Direct Mail
+                - Online / Web
+                - Telemarketing
+                - Door-to-Door
+              rollsUpTo:
+                - LOTTERY_BRAND
+              tags:
+                - Participant-Growth
+          description: Dimension of the acquisition and servicing channel through which
+            participants and subscriptions are engaged.
+          ai_context: Acquisition Channel
+        - name: COHORT
+          custom_extensions:
+            duodata:
+              name: Acquisition Cohort
+              identifier: COHORT
+              description: Dimension grouping participants by acquisition period for
+                retention, ticket LTV and lifetime-value trend analysis.
+              synonyms:
+                - Cohort
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - 2021 Cohort
+                - 2022 Cohort
+                - 2023 Cohort
+                - 2024 Cohort
+                - 2025 Cohort
+              rollsUpTo:
+                - YEAR
+              tags:
+                - Participant-Growth
+          description: Dimension grouping participants by acquisition period for
+            retention, ticket LTV and lifetime-value trend analysis.
+          ai_context: Cohort
+        - name: COUNTRY
+          custom_extensions:
+            duodata:
+              name: Country
+              identifier: COUNTRY
+              description: Top geography level. Operations for these two lotteries are
+                single-country (the Netherlands); the wider Postcode Lottery
+                Group operates in additional countries as parent context.
+              synonyms:
+                - Land
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - Netherlands
+              rollsUpTo: []
+              tags:
+                - Cross-Brand
+          description: Top geography level. Operations for these two lotteries are
+            single-country (the Netherlands); the wider Postcode Lottery Group
+            operates in additional countries as parent context.
+          ai_context: Land
+        - name: DAY
+          custom_extensions:
+            duodata:
+              name: Day
+              identifier: DAY
+              description: Lowest calendar time level; a single date on which draws,
+                collections and visits occur.
+              synonyms:
+                - Date
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values: null
+              rollsUpTo:
+                - MONTH
+              tags:
+                - Participant-Growth
+          description: Lowest calendar time level; a single date on which draws,
+            collections and visits occur.
+          ai_context: Date
+        - name: DRAW_TYPE
+          custom_extensions:
+            duodata:
+              name: Draw Type
+              identifier: DRAW_TYPE
+              description: Dimension of the type/cadence of draw within a brand's annual draw
+                calendar (14 draws/year for NPL, 15 for VL, plus weekly draws).
+              synonyms:
+                - Draw Cadence
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - Monthly Draw
+                - June Extra
+                - December Extra
+                - Weekly Street Prize
+                - Easter Draw
+                - Najaar Draw
+                - Christmas Draw
+                - Weekly Bingo
+              rollsUpTo:
+                - LOTTERY_BRAND
+              tags:
+                - Prize-Economics
+          description: Dimension of the type/cadence of draw within a brand's annual draw
+            calendar (14 draws/year for NPL, 15 for VL, plus weekly draws).
+          ai_context: Draw Cadence
+        - name: LEGAL_ENTITY
+          custom_extensions:
+            duodata:
+              name: Legal Entity
+              identifier: LEGAL_ENTITY
+              description: Dimension of the statutory entities of public interest under which
+                figures are reported and consolidated.
+              synonyms:
+                - N.V.
+                - Entity
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - Holding Nationale Goede Doelen Loterijen N.V.
+                - Nationale Postcode Loterij N.V.
+                - VriendenLoterij N.V.
+                - Novamedia B.V. / Postcode Lottery Group
+                - Stichting de Novamedia Fundatie
+              rollsUpTo:
+                - COUNTRY
+              tags:
+                - No-Dividend
+                - RJ640-NonProfit
+          description: Dimension of the statutory entities of public interest under which
+            figures are reported and consolidated.
+          ai_context: N.V.; Entity
+        - name: LOTTERY_BRAND
+          custom_extensions:
+            duodata:
+              name: Lottery Brand
+              identifier: LOTTERY_BRAND
+              description: Dimension distinguishing the two licensed lottery brands operated
+                by the single operating company; each holds its own KSA
+                article-3 licence.
+              synonyms:
+                - Brand
+                - Licensed Lottery
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - Nationale Postcode Loterij
+                - VriendenLoterij
+              rollsUpTo:
+                - LEGAL_ENTITY
+              tags:
+                - Cross-Brand
+                - KSA-Licence
+          description: Dimension distinguishing the two licensed lottery brands operated
+            by the single operating company; each holds its own KSA article-3
+            licence.
+          ai_context: Brand; Licensed Lottery
+        - name: MONTH
+          custom_extensions:
+            duodata:
+              name: Month
+              identifier: MONTH
+              description: Calendar month time level aggregating days; grain of the
+                FCT_FINANCE_MONTH money split.
+              synonyms:
+                - Calendar Month
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values: null
+              rollsUpTo:
+                - QUARTER
+              tags:
+                - RJ640-NonProfit
+          description: Calendar month time level aggregating days; grain of the
+            FCT_FINANCE_MONTH money split.
+          ai_context: Calendar Month
+        - name: MUNICIPALITY
+          custom_extensions:
+            duodata:
+              name: Municipality
+              identifier: MUNICIPALITY
+              description: Geography level aggregating neighbourhoods into Dutch
+                municipalities (gemeenten).
+              synonyms:
+                - Gemeente
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values: null
+              rollsUpTo:
+                - PROVINCE
+              tags:
+                - Participant-Growth
+          description: Geography level aggregating neighbourhoods into Dutch
+            municipalities (gemeenten).
+          ai_context: Gemeente
+        - name: PARTICIPANT_TYPE
+          custom_extensions:
+            duodata:
+              name: Participant Type
+              identifier: PARTICIPANT_TYPE
+              description: Dimension classifying participants as newly acquired versus
+                existing, supporting new vs churn net-growth analysis.
+              synonyms:
+                - New vs Existing
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - New
+                - Existing
+                - Reactivated
+              rollsUpTo:
+                - LOTTERY_BRAND
+              tags:
+                - Participant-Growth
+          description: Dimension classifying participants as newly acquired versus
+            existing, supporting new vs churn net-growth analysis.
+          ai_context: New vs Existing
+        - name: PAYMENT_STATUS
+          custom_extensions:
+            duodata:
+              name: Payment Status
+              identifier: PAYMENT_STATUS
+              description: Dimension of the outcome of a recurring collection attempt,
+                underpinning direct-debit success and collection-rate measures.
+              synonyms:
+                - Collection Status
+                - Incasso Status
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - Successful
+                - Failed
+                - Retried
+                - Cancelled
+              rollsUpTo:
+                - LOTTERY_BRAND
+              tags:
+                - Participant-Growth
+          description: Dimension of the outcome of a recurring collection attempt,
+            underpinning direct-debit success and collection-rate measures.
+          ai_context: Collection Status; Incasso Status
+        - name: POSTCODE
+          custom_extensions:
+            duodata:
+              name: Postcode
+              identifier: POSTCODE
+              description: Geography level of the Dutch postcode, the core Nationale Postcode
+                Loterij ticket and win mechanic (neighbours sharing a postcode
+                win together).
+              synonyms:
+                - Postal Code
+                - Postcodegebied
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values: null
+              rollsUpTo:
+                - WIJK
+              tags:
+                - Prize-Economics
+          description: Geography level of the Dutch postcode, the core Nationale Postcode
+            Loterij ticket and win mechanic (neighbours sharing a postcode win
+            together).
+          ai_context: Postal Code; Postcodegebied
+        - name: PRODUCT_TIER
+          custom_extensions:
+            duodata:
+              name: Product Tier
+              identifier: PRODUCT_TIER
+              description: Dimension for the priced lot variant a subscription holds, driving
+                the price component of the inleg identity and Plus/Premium mix.
+              synonyms:
+                - Product
+                - Lot Tier
+                - Price Mix
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - NPL Standard €16
+                - NPL Plus €18.50
+                - NPL Premium €21
+                - VL Monthly Lot
+              rollsUpTo:
+                - LOTTERY_BRAND
+              tags:
+                - Participant-Growth
+          description: Dimension for the priced lot variant a subscription holds, driving
+            the price component of the inleg identity and Plus/Premium mix.
+          ai_context: Product; Lot Tier; Price Mix
+        - name: PROVINCE
+          custom_extensions:
+            duodata:
+              name: Province
+              identifier: PROVINCE
+              description: Geography level of the twelve Dutch provinces used for domestic
+                participant and afdracht distribution.
+              synonyms:
+                - Provincie
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - Noord-Holland
+                - Zuid-Holland
+                - Noord-Brabant
+                - Gelderland
+                - Utrecht
+              rollsUpTo:
+                - COUNTRY
+              tags:
+                - Participant-Growth
+          description: Geography level of the twelve Dutch provinces used for domestic
+            participant and afdracht distribution.
+          ai_context: Provincie
+        - name: QUARTER
+          custom_extensions:
+            duodata:
+              name: Quarter
+              identifier: QUARTER
+              description: Calendar quarter time level aggregating months for interim trend
+                reporting.
+              synonyms:
+                - Calendar Quarter
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values: null
+              rollsUpTo:
+                - YEAR
+              tags:
+                - RJ640-NonProfit
+          description: Calendar quarter time level aggregating months for interim trend
+            reporting.
+          ai_context: Calendar Quarter
+        - name: STREET
+          custom_extensions:
+            duodata:
+              name: Street
+              identifier: STREET
+              description: Lowest geography level; the street-level unit used for NPL
+                street-prize win logic.
+              synonyms:
+                - Straat
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values: null
+              rollsUpTo:
+                - POSTCODE
+              tags:
+                - Prize-Economics
+          description: Lowest geography level; the street-level unit used for NPL
+            street-prize win logic.
+          ai_context: Straat
+        - name: SUBSCRIPTION_STATUS
+          custom_extensions:
+            duodata:
+              name: Subscription Status
+              identifier: SUBSCRIPTION_STATUS
+              description: Dimension of the lifecycle state of a recurring lot, supporting
+                churn (opzeggingen) and upgrade/downgrade analysis.
+              synonyms:
+                - Lot Status
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values:
+                - Active
+                - Cancelled
+                - Upgraded
+                - Downgraded
+                - Paused
+              rollsUpTo:
+                - LOTTERY_BRAND
+              tags:
+                - Participant-Growth
+          description: Dimension of the lifecycle state of a recurring lot, supporting
+            churn (opzeggingen) and upgrade/downgrade analysis.
+          ai_context: Lot Status
+        - name: WIJK
+          custom_extensions:
+            duodata:
+              name: Neighbourhood (Wijk)
+              identifier: WIJK
+              description: Geography level aggregating postcodes into neighbourhoods for local
+                win and community analysis.
+              synonyms:
+                - Wijk
+                - Neighbourhood
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values: null
+              rollsUpTo:
+                - MUNICIPALITY
+              tags:
+                - Prize-Economics
+          description: Geography level aggregating postcodes into neighbourhoods for local
+            win and community analysis.
+          ai_context: Wijk; Neighbourhood
+        - name: YEAR
+          custom_extensions:
+            duodata:
+              name: Calendar Year
+              identifier: YEAR
+              description: Top calendar time level and the licence period against which the
+                ≥40% afdracht floor and ≥80% ANBI share are assessed.
+              synonyms:
+                - Licence Year
+                - Calendar Year
+              status: Proposed
+              businessOwner: null
+              implementationOwner: null
+              source: null
+              release: null
+              values: null
+              rollsUpTo: []
+              tags:
+                - Afdracht-Floor
+                - KSA-Licence
+          description: Top calendar time level and the licence period against which the
+            ≥40% afdracht floor and ≥80% ANBI share are assessed.
+          ai_context: Licence Year; Calendar Year
+  custom_extensions:
+    duodata:
+      schema_version: "3.1"
+      configuration:
+        statuses:
+          - name: Proposed
+            color: "#8896a6"
+            sort_order: 1
+            description: null
+          - name: Approved
+            color: "#f2a900"
+            sort_order: 2
+            description: null
+          - name: Implemented
+            color: "#2e8b57"
+            sort_order: 3
+            description: null
+          - name: Obsolete
+            color: "#b0453a"
+            sort_order: 4
+            description: null
+        periods:
+          - Daily
+          - Per Draw
+          - Weekly
+          - Monthly
+          - Quarterly
+          - Annual
+          - Calendar Year (Licence)
+        people:
+          - CEO / Managing Director (Novamedia / Postcode Lottery Group)
+          - Charities & Beneficiary Allocation Team (Toekenningenraad support)
+          - CRM & Participant Team
+          - Data & Analytics Team
+          - Finance Team
+          - Lottery Operations & Draw Team
+          - Responsible-Play & Compliance Team
+          - Statutory Executive Board (Directie)
+        releases:
+          - name: Group / Novamedia Annual Report 2024
+            due_date: 2025-06-30
+          - name: KSA Licence Report FY2024
+            due_date: 2025-03-31
+          - name: Ontology v1 Participant & Growth Model
+            due_date: 2025-07-15
+          - name: Statutory Annual Accounts FY2024 (per N.V.)
+            due_date: 2025-05-31
+          - name: Toekenningenraad Beneficiary Allocation 2025
+            due_date: 2025-09-30
+        tags:
+          - name: afdracht
+          - name: Afdracht-Floor
+            description: The licence-critical guarantee that at least 40% of gross inleg per
+              calendar year is transferred to good causes.
+          - name: allocation
+          - name: ANBI-Compliance
+            description: Requirement that at least 80% of afdracht reaches ANBI-registered
+              beneficiary bodies.
+          - name: CBF-Erkend
+            description: CBF / Erkend Goed Doel norms applied to beneficiaries and
+              responsible-fundraising practice.
+          - name: collections
+          - name: compliance
+          - name: cost
+          - name: Cross-Brand
+            description: Shared back-office and NPL–VL household overlap across the two
+              licensed lottery brands.
+          - name: engagement
+          - name: finance
+          - name: growth
+          - name: impact
+          - name: kpi
+          - name: KSA-Licence
+            description: "Kansspelautoriteit article-3 charity-lottery licence reporting
+              obligations: afdracht %, ANBI share, prize disclosure and
+              gaming-tax remittance."
+          - name: licence
+          - name: No-Dividend
+            description: Fundatie ownership structure anchoring the near-zero net result by
+              design; no profit distribution.
+          - name: northstar
+          - name: operations
+          - name: Participant-Growth
+            description: "Subscriber base dynamics: tickets in play, active participants,
+              tickets/person, new vs churn net growth, CAC vs ticket LTV."
+          - name: participation
+          - name: pricing
+          - name: Prize-Economics
+            description: Gross prize value vs net prize cost and kansspelbelasting (gaming
+              tax) on prizes over €449.
+          - name: prizes
+          - name: product-mix
+          - name: Responsible-Play
+            description: Low-addiction, low-risk game-of-chance positioning aligned with KSA
+              verslavingspreventiebeleid (addiction-prevention policy).
+          - name: retention
+          - name: RJ640-NonProfit
+            description: Dutch statutory accounts under Boek 2 BW / Dutch GAAP with RJ 640
+              guidance for non-profit and fundraising organisations.
+          - name: statutory
+          - name: tax
+          - name: Toekenningenraad
+            description: Independent proceeds-allocation council framework governing how
+              afdracht is assigned to beneficiaries.
+          - name: topline
+          - name: VriendenLoterij
+      reports:
+        - name: Charity Allocation & Beneficiary Impact Report
+          identifier: charity_allocation_impact
+          description: >-
+            Prepared for the Toekenningenraad support team and the Charities &
+            Beneficiary Allocation Team to steer annual allocation decisions
+            across themes and beneficiary types. It shows total afdracht, ANBI
+            share, the number of partners funded, player-designated afdracht at
+            VriendenLoterij, per-participant impact and compliance headroom.
+
+
+            Audience is the allocation committee and board; cadence is annual
+            around the allocation cycle. Decisions include portfolio breadth
+            versus concentration, structural-partner renewals and communicating
+            participant impact.
+          synonyms:
+            - beneficiary report
+          questions:
+            - How is afdracht distributed across allocation themes and
+              beneficiary types?
+            - How many good-cause partners were funded this year?
+            - What share of VriendenLoterij afdracht was player-designated?
+            - How much good-cause funding did the average participant enable?
+          status: Proposed
+          refreshPeriod: Annual
+          businessOwner: null
+          implementationOwner: null
+          release: null
+          metrics:
+            - afdracht
+            - afdracht_headroom
+            - afdracht_per_participant
+            - anbi_share
+            - partners_funded
+            - player_designated_afdracht
+          slices:
+            - ALLOCATION_THEME
+            - BENEFICIARY_TYPE
+            - LOTTERY_BRAND
+            - YEAR
+          tags:
+            - allocation
+            - impact
+        - name: Collections & Participant Engagement Report
+          identifier: collections_engagement
+          description: >-
+            Operational report for the Finance and CRM teams monitoring
+            recurring direct-debit performance and VriendenLoterij VIP-KAART
+            engagement against the active base. It presents successful and
+            attempted collections, the collection success rate and VIP-KAART
+            redemptions.
+
+
+            Reviewed frequently to detect incasso deterioration that erodes
+            realised inleg and drives involuntary churn, and to gauge engagement
+            value. Decisions include mandate-repair campaigns, dunning strategy
+            and VIP venue partnerships.
+          synonyms:
+            - incasso report
+          questions:
+            - What is the current direct-debit collection success rate?
+            - How many collection attempts failed and why?
+            - Are VIP-KAART redemptions growing among active participants?
+            - Is collection failure a leading indicator of churn?
+          status: Proposed
+          refreshPeriod: Weekly
+          businessOwner: null
+          implementationOwner: null
+          release: null
+          metrics:
+            - active_participants
+            - attempted_collections
+            - collection_success_rate
+            - successful_collections
+            - vip_kaart_redemptions
+          slices:
+            - CHANNEL
+            - MONTH
+            - PAYMENT_STATUS
+          tags:
+            - collections
+            - engagement
+        - name: Draw, Prize & Product Mix Report
+          identifier: draw_prize_product_mix
+          description: >-
+            Operations report for the Lottery Operations & Draw Team covering
+            draw throughput, prize economics and product-tier mix. It presents
+            draws held, gross and net prize value, in-kind discounts, payout
+            ratio, Plus/Premium volumes and mix, average lot price and tickets
+            in play.
+
+
+            Reviewed monthly to balance prize attractiveness against the
+            afdracht objective and to plan special draws and upsell. Decisions
+            include jackpot sizing, supplier deals and tier promotion timing.
+          synonyms:
+            - operations report
+          questions:
+            - What is the prize payout ratio by draw type and brand?
+            - How much prize cost is offset by in-kind supplier discounts?
+            - How is the Plus/Premium mix trending and what is its effect on
+              average price?
+            - How many draws were held and how did special draws affect prize
+              value?
+          status: Proposed
+          refreshPeriod: Monthly
+          businessOwner: null
+          implementationOwner: null
+          release: null
+          metrics:
+            - avg_ticket_price
+            - draws_held
+            - gross_prize_value
+            - in_kind_supplier_discount
+            - net_prize_cost
+            - plus_premium_mix
+            - plus_premium_tickets
+            - prize_payout_ratio
+            - tickets_in_play
+          slices:
+            - DRAW_TYPE
+            - LOTTERY_BRAND
+            - MONTH
+            - PRODUCT_TIER
+          tags:
+            - operations
+            - prizes
+            - product-mix
+        - name: Financial Result & Cost Efficiency Report
+          identifier: financial_result_cost
+          description: >-
+            Finance report supporting the Dutch statutory annual accounts (per
+            N.V.) and group reporting, presenting lottery income, operating
+            cost, cost ratio, prize cost, gaming tax and the near-zero net
+            result and margin per legal entity.
+
+
+            Audience is the Finance Team and Statutory Executive Board; cadence
+            is annual with quarterly review. Decisions include cost-efficiency
+            targets, back-office allocation between brands and confirmation of
+            the no-profit financial model.
+          synonyms:
+            - statutory finance report
+          questions:
+            - What is the organisation cost ratio versus gross inleg this year?
+            - Is the net result close to zero as the non-profit model intends?
+            - How much did net prize cost and gaming tax weigh on the result?
+            - How does the cost ratio compare across legal entities and brands?
+          status: Proposed
+          refreshPeriod: Annual
+          businessOwner: null
+          implementationOwner: null
+          release: null
+          metrics:
+            - baten_uit_loterij
+            - gross_inleg
+            - kansspelbelasting
+            - net_prize_cost
+            - net_result
+            - net_result_margin
+            - operating_cost
+            - organisation_cost_ratio
+          slices:
+            - LEGAL_ENTITY
+            - LOTTERY_BRAND
+            - YEAR
+          tags:
+            - finance
+            - statutory
+        - name: KSA Licence & Afdracht Compliance Report
+          identifier: ksa_licence_compliance
+          description: >-
+            Regulatory compliance report prepared for the Kansspelautoriteit and
+            the Statutory Executive Board, evidencing that the charity-lottery
+            licence obligations are met each calendar year. It presents gross
+            inleg, afdracht and the afdracht percentage against the 40% floor,
+            the ANBI share against the 80% requirement, prize disclosure and
+            gaming-tax remittance.
+
+
+            Used to sign off the KSA licence filing and to trigger any year-end
+            corrective allocation to good causes when compliance headroom is
+            thin. Decisions include timing of afdracht top-ups and beneficiary
+            ANBI verification.
+          synonyms:
+            - licence report
+          questions:
+            - Did each brand exceed the 40% afdracht floor this calendar year,
+              and by how much headroom?
+            - Is at least 80% of afdracht flowing to ANBI-registered
+              beneficiaries?
+            - How much gaming tax was remitted on prizes above the threshold?
+            - What is the prize payout ratio relative to gross inleg?
+          status: Proposed
+          refreshPeriod: Calendar Year (Licence)
+          businessOwner: null
+          implementationOwner: null
+          release: null
+          metrics:
+            - afdracht
+            - afdracht_headroom
+            - afdracht_pct
+            - anbi_afdracht
+            - anbi_share
+            - gross_inleg
+            - gross_prize_value
+            - kansspelbelasting
+            - min_required_afdracht
+            - prize_payout_ratio
+          slices:
+            - ANBI_STATUS
+            - LOTTERY_BRAND
+            - YEAR
+          tags:
+            - compliance
+            - licence
+        - name: Participant Growth & Retention Report
+          identifier: participant_growth_retention
+          description: >-
+            Operational growth dashboard for the CRM & Participant Team and Data
+            & Analytics Team, tracking the health of the subscriber base across
+            brands, channels and cohorts. It combines the active base,
+            acquisitions, cancellations, net growth and churn with participation
+            depth and acquisition economics.
+
+
+            Reviewed monthly to steer campaign investment, upsell efforts and
+            retention interventions, and to monitor cross-brand household
+            overlap. Decisions include channel budget allocation and tier-upsell
+            prioritisation.
+          synonyms:
+            - growth dashboard
+          questions:
+            - Is net participant growth positive across brands and channels?
+            - How does CAC per ticket compare to ticket lifetime value by cohort?
+            - Which channels drive the highest churn?
+            - How large is the NPL–VL household overlap?
+          status: Proposed
+          refreshPeriod: Monthly
+          businessOwner: null
+          implementationOwner: null
+          release: null
+          metrics:
+            - active_participants
+            - cac_per_ticket
+            - cac_total
+            - cancellations
+            - churn_rate
+            - household_overlap
+            - ltv_to_cac
+            - net_participant_growth
+            - new_participants
+            - ticket_ltv
+            - tickets_in_play
+            - tickets_per_participant
+          slices:
+            - CHANNEL
+            - COHORT
+            - LOTTERY_BRAND
+            - MONTH
+          tags:
+            - growth
+            - retention
