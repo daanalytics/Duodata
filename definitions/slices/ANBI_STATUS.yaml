@@ -1,0 +1,19 @@
+slice:
+  name: ANBI Status
+  identifier: ANBI_STATUS
+  description: Dimension flagging whether a beneficiary is an ANBI-registered
+    public-benefit body, used to verify the ≥80% of afdracht to ANBI obligation.
+  synonyms:
+    - ANBI %
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - ANBI-Registered
+    - Non-ANBI
+  rollsUpTo:
+    - BENEFICIARY_TYPE
+  tags:
+    - ANBI-Compliance

@@ -1,0 +1,35 @@
+metric:
+  name: Total Acquisition Cost
+  identifier: cac_total
+  description: Total spend to acquire new subscribers in the period, including
+    door-to-door, telemarketing, media and campaign production, attributed to
+    campaign, channel and cohort. Excludes retention and servicing costs.
+    Divided by new participants it produces CAC per ticket, which is compared
+    against ticket lifetime value to judge acquisition efficiency. Highly
+    sensitive to channel mix and campaign intensity; as a non-profit, the group
+    balances acquisition spend against the licence cost ratio and the afdracht
+    objective.
+  synonyms:
+    - acquisition spend
+  unit: EUR
+  status: Implemented
+  period: Monthly
+  businessOwner: CRM & Participant Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula: null
+  slices:
+    - CAMPAIGN_BK
+    - CHANNEL
+    - COHORT
+    - MONTH
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - cac_per_ticket
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - cost
+    - growth

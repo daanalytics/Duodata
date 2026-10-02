@@ -1,0 +1,49 @@
+metric:
+  name: CAC per Ticket
+  identifier: cac_per_ticket
+  description: Acquisition cost per newly acquired subscriber, computed as total
+    acquisition cost divided by new participants. It measures acquisition
+    efficiency and is compared against ticket lifetime value to judge whether
+    growth spend is sustainable for a cost-disciplined non-profit. Excludes
+    retention spend. Sensitive to channel mix and campaign intensity. A core
+    input to the LTV-to-CAC decision metric.
+  synonyms:
+    - CAC
+  unit: EUR
+  status: Implemented
+  period: Monthly
+  businessOwner: CRM & Participant Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula:
+    pretty: cac_total / new_participants
+    variables:
+      - cac_total
+      - new_participants
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: cac_total
+        - type: operator
+          value: /
+        - type: metric
+          value: new_participants
+  slices:
+    - CHANNEL
+    - COHORT
+    - LOTTERY_BRAND
+    - MONTH
+  excludedSlices: []
+  upstreamMetrics:
+    - cac_total
+    - new_participants
+  downstreamMetrics:
+    - ltv_to_cac
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - growth
+    - kpi

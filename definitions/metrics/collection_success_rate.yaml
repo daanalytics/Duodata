@@ -1,0 +1,47 @@
+metric:
+  name: Direct-Debit Collection Success Rate
+  identifier: collection_success_rate
+  description: Share of recurring collection attempts that settle successfully,
+    computed as successful collections divided by attempted collections. It is a
+    critical operational and revenue-quality KPI because failed incasso directly
+    reduces realised inleg and can trigger involuntary churn. Excludes manual
+    repairs booked outside the period. Sensitive to mandate hygiene, bank
+    reversals and household financial stress.
+  synonyms:
+    - incasso success rate
+  unit: "%"
+  status: Implemented
+  period: Monthly
+  businessOwner: Finance Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula:
+    pretty: successful_collections / attempted_collections
+    variables:
+      - successful_collections
+      - attempted_collections
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: successful_collections
+        - type: operator
+          value: /
+        - type: metric
+          value: attempted_collections
+  slices:
+    - CHANNEL
+    - MONTH
+    - PAYMENT_STATUS
+  excludedSlices: []
+  upstreamMetrics:
+    - attempted_collections
+    - successful_collections
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - collections
+    - kpi

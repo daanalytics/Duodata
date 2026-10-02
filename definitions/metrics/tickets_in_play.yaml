@@ -1,0 +1,37 @@
+metric:
+  name: Tickets in Play (Loten)
+  identifier: tickets_in_play
+  description: Stock of active recurring lots participating in a given draw,
+    aggregated across brands, product tiers and postcodes. Counts each
+    subscribed lot once per draw; excludes cancelled or lapsed subscriptions and
+    one-off promotional entries. It drives inleg (tickets times price) and
+    underpins participation KPIs such as tickets per participant and
+    Plus/Premium mix. Sensitive to acquisition, churn and multi-lot upsell. For
+    Nationale Postcode Loterij it also determines the postcode win mechanic
+    where neighbours win together.
+  synonyms:
+    - loten
+    - subscriptions in play
+  unit: count
+  status: Implemented
+  period: Per Draw
+  businessOwner: Lottery Operations & Draw Team
+  implementationOwner: null
+  source: DRAW_PRIZE_ENGINE
+  release: null
+  formula: null
+  slices:
+    - DRAW_BK
+    - LOTTERY_BRAND
+    - POSTCODE
+    - PRODUCT_TIER
+    - SUBSCRIPTION_BK
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - plus_premium_mix
+    - tickets_per_participant
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - participation

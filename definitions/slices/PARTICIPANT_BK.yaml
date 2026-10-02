@@ -1,0 +1,25 @@
+slice:
+  name: Participant
+  identifier: PARTICIPANT_BK
+  description: Grain of a distinct subscriber (deelnemer) holding at least one
+    active ticket in either lottery brand. Spine entity for acquisition, churn,
+    tickets-per-participant and household-overlap analysis.
+  synonyms:
+    - Subscriber
+    - Deelnemer
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: CRM_SHARED
+  release: null
+  values: null
+  rollsUpTo:
+    - CHANNEL
+    - COHORT
+    - LEGAL_ENTITY
+    - LOTTERY_BRAND
+    - PARTICIPANT_TYPE
+    - POSTCODE
+  tags:
+    - Cross-Brand
+    - Participant-Growth

@@ -1,0 +1,23 @@
+slice:
+  name: Charity Allocation
+  identifier: ALLOCATION_BK
+  description: Grain of a single afdracht allocation transferring proceeds to a
+    beneficiary in a licence year, including player-designated (VL
+    player-choice) attribution where applicable.
+  synonyms:
+    - Afdracht Allocation
+    - Proceeds Transfer
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: DIM_BENEFICIARY
+  release: null
+  values: null
+  rollsUpTo:
+    - ALLOCATION_THEME
+    - BENEFICIARY_BK
+    - LOTTERY_BRAND
+    - YEAR
+  tags:
+    - Afdracht-Floor
+    - Toekenningenraad

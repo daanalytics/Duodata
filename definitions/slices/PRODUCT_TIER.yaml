@@ -1,0 +1,23 @@
+slice:
+  name: Product Tier
+  identifier: PRODUCT_TIER
+  description: Dimension for the priced lot variant a subscription holds, driving
+    the price component of the inleg identity and Plus/Premium mix.
+  synonyms:
+    - Product
+    - Lot Tier
+    - Price Mix
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - NPL Standard €16
+    - NPL Plus €18.50
+    - NPL Premium €21
+    - VL Monthly Lot
+  rollsUpTo:
+    - LOTTERY_BRAND
+  tags:
+    - Participant-Growth

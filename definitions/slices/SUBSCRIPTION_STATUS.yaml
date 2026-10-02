@@ -1,0 +1,22 @@
+slice:
+  name: Subscription Status
+  identifier: SUBSCRIPTION_STATUS
+  description: Dimension of the lifecycle state of a recurring lot, supporting
+    churn (opzeggingen) and upgrade/downgrade analysis.
+  synonyms:
+    - Lot Status
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - Active
+    - Cancelled
+    - Upgraded
+    - Downgraded
+    - Paused
+  rollsUpTo:
+    - LOTTERY_BRAND
+  tags:
+    - Participant-Growth

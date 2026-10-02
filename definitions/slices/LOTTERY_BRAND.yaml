@@ -1,0 +1,21 @@
+slice:
+  name: Lottery Brand
+  identifier: LOTTERY_BRAND
+  description: Dimension distinguishing the two licensed lottery brands operated
+    by the single operating company; each holds its own KSA article-3 licence.
+  synonyms:
+    - Brand
+    - Licensed Lottery
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - Nationale Postcode Loterij
+    - VriendenLoterij
+  rollsUpTo:
+    - LEGAL_ENTITY
+  tags:
+    - Cross-Brand
+    - KSA-Licence

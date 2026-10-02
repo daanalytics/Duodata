@@ -1,0 +1,31 @@
+metric:
+  name: NPL–VL Household Overlap
+  identifier: household_overlap
+  description: Count of households subscribed to both Nationale Postcode Loterij
+    and VriendenLoterij, identified by matching participant records at
+    address/postcode level. Excludes single-brand households. It measures
+    cross-brand penetration and informs shared-CRM cross-sell strategy and
+    cannibalisation risk. Sensitive to matching quality and to cross-brand
+    campaign activity. Reported by the Data & Analytics Team as part of the
+    group participant model.
+  synonyms:
+    - cross-brand overlap
+  unit: count
+  status: Approved
+  period: Annual
+  businessOwner: Data & Analytics Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula: null
+  slices:
+    - PARTICIPANT_BK
+    - POSTCODE
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - Cross-Brand

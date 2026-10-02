@@ -1,0 +1,57 @@
+sourceImplementations:
+  - source: CRM_SHARED
+    platform: sf-postcodeloterij
+    name: DIM_CAMPAIGN
+    physicalId: POSTCODELOTERIJ.SAMPLE.DIM_CAMPAIGN
+    description: Campaign stand-in.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: DIM_CAMPAIGN
+    metadata: null
+  - source: CRM_SHARED
+    platform: sf-postcodeloterij
+    name: DIM_CHANNEL
+    physicalId: POSTCODELOTERIJ.SAMPLE.DIM_CHANNEL
+    description: Acquisition and service channel stand-in.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: DIM_CHANNEL
+    metadata: null
+  - source: CRM_SHARED
+    platform: sf-postcodeloterij
+    name: DIM_PARTICIPANT
+    physicalId: POSTCODELOTERIJ.SAMPLE.DIM_PARTICIPANT
+    description: Participant system-of-record stand-in for the shared CRM.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: DIM_PARTICIPANT
+    metadata: null
+  - source: CRM_SHARED
+    platform: sf-postcodeloterij
+    name: FCT_SUBSCRIPTION_EVENT
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_SUBSCRIPTION_EVENT
+    description: Acquire, cancel, upgrade and payment_failed events.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_SUBSCRIPTION_EVENT
+    metadata: null
+  - source: CRM_SHARED
+    platform: sf-postcodeloterij
+    name: FCT_TICKET_DRAW.TICKET_ID
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_TICKET_DRAW.TICKET_ID
+    description: Subscription / lot identifier on billed draws.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_TICKET_DRAW
+      column: TICKET_ID
+    metadata: null

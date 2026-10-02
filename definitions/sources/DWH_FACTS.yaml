@@ -1,0 +1,13 @@
+source:
+  name: Analytics Warehouse Fact Layer
+  identifier: DWH_FACTS
+  description: "Curated warehouse fact tables (FCT_FINANCE_MONTH, FCT_TICKET_DRAW,
+    FCT_SUBSCRIPTION_EVENT, FCT_PRIZE, FCT_VIP_REDEMPTION). Modeling rule: never
+    sum inleg from FINANCE and TICKET_DRAW facts in one query."
+  synonyms:
+    - DWH
+    - Fact Tables
+  type: data-warehouse
+  tags:
+    - Participant-Growth
+    - Prize-Economics

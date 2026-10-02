@@ -1,0 +1,25 @@
+slice:
+  name: Ticket / Subscription
+  identifier: SUBSCRIPTION_BK
+  description: Grain of a recurring lot (lot) held by a participant, defining
+    product tier, brand, status and the stake collected each draw. Basis for
+    tickets in play and inleg identity (tickets × price).
+  synonyms:
+    - Lot
+    - Recurring Lot
+    - Subscription
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: CRM_SHARED
+  release: null
+  values: null
+  rollsUpTo:
+    - CAMPAIGN_BK
+    - CHANNEL
+    - LOTTERY_BRAND
+    - PARTICIPANT_BK
+    - PRODUCT_TIER
+    - SUBSCRIPTION_STATUS
+  tags:
+    - Participant-Growth

@@ -1,0 +1,37 @@
+metric:
+  name: Gross Prize Value
+  identifier: gross_prize_value
+  description: Consumer-facing value of all prizes awarded across draws, including
+    cash prizes, goods and experiences valued at retail. Segmented by prize,
+    draw, draw type and brand. Excludes supplier in-kind discounts that reduce
+    actual cost and excludes gaming tax. Gross prize value is what participants
+    perceive as winnable and is used to compute the prize payout ratio; after
+    subtracting supplier discounts it yields net prize cost. Sensitive to
+    jackpot design, special draws (e.g. PostcodeKanjer) and in-kind
+    sponsorships.
+  synonyms:
+    - prijzengeld
+    - prize value
+  unit: EUR
+  status: Implemented
+  period: Monthly
+  businessOwner: Lottery Operations & Draw Team
+  implementationOwner: null
+  source: DRAW_PRIZE_ENGINE
+  release: null
+  formula: null
+  slices:
+    - DRAW_BK
+    - DRAW_TYPE
+    - LOTTERY_BRAND
+    - MONTH
+    - PRIZE_BK
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - net_prize_cost
+    - prize_payout_ratio
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - prizes

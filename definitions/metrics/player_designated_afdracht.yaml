@@ -1,0 +1,37 @@
+metric:
+  name: Player-Designated Afdracht
+  identifier: player_designated_afdracht
+  description: Portion of VriendenLoterij afdracht steered to the beneficiary
+    personally chosen by each participant (player-choice mechanic). Segmented by
+    beneficiary, allocation and participant. Included within total afdracht but
+    tracked separately to show participant-directed impact. Excludes freely
+    allocated proceeds decided by the Toekenningenraad. Sensitive to participant
+    designation behaviour and to which partner clubs and causes are promoted,
+    and it distinguishes VriendenLoterij's model from Nationale Postcode
+    Loterij.
+  synonyms:
+    - player-choice afdracht
+  unit: EUR
+  status: Implemented
+  period: Annual
+  businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad support)
+  implementationOwner: null
+  source: DIM_BENEFICIARY
+  release: null
+  formula: null
+  slices:
+    - ALLOCATION_BK
+    - BENEFICIARY_BK
+    - PARTICIPANT_BK
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics: []
+  impactedMetrics:
+    - metric: afdracht
+      reason: Player-designated amounts are a component of the total afdracht to good
+        causes.
+  impactingMetrics: []
+  tags:
+    - afdracht
+    - VriendenLoterij

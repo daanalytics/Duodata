@@ -1,0 +1,34 @@
+metric:
+  name: Kosten Eigen Organisatie (Operating Cost)
+  identifier: operating_cost
+  description: Own-organisation operating costs of running the lotteries,
+    including personnel, media and marketing, IT, draw operations and overhead,
+    per legal entity and brand. Excludes prize cost, gaming tax and afdracht. It
+    is divided by gross inleg to produce the organisation cost ratio, a key
+    efficiency measure for a non-profit lottery, and it reduces the net result.
+    Sensitive to acquisition spend intensity, campaign timing and shared
+    back-office allocation between the two brands.
+  synonyms:
+    - kosten eigen organisatie
+    - opex
+  unit: EUR
+  status: Implemented
+  period: Monthly
+  businessOwner: Finance Team
+  implementationOwner: null
+  source: FIN_LEDGER
+  release: null
+  formula: null
+  slices:
+    - LEGAL_ENTITY
+    - LOTTERY_BRAND
+    - MONTH
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - net_result
+    - organisation_cost_ratio
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - cost

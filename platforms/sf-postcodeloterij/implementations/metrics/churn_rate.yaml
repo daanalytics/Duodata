@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: churn_rate
+    platform: sf-postcodeloterij
+    name: churn_rate
+    physicalId: null
+    description: Derived from cancellations and active_participants.
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: cancellations / active_participants

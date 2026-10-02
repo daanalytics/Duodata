@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: afdracht_per_participant
+    platform: sf-postcodeloterij
+    name: afdracht_per_participant
+    physicalId: null
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: afdracht / active_participants

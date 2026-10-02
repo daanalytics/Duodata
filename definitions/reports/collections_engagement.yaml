@@ -1,0 +1,39 @@
+report:
+  name: Collections & Participant Engagement Report
+  identifier: collections_engagement
+  description: >-
+    Operational report for the Finance and CRM teams monitoring recurring
+    direct-debit performance and VriendenLoterij VIP-KAART engagement against
+    the active base. It presents successful and attempted collections, the
+    collection success rate and VIP-KAART redemptions.
+
+
+    Reviewed frequently to detect incasso deterioration that erodes realised
+    inleg and drives involuntary churn, and to gauge engagement value. Decisions
+    include mandate-repair campaigns, dunning strategy and VIP venue
+    partnerships.
+  synonyms:
+    - incasso report
+  questions:
+    - What is the current direct-debit collection success rate?
+    - How many collection attempts failed and why?
+    - Are VIP-KAART redemptions growing among active participants?
+    - Is collection failure a leading indicator of churn?
+  status: Proposed
+  refreshPeriod: Weekly
+  businessOwner: null
+  implementationOwner: null
+  release: null
+  metrics:
+    - active_participants
+    - attempted_collections
+    - collection_success_rate
+    - successful_collections
+    - vip_kaart_redemptions
+  slices:
+    - CHANNEL
+    - MONTH
+    - PAYMENT_STATUS
+  tags:
+    - collections
+    - engagement

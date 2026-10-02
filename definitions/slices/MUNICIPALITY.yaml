@@ -1,0 +1,17 @@
+slice:
+  name: Municipality
+  identifier: MUNICIPALITY
+  description: Geography level aggregating neighbourhoods into Dutch
+    municipalities (gemeenten).
+  synonyms:
+    - Gemeente
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values: null
+  rollsUpTo:
+    - PROVINCE
+  tags:
+    - Participant-Growth

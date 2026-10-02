@@ -1,0 +1,35 @@
+metric:
+  name: New Participants (Acquisitions)
+  identifier: new_participants
+  description: Count of newly acquired subscribers who started at least one
+    recurring lot in the period, attributed to campaign, channel and acquisition
+    cohort. Includes reactivations only where a fresh subscription is created;
+    excludes existing subscribers adding extra lots. It feeds net participant
+    growth and is the volume base for CAC per ticket. Highly sensitive to
+    campaign spend, door-to-door and media activity, and to product-tier
+    promotions. A core input to the participant growth model.
+  synonyms:
+    - acquisitions
+  unit: count
+  status: Implemented
+  period: Monthly
+  businessOwner: CRM & Participant Team
+  implementationOwner: null
+  source: CRM_SHARED
+  release: null
+  formula: null
+  slices:
+    - CAMPAIGN_BK
+    - CHANNEL
+    - COHORT
+    - MONTH
+    - PARTICIPANT_BK
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - cac_per_ticket
+    - net_participant_growth
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - growth

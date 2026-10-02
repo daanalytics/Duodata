@@ -1,0 +1,22 @@
+slice:
+  name: Payment Status
+  identifier: PAYMENT_STATUS
+  description: Dimension of the outcome of a recurring collection attempt,
+    underpinning direct-debit success and collection-rate measures.
+  synonyms:
+    - Collection Status
+    - Incasso Status
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - Successful
+    - Failed
+    - Retried
+    - Cancelled
+  rollsUpTo:
+    - LOTTERY_BRAND
+  tags:
+    - Participant-Growth

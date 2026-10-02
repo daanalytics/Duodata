@@ -1,0 +1,12 @@
+metricImplementations:
+  - metric: plus_premium_mix
+    platform: sf-postcodeloterij
+    name: plus_premium_mix
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_TICKET_DRAW
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_TICKET_DRAW
+    technicalRule: DIV0NULL(COUNT_IF(DIM_PRODUCT.IS_UPGRADE), COUNT(*))

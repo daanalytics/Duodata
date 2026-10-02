@@ -1,0 +1,33 @@
+metric:
+  name: Kansspelbelasting (Gaming Tax)
+  identifier: kansspelbelasting
+  description: Dutch gaming tax remitted by the lottery on prizes exceeding the
+    statutory threshold (34.2% in 2025, rising to 37.8% in 2026). Segmented by
+    prize and brand. This is a genuine cash outflow that reduces the net result
+    but sits alongside, not ahead of, the 40% afdracht obligation. Excludes
+    corporate taxes and VAT. Highly sensitive to the tax rate change and to the
+    volume and size of taxable prizes, especially large jackpot events.
+  synonyms:
+    - KSB
+    - gaming tax
+  unit: EUR
+  status: Implemented
+  period: Monthly
+  businessOwner: Finance Team
+  implementationOwner: null
+  source: FIN_LEDGER
+  release: null
+  formula: null
+  slices:
+    - LOTTERY_BRAND
+    - MONTH
+    - PRIZE_BK
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - net_result
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - licence
+    - tax

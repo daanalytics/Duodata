@@ -1,0 +1,42 @@
+report:
+  name: Financial Result & Cost Efficiency Report
+  identifier: financial_result_cost
+  description: >-
+    Finance report supporting the Dutch statutory annual accounts (per N.V.) and
+    group reporting, presenting lottery income, operating cost, cost ratio,
+    prize cost, gaming tax and the near-zero net result and margin per legal
+    entity.
+
+
+    Audience is the Finance Team and Statutory Executive Board; cadence is
+    annual with quarterly review. Decisions include cost-efficiency targets,
+    back-office allocation between brands and confirmation of the no-profit
+    financial model.
+  synonyms:
+    - statutory finance report
+  questions:
+    - What is the organisation cost ratio versus gross inleg this year?
+    - Is the net result close to zero as the non-profit model intends?
+    - How much did net prize cost and gaming tax weigh on the result?
+    - How does the cost ratio compare across legal entities and brands?
+  status: Proposed
+  refreshPeriod: Annual
+  businessOwner: null
+  implementationOwner: null
+  release: null
+  metrics:
+    - baten_uit_loterij
+    - gross_inleg
+    - kansspelbelasting
+    - net_prize_cost
+    - net_result
+    - net_result_margin
+    - operating_cost
+    - organisation_cost_ratio
+  slices:
+    - LEGAL_ENTITY
+    - LOTTERY_BRAND
+    - YEAR
+  tags:
+    - finance
+    - statutory

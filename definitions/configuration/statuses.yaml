@@ -1,0 +1,17 @@
+statuses:
+  - name: Proposed
+    color: "#8896a6"
+    sort_order: 1
+    description: null
+  - name: Approved
+    color: "#f2a900"
+    sort_order: 2
+    description: null
+  - name: Implemented
+    color: "#2e8b57"
+    sort_order: 3
+    description: null
+  - name: Obsolete
+    color: "#b0453a"
+    sort_order: 4
+    description: null

@@ -1,0 +1,67 @@
+metric:
+  name: Net Result (Resultaat)
+  identifier: net_result
+  description: Statutory net result, computed as lottery income minus afdracht,
+    net prize cost, gaming tax and operating cost. By design it is near zero for
+    the non-profit charity lottery because there is no dividend and proceeds
+    flow to good causes rather than profit. It is presented in the Dutch
+    statutory annual accounts. Sensitive to timing differences between income
+    recognition and allocation. Divided by lottery income it yields the net
+    result margin.
+  synonyms:
+    - resultaat
+  unit: EUR
+  status: Implemented
+  period: Annual
+  businessOwner: Finance Team
+  implementationOwner: null
+  source: FIN_LEDGER
+  release: null
+  formula:
+    pretty: baten_uit_loterij - afdracht - net_prize_cost - kansspelbelasting -
+      operating_cost
+    variables:
+      - baten_uit_loterij
+      - afdracht
+      - net_prize_cost
+      - kansspelbelasting
+      - operating_cost
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: baten_uit_loterij
+        - type: operator
+          value: "-"
+        - type: metric
+          value: afdracht
+        - type: operator
+          value: "-"
+        - type: metric
+          value: net_prize_cost
+        - type: operator
+          value: "-"
+        - type: metric
+          value: kansspelbelasting
+        - type: operator
+          value: "-"
+        - type: metric
+          value: operating_cost
+  slices:
+    - LEGAL_ENTITY
+    - LOTTERY_BRAND
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics:
+    - afdracht
+    - baten_uit_loterij
+    - kansspelbelasting
+    - net_prize_cost
+    - operating_cost
+  downstreamMetrics:
+    - net_result_margin
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - statutory

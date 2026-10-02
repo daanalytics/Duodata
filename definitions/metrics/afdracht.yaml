@@ -1,0 +1,44 @@
+metric:
+  name: Afdracht to Good Causes
+  identifier: afdracht
+  description: Total funds transferred to good causes from lottery proceeds, the
+    north-star metric of the charity subscription lottery. Measured per
+    beneficiary, allocation and theme; includes both freely allocated and
+    player-designated amounts. Excludes prize payouts, gaming tax and
+    organisation costs, which sit alongside afdracht rather than being netted
+    through it. By licence at least 40% of gross inleg must become afdracht each
+    calendar year. It drives afdracht percentage, ANBI share and afdracht per
+    participant, and is the group's core purpose measure.
+  synonyms:
+    - charity contribution
+    - proceeds to beneficiaries
+  unit: EUR
+  status: Implemented
+  period: Annual
+  businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad support)
+  implementationOwner: null
+  source: DIM_BENEFICIARY
+  release: null
+  formula: null
+  slices:
+    - ALLOCATION_BK
+    - ALLOCATION_THEME
+    - BENEFICIARY_BK
+    - LOTTERY_BRAND
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - afdracht_headroom
+    - afdracht_pct
+    - afdracht_per_participant
+    - anbi_share
+    - net_result
+  impactedMetrics: []
+  impactingMetrics:
+    - metric: player_designated_afdracht
+      reason: Player-designated amounts are a component of the total afdracht to good
+        causes.
+  tags:
+    - licence
+    - northstar

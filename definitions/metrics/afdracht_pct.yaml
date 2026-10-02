@@ -1,0 +1,48 @@
+metric:
+  name: Afdracht Percentage
+  identifier: afdracht_pct
+  description: Ratio of afdracht to gross inleg, the licence-critical contribution
+    rate that must be at least 40% per calendar year for a charity lottery. This
+    is the headline measure of how much of every euro staked reaches good
+    causes; 2024 combined was roughly 42%. Excludes prize and cost effects
+    except through their impact on the numerator and denominator. Highly
+    sensitive to inleg growth outpacing allocation timing and to special-year
+    effects. It is the single most scrutinised KSA compliance figure.
+  synonyms:
+    - contribution rate
+    - payout-to-charity %
+  unit: "%"
+  status: Implemented
+  period: Calendar Year (Licence)
+  businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad support)
+  implementationOwner: null
+  source: DIM_BENEFICIARY
+  release: null
+  formula:
+    pretty: afdracht / gross_inleg
+    variables:
+      - afdracht
+      - gross_inleg
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: afdracht
+        - type: operator
+          value: /
+        - type: metric
+          value: gross_inleg
+  slices:
+    - LOTTERY_BRAND
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics:
+    - afdracht
+    - gross_inleg
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - kpi
+    - licence

@@ -1,0 +1,13 @@
+metricImplementations:
+  - metric: afdracht_pct
+    platform: sf-postcodeloterij
+    name: FCT_FINANCE_MONTH.AFDRACHT_PCT
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_FINANCE_MONTH.AFDRACHT_PCT
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_FINANCE_MONTH
+      column: AFDRACHT_PCT
+    technicalRule: DIV0NULL(SUM(AFDRACHT_EUR), SUM(INLEG_EUR))

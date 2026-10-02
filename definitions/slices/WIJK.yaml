@@ -1,0 +1,18 @@
+slice:
+  name: Neighbourhood (Wijk)
+  identifier: WIJK
+  description: Geography level aggregating postcodes into neighbourhoods for local
+    win and community analysis.
+  synonyms:
+    - Wijk
+    - Neighbourhood
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values: null
+  rollsUpTo:
+    - MUNICIPALITY
+  tags:
+    - Prize-Economics

@@ -1,0 +1,47 @@
+metric:
+  name: Net Prize Cost
+  identifier: net_prize_cost
+  description: Actual cost of prizes borne by the lottery, computed as gross prize
+    value minus in-kind supplier discounts. It reflects real cash and goods
+    outflow after sponsorships, and feeds the statutory net result. Excludes
+    gaming tax, which is tracked separately. Sensitive to the proportion of
+    in-kind versus cash prizes and to supplier deal quality. Distinct from the
+    consumer-facing gross prize value used for perception and payout ratio.
+  synonyms:
+    - net cost of prizes
+  unit: EUR
+  status: Implemented
+  period: Monthly
+  businessOwner: Finance Team
+  implementationOwner: null
+  source: FIN_LEDGER
+  release: null
+  formula:
+    pretty: gross_prize_value - in_kind_supplier_discount
+    variables:
+      - gross_prize_value
+      - in_kind_supplier_discount
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: gross_prize_value
+        - type: operator
+          value: "-"
+        - type: metric
+          value: in_kind_supplier_discount
+  slices:
+    - DRAW_TYPE
+    - LOTTERY_BRAND
+    - MONTH
+  excludedSlices: []
+  upstreamMetrics:
+    - gross_prize_value
+    - in_kind_supplier_discount
+  downstreamMetrics:
+    - net_result
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - prizes

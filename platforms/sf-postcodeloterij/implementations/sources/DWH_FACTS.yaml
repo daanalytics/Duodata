@@ -1,0 +1,57 @@
+sourceImplementations:
+  - source: DWH_FACTS
+    platform: sf-postcodeloterij
+    name: FCT_FINANCE_MONTH
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_FINANCE_MONTH
+    description: Official money-split by lottery-month. Do not add INLEG_EUR to
+      FCT_TICKET_DRAW.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_FINANCE_MONTH
+    metadata: null
+  - source: DWH_FACTS
+    platform: sf-postcodeloterij
+    name: FCT_PRIZE
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_PRIZE
+    description: Prize awards.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_PRIZE
+    metadata: null
+  - source: DWH_FACTS
+    platform: sf-postcodeloterij
+    name: FCT_SUBSCRIPTION_EVENT
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_SUBSCRIPTION_EVENT
+    description: Subscription lifecycle events.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_SUBSCRIPTION_EVENT
+    metadata: null
+  - source: DWH_FACTS
+    platform: sf-postcodeloterij
+    name: FCT_TICKET_DRAW
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_TICKET_DRAW
+    description: Ticket x draw fact for participation and collection.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_TICKET_DRAW
+    metadata: null
+  - source: DWH_FACTS
+    platform: sf-postcodeloterij
+    name: FCT_VIP_REDEMPTION
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_VIP_REDEMPTION
+    description: VriendenLoterij VIP-KAART visits.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_VIP_REDEMPTION
+    metadata: null

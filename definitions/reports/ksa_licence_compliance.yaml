@@ -1,0 +1,46 @@
+report:
+  name: KSA Licence & Afdracht Compliance Report
+  identifier: ksa_licence_compliance
+  description: >-
+    Regulatory compliance report prepared for the Kansspelautoriteit and the
+    Statutory Executive Board, evidencing that the charity-lottery licence
+    obligations are met each calendar year. It presents gross inleg, afdracht
+    and the afdracht percentage against the 40% floor, the ANBI share against
+    the 80% requirement, prize disclosure and gaming-tax remittance.
+
+
+    Used to sign off the KSA licence filing and to trigger any year-end
+    corrective allocation to good causes when compliance headroom is thin.
+    Decisions include timing of afdracht top-ups and beneficiary ANBI
+    verification.
+  synonyms:
+    - licence report
+  questions:
+    - Did each brand exceed the 40% afdracht floor this calendar year, and by
+      how much headroom?
+    - Is at least 80% of afdracht flowing to ANBI-registered beneficiaries?
+    - How much gaming tax was remitted on prizes above the threshold?
+    - What is the prize payout ratio relative to gross inleg?
+  status: Proposed
+  refreshPeriod: Calendar Year (Licence)
+  businessOwner: null
+  implementationOwner: null
+  release: null
+  metrics:
+    - afdracht
+    - afdracht_headroom
+    - afdracht_pct
+    - anbi_afdracht
+    - anbi_share
+    - gross_inleg
+    - gross_prize_value
+    - kansspelbelasting
+    - min_required_afdracht
+    - prize_payout_ratio
+  slices:
+    - ANBI_STATUS
+    - LOTTERY_BRAND
+    - YEAR
+  tags:
+    - compliance
+    - licence

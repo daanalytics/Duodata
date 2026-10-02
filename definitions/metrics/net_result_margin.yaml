@@ -1,0 +1,47 @@
+metric:
+  name: Net Result Margin
+  identifier: net_result_margin
+  description: Net result as a share of lottery income, computed as net result
+    divided by baten uit loterij. For the charity lottery this should hover near
+    zero, confirming the no-profit, no-dividend model where surplus is directed
+    to good causes. A material deviation signals timing mismatches or unusual
+    events. Excludes group consolidation effects. A three-hop derived metric
+    that builds on the net result to communicate financial neutrality to the
+    board and regulators.
+  synonyms:
+    - result margin
+  unit: "%"
+  status: Approved
+  period: Annual
+  businessOwner: Finance Team
+  implementationOwner: null
+  source: FIN_LEDGER
+  release: null
+  formula:
+    pretty: net_result / baten_uit_loterij
+    variables:
+      - net_result
+      - baten_uit_loterij
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: net_result
+        - type: operator
+          value: /
+        - type: metric
+          value: baten_uit_loterij
+  slices:
+    - LEGAL_ENTITY
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics:
+    - baten_uit_loterij
+    - net_result
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - kpi
+    - statutory

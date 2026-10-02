@@ -1,0 +1,20 @@
+slice:
+  name: Participant Type
+  identifier: PARTICIPANT_TYPE
+  description: Dimension classifying participants as newly acquired versus
+    existing, supporting new vs churn net-growth analysis.
+  synonyms:
+    - New vs Existing
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - New
+    - Existing
+    - Reactivated
+  rollsUpTo:
+    - LOTTERY_BRAND
+  tags:
+    - Participant-Growth

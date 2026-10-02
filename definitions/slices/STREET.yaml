@@ -1,0 +1,17 @@
+slice:
+  name: Street
+  identifier: STREET
+  description: Lowest geography level; the street-level unit used for NPL
+    street-prize win logic.
+  synonyms:
+    - Straat
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values: null
+  rollsUpTo:
+    - POSTCODE
+  tags:
+    - Prize-Economics

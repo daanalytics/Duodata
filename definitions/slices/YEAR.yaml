@@ -1,0 +1,18 @@
+slice:
+  name: Calendar Year
+  identifier: YEAR
+  description: Top calendar time level and the licence period against which the
+    ≥40% afdracht floor and ≥80% ANBI share are assessed.
+  synonyms:
+    - Licence Year
+    - Calendar Year
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values: null
+  rollsUpTo: []
+  tags:
+    - Afdracht-Floor
+    - KSA-Licence

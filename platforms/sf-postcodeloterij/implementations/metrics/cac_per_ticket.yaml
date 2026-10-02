@@ -1,0 +1,10 @@
+metricImplementations:
+  - metric: cac_per_ticket
+    platform: sf-postcodeloterij
+    name: cac_per_ticket
+    physicalId: null
+    description: Wervingskosten is monthly and acquisitions are events; modelled,
+      not accounting-grade.
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: cac_total / new_participants

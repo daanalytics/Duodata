@@ -1,0 +1,9 @@
+sliceImplementations:
+  - slice: COUNTRY
+    platform: sf-postcodeloterij
+    name: COUNTRY
+    physicalId: "'Netherlands'"
+    description: No country column; sample is NL-only.
+    deepLink: null
+    schemaObjectRef: null
+    values: null

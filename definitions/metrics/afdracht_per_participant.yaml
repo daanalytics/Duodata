@@ -1,0 +1,46 @@
+metric:
+  name: Afdracht per Participant
+  identifier: afdracht_per_participant
+  description: Average good-cause contribution generated per active participant,
+    computed as total afdracht divided by active participants. It expresses the
+    societal impact each subscriber enables and links participation growth to
+    charitable outcome. Excludes prize and cost effects. Sensitive to tier mix,
+    tickets per participant and pricing. Useful for communicating participant
+    impact and for modelling the afdracht consequences of base growth.
+  synonyms:
+    - impact per subscriber
+  unit: EUR
+  status: Approved
+  period: Annual
+  businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad support)
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula:
+    pretty: afdracht / active_participants
+    variables:
+      - afdracht
+      - active_participants
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: afdracht
+        - type: operator
+          value: /
+        - type: metric
+          value: active_participants
+  slices:
+    - LOTTERY_BRAND
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics:
+    - active_participants
+    - afdracht
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - impact
+    - kpi

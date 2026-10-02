@@ -1,0 +1,12 @@
+source:
+  name: Recurring Collections (Incasso) System
+  identifier: INCASSO_SYS
+  description: Direct-debit and recurring collections platform managing periodic
+    ticket stake collection and payment success/failure/retry status per
+    subscription.
+  synonyms:
+    - Direct Debit
+    - Incasso
+  type: operational-system
+  tags:
+    - Participant-Growth

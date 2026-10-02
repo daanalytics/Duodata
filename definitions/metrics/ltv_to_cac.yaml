@@ -1,0 +1,47 @@
+metric:
+  name: LTV-to-CAC Ratio
+  identifier: ltv_to_cac
+  description: Ratio of ticket lifetime value to CAC per ticket, indicating
+    whether the expected value of an acquired lot exceeds its acquisition cost.
+    It guides channel and campaign investment decisions within the participant
+    growth model; a healthy ratio supports sustainable base expansion and future
+    afdracht. Sensitive to churn assumptions in LTV and to acquisition-cost
+    inflation. A three-hop derived metric building on cohort economics.
+  synonyms:
+    - LTV/CAC
+  unit: ratio
+  status: Approved
+  period: Annual
+  businessOwner: Data & Analytics Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula:
+    pretty: ticket_ltv / cac_per_ticket
+    variables:
+      - ticket_ltv
+      - cac_per_ticket
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: ticket_ltv
+        - type: operator
+          value: /
+        - type: metric
+          value: cac_per_ticket
+  slices:
+    - COHORT
+    - LOTTERY_BRAND
+    - PRODUCT_TIER
+  excludedSlices: []
+  upstreamMetrics:
+    - cac_per_ticket
+    - ticket_ltv
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - growth
+    - kpi

@@ -1,0 +1,41 @@
+report:
+  name: Charity Allocation & Beneficiary Impact Report
+  identifier: charity_allocation_impact
+  description: >-
+    Prepared for the Toekenningenraad support team and the Charities &
+    Beneficiary Allocation Team to steer annual allocation decisions across
+    themes and beneficiary types. It shows total afdracht, ANBI share, the
+    number of partners funded, player-designated afdracht at VriendenLoterij,
+    per-participant impact and compliance headroom.
+
+
+    Audience is the allocation committee and board; cadence is annual around the
+    allocation cycle. Decisions include portfolio breadth versus concentration,
+    structural-partner renewals and communicating participant impact.
+  synonyms:
+    - beneficiary report
+  questions:
+    - How is afdracht distributed across allocation themes and beneficiary types?
+    - How many good-cause partners were funded this year?
+    - What share of VriendenLoterij afdracht was player-designated?
+    - How much good-cause funding did the average participant enable?
+  status: Proposed
+  refreshPeriod: Annual
+  businessOwner: null
+  implementationOwner: null
+  release: null
+  metrics:
+    - afdracht
+    - afdracht_headroom
+    - afdracht_per_participant
+    - anbi_share
+    - partners_funded
+    - player_designated_afdracht
+  slices:
+    - ALLOCATION_THEME
+    - BENEFICIARY_TYPE
+    - LOTTERY_BRAND
+    - YEAR
+  tags:
+    - allocation
+    - impact

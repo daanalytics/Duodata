@@ -1,0 +1,47 @@
+report:
+  name: Participant Growth & Retention Report
+  identifier: participant_growth_retention
+  description: >-
+    Operational growth dashboard for the CRM & Participant Team and Data &
+    Analytics Team, tracking the health of the subscriber base across brands,
+    channels and cohorts. It combines the active base, acquisitions,
+    cancellations, net growth and churn with participation depth and acquisition
+    economics.
+
+
+    Reviewed monthly to steer campaign investment, upsell efforts and retention
+    interventions, and to monitor cross-brand household overlap. Decisions
+    include channel budget allocation and tier-upsell prioritisation.
+  synonyms:
+    - growth dashboard
+  questions:
+    - Is net participant growth positive across brands and channels?
+    - How does CAC per ticket compare to ticket lifetime value by cohort?
+    - Which channels drive the highest churn?
+    - How large is the NPL–VL household overlap?
+  status: Proposed
+  refreshPeriod: Monthly
+  businessOwner: null
+  implementationOwner: null
+  release: null
+  metrics:
+    - active_participants
+    - cac_per_ticket
+    - cac_total
+    - cancellations
+    - churn_rate
+    - household_overlap
+    - ltv_to_cac
+    - net_participant_growth
+    - new_participants
+    - ticket_ltv
+    - tickets_in_play
+    - tickets_per_participant
+  slices:
+    - CHANNEL
+    - COHORT
+    - LOTTERY_BRAND
+    - MONTH
+  tags:
+    - growth
+    - retention

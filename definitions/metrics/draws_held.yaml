@@ -1,0 +1,31 @@
+metric:
+  name: Draws Held
+  identifier: draws_held
+  description: Count of lottery draws conducted in the period across both brands,
+    segmented by draw type (regular monthly, special, jackpot) and brand.
+    Excludes cancelled or rescheduled draws. It contextualises prize value and
+    participation, and is an operational throughput measure for the Lottery
+    Operations & Draw Team. Sensitive to the draw calendar and special-event
+    scheduling such as the PostcodeKanjer.
+  synonyms:
+    - number of draws
+  unit: count
+  status: Implemented
+  period: Monthly
+  businessOwner: Lottery Operations & Draw Team
+  implementationOwner: null
+  source: DRAW_PRIZE_ENGINE
+  release: null
+  formula: null
+  slices:
+    - DRAW_BK
+    - DRAW_TYPE
+    - LOTTERY_BRAND
+    - MONTH
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - operations

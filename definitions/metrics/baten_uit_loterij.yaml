@@ -1,0 +1,33 @@
+metric:
+  name: Baten uit Loterij (Lottery Income)
+  identifier: baten_uit_loterij
+  description: Statutory lottery income recognised under Dutch GAAP (RJ 640
+    fundraising guidance), representing revenue from lottery participation per
+    legal entity and brand for the annual accounts. It differs from gross inleg
+    by recognition timing and statutory presentation. It is the base for the net
+    result and net result margin, which for a non-profit lottery are designed to
+    be near zero because proceeds flow to good causes rather than shareholders.
+    Sensitive to subscriber volume, pricing and accounting cut-off.
+  synonyms:
+    - lottery income
+  unit: EUR
+  status: Implemented
+  period: Annual
+  businessOwner: Finance Team
+  implementationOwner: null
+  source: FIN_LEDGER
+  release: null
+  formula: null
+  slices:
+    - LEGAL_ENTITY
+    - LOTTERY_BRAND
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - net_result
+    - net_result_margin
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - statutory

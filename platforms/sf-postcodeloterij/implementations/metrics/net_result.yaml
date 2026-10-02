@@ -1,0 +1,13 @@
+metricImplementations:
+  - metric: net_result
+    platform: sf-postcodeloterij
+    name: FCT_FINANCE_MONTH.RESULT_EUR
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_FINANCE_MONTH.RESULT_EUR
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_FINANCE_MONTH
+      column: RESULT_EUR
+    technicalRule: SUM(RESULT_EUR)

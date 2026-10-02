@@ -1,0 +1,13 @@
+sliceImplementations:
+  - slice: QUARTER
+    platform: sf-postcodeloterij
+    name: DIM_DATE.QUARTER
+    physicalId: POSTCODELOTERIJ.SAMPLE.DIM_DATE.QUARTER
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: DIM_DATE
+      column: QUARTER
+    values: null

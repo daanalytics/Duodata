@@ -1,0 +1,15 @@
+sliceImplementations:
+  - slice: ANBI_STATUS
+    platform: sf-postcodeloterij
+    name: DIM_BENEFICIARY.IS_ANBI
+    physicalId: POSTCODELOTERIJ.SAMPLE.DIM_BENEFICIARY.IS_ANBI
+    description: "Value map: TRUE → ANBI-Registered, FALSE → Non-ANBI."
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: DIM_BENEFICIARY
+      column: IS_ANBI
+    values:
+      - "TRUE"
+      - "FALSE"

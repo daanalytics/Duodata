@@ -1,0 +1,23 @@
+slice:
+  name: Allocation Theme
+  identifier: ALLOCATION_THEME
+  description: Dimension of the mission theme under which proceeds are allocated
+    to beneficiaries across the two brands.
+  synonyms:
+    - Mission Theme
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - Greener World
+    - Fairer World
+    - Healthier World
+    - Culture
+    - Sport
+    - Wellbeing
+  rollsUpTo:
+    - LOTTERY_BRAND
+  tags:
+    - Toekenningenraad

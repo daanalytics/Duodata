@@ -1,0 +1,12 @@
+reportImplementations:
+  - report: draw_prize_product_mix
+    platform: sf-postcodeloterij
+    name: CHARITY_LOTTERIES
+    physicalId: POSTCODELOTERIJ.SAMPLE.CHARITY_LOTTERIES
+    description: FCT_TICKET_DRAW, FCT_PRIZE, DIM_DRAW and DIM_PRODUCT.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: CHARITY_LOTTERIES
+    platformUrl: null

@@ -1,0 +1,13 @@
+metricImplementations:
+  - metric: anbi_afdracht
+    platform: sf-postcodeloterij
+    name: anbi_afdracht
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_AFDRACHT.AFDRACHT_EUR
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_AFDRACHT
+      column: AFDRACHT_EUR
+    technicalRule: SUM(IFF(IS_ANBI, AFDRACHT_EUR, 0))

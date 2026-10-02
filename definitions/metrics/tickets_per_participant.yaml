@@ -1,0 +1,47 @@
+metric:
+  name: Tickets per Participant
+  identifier: tickets_per_participant
+  description: Average number of active lots held per active participant, computed
+    as tickets in play divided by active participants. It captures multi-lot
+    depth and upsell success, a key lever on inleg because more lots per
+    subscriber raises stakes without new acquisition. Excludes lapsed lots.
+    Sensitive to Plus/Premium promotions and to acquisition of low-lot new
+    subscribers that dilute the average.
+  synonyms:
+    - lots per person
+  unit: ratio
+  status: Implemented
+  period: Monthly
+  businessOwner: CRM & Participant Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula:
+    pretty: tickets_in_play / active_participants
+    variables:
+      - tickets_in_play
+      - active_participants
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: tickets_in_play
+        - type: operator
+          value: /
+        - type: metric
+          value: active_participants
+  slices:
+    - LOTTERY_BRAND
+    - MONTH
+    - PRODUCT_TIER
+  excludedSlices: []
+  upstreamMetrics:
+    - active_participants
+    - tickets_in_play
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - kpi
+    - participation

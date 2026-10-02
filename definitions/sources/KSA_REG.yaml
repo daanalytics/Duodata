@@ -1,0 +1,13 @@
+source:
+  name: Kansspelautoriteit Regulatory Data
+  identifier: KSA_REG
+  description: External regulatory reference for charity-lottery licence
+    obligations, gaming-tax rates and addiction-prevention policy requirements
+    published by the Dutch gaming authority.
+  synonyms:
+    - KSA
+    - Regulator Data
+  type: market-data
+  tags:
+    - KSA-Licence
+    - Responsible-Play

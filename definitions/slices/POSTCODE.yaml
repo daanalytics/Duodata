@@ -1,0 +1,19 @@
+slice:
+  name: Postcode
+  identifier: POSTCODE
+  description: Geography level of the Dutch postcode, the core Nationale Postcode
+    Loterij ticket and win mechanic (neighbours sharing a postcode win
+    together).
+  synonyms:
+    - Postal Code
+    - Postcodegebied
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values: null
+  rollsUpTo:
+    - WIJK
+  tags:
+    - Prize-Economics

@@ -1,0 +1,25 @@
+metricImplementations:
+  - metric: afdracht
+    platform: sf-postcodeloterij
+    name: FCT_AFDRACHT.AFDRACHT_EUR
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_AFDRACHT.AFDRACHT_EUR
+    description: Use this mapping when slicing by beneficiary, theme or allocation.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_AFDRACHT
+      column: AFDRACHT_EUR
+    technicalRule: SUM(AFDRACHT_EUR)
+  - metric: afdracht
+    platform: sf-postcodeloterij
+    name: FCT_FINANCE_MONTH.AFDRACHT_EUR
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_FINANCE_MONTH.AFDRACHT_EUR
+    description: Use this mapping for brand/year licence totals.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_FINANCE_MONTH
+      column: AFDRACHT_EUR
+    technicalRule: SUM(AFDRACHT_EUR)

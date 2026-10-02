@@ -1,0 +1,12 @@
+metricImplementations:
+  - metric: plus_premium_tickets
+    platform: sf-postcodeloterij
+    name: plus_premium_tickets
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_TICKET_DRAW
+    description: Join FCT_TICKET_DRAW to DIM_PRODUCT on PRODUCT_KEY.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_TICKET_DRAW
+    technicalRule: COUNT_IF(DIM_PRODUCT.IS_UPGRADE)

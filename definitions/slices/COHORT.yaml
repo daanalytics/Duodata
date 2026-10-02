@@ -1,0 +1,22 @@
+slice:
+  name: Acquisition Cohort
+  identifier: COHORT
+  description: Dimension grouping participants by acquisition period for
+    retention, ticket LTV and lifetime-value trend analysis.
+  synonyms:
+    - Cohort
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - 2021 Cohort
+    - 2022 Cohort
+    - 2023 Cohort
+    - 2024 Cohort
+    - 2025 Cohort
+  rollsUpTo:
+    - YEAR
+  tags:
+    - Participant-Growth

@@ -1,0 +1,20 @@
+slice:
+  name: VIP-KAART Visit
+  identifier: VIPVISIT_BK
+  description: Grain of a VriendenLoterij VIP-KAART redemption (VIP visit) by a
+    participant, tracking usage of the every-player VIP benefit.
+  synonyms:
+    - VIP Visit
+    - VIP-KAART Redemption
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  values: null
+  rollsUpTo:
+    - DAY
+    - LOTTERY_BRAND
+    - PARTICIPANT_BK
+  tags:
+    - Participant-Growth

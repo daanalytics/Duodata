@@ -1,0 +1,32 @@
+metric:
+  name: Attempted Recurring Collections
+  identifier: attempted_collections
+  description: Total recurring direct-debit collection attempts initiated in the
+    period across all mandates, per payment and status. Includes first attempts
+    and scheduled retries; excludes cancelled mandates never presented. It is
+    the denominator of the collection success rate. Sensitive to the size of the
+    active subscriber base and the collection calendar. Monitored by Finance to
+    ensure billing volume matches expected inleg and to detect processing
+    anomalies.
+  synonyms:
+    - collection attempts
+  unit: count
+  status: Implemented
+  period: Daily
+  businessOwner: Finance Team
+  implementationOwner: null
+  source: INCASSO_SYS
+  release: null
+  formula: null
+  slices:
+    - MONTH
+    - PAYMENT_BK
+    - PAYMENT_STATUS
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - collection_success_rate
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - collections

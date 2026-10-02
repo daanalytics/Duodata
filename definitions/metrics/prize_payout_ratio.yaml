@@ -1,0 +1,47 @@
+metric:
+  name: Prize Payout Ratio
+  identifier: prize_payout_ratio
+  description: Consumer-facing prize value as a share of gross inleg, computed as
+    gross prize value divided by gross inleg. For a charity lottery this sits
+    alongside the 40% afdracht floor rather than competing with it, and
+    communicates winnable value to participants. Excludes supplier discounts and
+    gaming tax. Sensitive to jackpot design and special draws. Watched by
+    operations to balance attractiveness against the afdracht objective.
+  synonyms:
+    - payout ratio
+  unit: "%"
+  status: Implemented
+  period: Monthly
+  businessOwner: Lottery Operations & Draw Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula:
+    pretty: gross_prize_value / gross_inleg
+    variables:
+      - gross_prize_value
+      - gross_inleg
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: gross_prize_value
+        - type: operator
+          value: /
+        - type: metric
+          value: gross_inleg
+  slices:
+    - DRAW_TYPE
+    - LOTTERY_BRAND
+    - MONTH
+  excludedSlices: []
+  upstreamMetrics:
+    - gross_inleg
+    - gross_prize_value
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - kpi
+    - prizes

@@ -1,0 +1,35 @@
+metric:
+  name: Cancellations (Opzeggingen)
+  identifier: cancellations
+  description: Count of subscribers who cancelled all their active lots in the
+    period, ending their participation with a brand. Includes voluntary
+    opzeggingen and involuntary terminations after repeated collection failure;
+    excludes temporary payment retries still in progress. It combines with new
+    participants to give net growth and with the active base to give churn rate.
+    Sensitive to price increases, prize-perception, and direct-debit
+    reliability. A key retention signal for the CRM & Participant Team.
+  synonyms:
+    - opzeggingen
+    - churned subscribers
+  unit: count
+  status: Implemented
+  period: Monthly
+  businessOwner: CRM & Participant Team
+  implementationOwner: null
+  source: CRM_SHARED
+  release: null
+  formula: null
+  slices:
+    - CHANNEL
+    - LOTTERY_BRAND
+    - MONTH
+    - PARTICIPANT_BK
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - churn_rate
+    - net_participant_growth
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - retention

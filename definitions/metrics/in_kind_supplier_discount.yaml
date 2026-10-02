@@ -1,0 +1,32 @@
+metric:
+  name: In-Kind Supplier Discount on Prizes
+  identifier: in_kind_supplier_discount
+  description: Value of discounts, sponsorships and in-kind supply that reduce the
+    actual cash cost of prizes below their consumer-facing gross value (e.g.
+    cars, holidays or goods provided below retail). Segmented by prize and draw.
+    This is subtracted from gross prize value to derive net prize cost, the
+    amount actually borne by the lottery. Excludes gaming tax. Sensitive to
+    supplier negotiations and the mix of physical versus cash prizes in each
+    draw.
+  synonyms:
+    - prize supplier discount
+  unit: EUR
+  status: Implemented
+  period: Monthly
+  businessOwner: Lottery Operations & Draw Team
+  implementationOwner: null
+  source: DRAW_PRIZE_ENGINE
+  release: null
+  formula: null
+  slices:
+    - DRAW_BK
+    - MONTH
+    - PRIZE_BK
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - net_prize_cost
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - prizes

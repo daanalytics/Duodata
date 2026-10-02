@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: ltv_to_cac
+    platform: sf-postcodeloterij
+    name: ltv_to_cac
+    physicalId: null
+    description: Blocked until ticket_ltv is modelled.
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: ticket_ltv / cac_per_ticket

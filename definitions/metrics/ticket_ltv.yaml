@@ -1,0 +1,32 @@
+metric:
+  name: Ticket Lifetime Value
+  identifier: ticket_ltv
+  description: Modelled expected lifetime value of an acquired lot, based on
+    average price, expected subscription duration and retention, net of
+    servicing, by cohort, tier and brand. Excludes acquisition cost, which is
+    compared separately. It is divided into by CAC per ticket to yield the
+    LTV-to-CAC ratio guiding acquisition decisions. Sensitive to churn
+    assumptions, tier mix and price changes. Produced by the Data & Analytics
+    Team within the participant growth model.
+  synonyms:
+    - lot LTV
+  unit: EUR
+  status: Approved
+  period: Annual
+  businessOwner: Data & Analytics Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula: null
+  slices:
+    - COHORT
+    - LOTTERY_BRAND
+    - PRODUCT_TIER
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - ltv_to_cac
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - growth

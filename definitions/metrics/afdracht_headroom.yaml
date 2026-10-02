@@ -1,0 +1,47 @@
+metric:
+  name: Afdracht Compliance Headroom
+  identifier: afdracht_headroom
+  description: Buffer between actual afdracht and the licence-floor minimum,
+    computed as afdracht minus minimum required afdracht. A positive value
+    confirms compliance with the 40% rule with margin; a negative value signals
+    licence risk requiring corrective allocation. Excludes ANBI-share
+    compliance. Sensitive to inleg growth timing versus allocation decisions.
+    Used by compliance to trigger year-end top-ups to good causes.
+  synonyms:
+    - licence headroom
+  unit: EUR
+  status: Approved
+  period: Calendar Year (Licence)
+  businessOwner: Responsible-Play & Compliance Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula:
+    pretty: afdracht - min_required_afdracht
+    variables:
+      - afdracht
+      - min_required_afdracht
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: afdracht
+        - type: operator
+          value: "-"
+        - type: metric
+          value: min_required_afdracht
+  slices:
+    - LOTTERY_BRAND
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics:
+    - afdracht
+    - min_required_afdracht
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - compliance
+    - kpi
+    - licence

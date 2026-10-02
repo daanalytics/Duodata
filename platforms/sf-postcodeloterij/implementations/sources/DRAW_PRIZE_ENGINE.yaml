@@ -1,0 +1,45 @@
+sourceImplementations:
+  - source: DRAW_PRIZE_ENGINE
+    platform: sf-postcodeloterij
+    name: DIM_DRAW
+    physicalId: POSTCODELOTERIJ.SAMPLE.DIM_DRAW
+    description: Official lottery draw.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: DIM_DRAW
+    metadata: null
+  - source: DRAW_PRIZE_ENGINE
+    platform: sf-postcodeloterij
+    name: DIM_PRIZE_TYPE
+    physicalId: POSTCODELOTERIJ.SAMPLE.DIM_PRIZE_TYPE
+    description: Prize catalogue.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: DIM_PRIZE_TYPE
+    metadata: null
+  - source: DRAW_PRIZE_ENGINE
+    platform: sf-postcodeloterij
+    name: FCT_PRIZE
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_PRIZE
+    description: One prize awarded to one participant.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_PRIZE
+    metadata: null
+  - source: DRAW_PRIZE_ENGINE
+    platform: sf-postcodeloterij
+    name: FCT_TICKET_DRAW
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_TICKET_DRAW
+    description: Ticket billed in a draw; tickets in play.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_TICKET_DRAW
+    metadata: null

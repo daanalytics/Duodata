@@ -1,0 +1,19 @@
+slice:
+  name: Campaign
+  identifier: CAMPAIGN_BK
+  description: Grain of an acquisition or retention marketing campaign
+    attributable to subscription events, used for CAC and channel-effectiveness
+    analysis.
+  synonyms:
+    - Marketing Campaign
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: CRM_SHARED
+  release: null
+  values: null
+  rollsUpTo:
+    - CHANNEL
+    - LOTTERY_BRAND
+  tags:
+    - Participant-Growth

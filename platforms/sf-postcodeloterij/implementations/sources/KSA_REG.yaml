@@ -1,0 +1,17 @@
+sourceImplementations:
+  - source: KSA_REG
+    platform: sf-postcodeloterij
+    name: KSA licence constants
+    physicalId: null
+    description: "No Snowflake table. Constants: afdracht floor 0.40, ANBI share
+      0.80, KSB rates 0.309 (2024) / 0.342 (2025) / 0.378 (2026), prize-tax
+      threshold 449 EUR."
+    deepLink: null
+    schemaObjectRef: null
+    metadata:
+      afdracht_floor_pct: 0.4
+      anbi_share_floor_pct: 0.8
+      ksb_rate_2024: 0.309
+      ksb_rate_2025: 0.342
+      ksb_rate_2026: 0.378
+      ksb_threshold_eur: 449

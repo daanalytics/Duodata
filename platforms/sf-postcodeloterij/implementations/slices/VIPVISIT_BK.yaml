@@ -1,0 +1,13 @@
+sliceImplementations:
+  - slice: VIPVISIT_BK
+    platform: sf-postcodeloterij
+    name: FCT_VIP_REDEMPTION.REDEMPTION_KEY
+    physicalId: POSTCODELOTERIJ.SAMPLE.FCT_VIP_REDEMPTION.REDEMPTION_KEY
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_VIP_REDEMPTION
+      column: REDEMPTION_KEY
+    values: null

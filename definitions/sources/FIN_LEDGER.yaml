@@ -1,0 +1,14 @@
+source:
+  name: Finance Ledger
+  identifier: FIN_LEDGER
+  description: General ledger producing the official statutory money split (inleg,
+    afdracht, prize cost, own-organisation cost, result) per legal entity under
+    Dutch GAAP / RJ 640. Authoritative for licence and statutory reporting
+    figures.
+  synonyms:
+    - GL
+    - Statutory Ledger
+  type: erp-gl
+  tags:
+    - Afdracht-Floor
+    - RJ640-NonProfit

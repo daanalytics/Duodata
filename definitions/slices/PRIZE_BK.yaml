@@ -1,0 +1,22 @@
+slice:
+  name: Prize
+  identifier: PRIZE_BK
+  description: Grain of an individual prize awarded within a draw, carrying gross
+    prize value, net prize cost after in-kind supplier discounts, and the
+    gaming-tax base for prizes above €449.
+  synonyms:
+    - Prijs
+    - Prijzengeld
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: DRAW_PRIZE_ENGINE
+  release: null
+  values: null
+  rollsUpTo:
+    - DRAW_BK
+    - LOTTERY_BRAND
+    - POSTCODE
+  tags:
+    - KSA-Licence
+    - Prize-Economics

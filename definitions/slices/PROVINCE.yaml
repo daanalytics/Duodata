@@ -1,0 +1,22 @@
+slice:
+  name: Province
+  identifier: PROVINCE
+  description: Geography level of the twelve Dutch provinces used for domestic
+    participant and afdracht distribution.
+  synonyms:
+    - Provincie
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - Noord-Holland
+    - Zuid-Holland
+    - Noord-Brabant
+    - Gelderland
+    - Utrecht
+  rollsUpTo:
+    - COUNTRY
+  tags:
+    - Participant-Growth

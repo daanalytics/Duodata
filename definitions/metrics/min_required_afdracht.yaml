@@ -1,0 +1,45 @@
+metric:
+  name: Minimum Required Afdracht (Licence Floor)
+  identifier: min_required_afdracht
+  description: The licence-floor amount of afdracht implied by the 40% minimum
+    contribution rule, computed as 40% of gross inleg for the calendar year. It
+    represents the least the lottery must transfer to good causes to remain
+    compliant, and is subtracted from actual afdracht to reveal compliance
+    headroom. Excludes ANBI-specific requirements. Sensitive purely to inleg
+    volume. A modelling anchor for licence-risk monitoring.
+  synonyms:
+    - licence floor
+  unit: EUR
+  status: Approved
+  period: Calendar Year (Licence)
+  businessOwner: Responsible-Play & Compliance Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula:
+    pretty: gross_inleg * 0.40
+    variables:
+      - gross_inleg
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: gross_inleg
+        - type: operator
+          value: "*"
+        - type: constant
+          value: "0.40"
+  slices:
+    - LOTTERY_BRAND
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics:
+    - gross_inleg
+  downstreamMetrics:
+    - afdracht_headroom
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - compliance
+    - licence

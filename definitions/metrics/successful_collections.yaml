@@ -1,0 +1,33 @@
+metric:
+  name: Successful Recurring Collections
+  identifier: successful_collections
+  description: Count (and value) of recurring direct-debit collections (incasso)
+    that settled successfully in the period, per payment, status and channel.
+    Excludes first-attempt failures still within the retry window and manual
+    repairs. It is the numerator of collection success rate, a critical
+    operational KPI because failed collections erode active participants and
+    inleg. Sensitive to bank reversals, insufficient funds, expired mandates and
+    macro conditions affecting household budgets.
+  synonyms:
+    - incasso success
+  unit: count
+  status: Implemented
+  period: Daily
+  businessOwner: Finance Team
+  implementationOwner: null
+  source: INCASSO_SYS
+  release: null
+  formula: null
+  slices:
+    - CHANNEL
+    - MONTH
+    - PAYMENT_BK
+    - PAYMENT_STATUS
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - collection_success_rate
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - collections

@@ -1,0 +1,21 @@
+slice:
+  name: Payment / Collection
+  identifier: PAYMENT_BK
+  description: Grain of a recurring direct-debit collection attempt against a
+    subscription, capturing stake amount and collection outcome for direct-debit
+    success analysis.
+  synonyms:
+    - Incasso
+    - Collection
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: INCASSO_SYS
+  release: null
+  values: null
+  rollsUpTo:
+    - DAY
+    - PAYMENT_STATUS
+    - SUBSCRIPTION_BK
+  tags:
+    - Participant-Growth

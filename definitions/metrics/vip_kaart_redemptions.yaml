@@ -1,0 +1,32 @@
+metric:
+  name: VIP-KAART Redemptions
+  identifier: vip_kaart_redemptions
+  description: Count of VIP-KAART visits redeemed by VriendenLoterij participants,
+    granting free or discounted access to partnered cultural and leisure venues.
+    Segmented by visit and participant. Excludes issued-but-unused cards. It is
+    an engagement and value-perception indicator specific to VriendenLoterij,
+    complementing prize value in explaining retention. Sensitive to venue
+    partnerships, seasonality and communication campaigns encouraging
+    redemption.
+  synonyms:
+    - VIP visits
+  unit: count
+  status: Implemented
+  period: Monthly
+  businessOwner: CRM & Participant Team
+  implementationOwner: null
+  source: CRM_SHARED
+  release: null
+  formula: null
+  slices:
+    - MONTH
+    - PARTICIPANT_BK
+    - VIPVISIT_BK
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - engagement
+    - VriendenLoterij

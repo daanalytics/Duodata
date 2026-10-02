@@ -1,0 +1,14 @@
+source:
+  name: Beneficiary & Afdracht Store
+  identifier: DIM_BENEFICIARY
+  description: "FCT_AFDRACHT with DIM_BENEFICIARY: allocation records linking
+    transferred proceeds to good causes, including ANBI registration,
+    beneficiary type, theme and (for VL) player-designated amounts."
+  synonyms:
+    - Afdracht Store
+    - Beneficiary Dimension
+  type: data-warehouse
+  tags:
+    - ANBI-Compliance
+    - CBF-Erkend
+    - Toekenningenraad

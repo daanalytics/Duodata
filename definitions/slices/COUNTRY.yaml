@@ -1,0 +1,18 @@
+slice:
+  name: Country
+  identifier: COUNTRY
+  description: Top geography level. Operations for these two lotteries are
+    single-country (the Netherlands); the wider Postcode Lottery Group operates
+    in additional countries as parent context.
+  synonyms:
+    - Land
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - Netherlands
+  rollsUpTo: []
+  tags:
+    - Cross-Brand

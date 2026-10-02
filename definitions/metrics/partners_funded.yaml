@@ -1,0 +1,32 @@
+metric:
+  name: Beneficiary Partners Funded
+  identifier: partners_funded
+  description: Count of distinct good-cause organisations receiving funds in the
+    allocation year, segmented by beneficiary type and allocation theme.
+    Includes structural partners and project grants; excludes prospective
+    partners not yet awarded. It measures the breadth of societal impact
+    alongside the monetary afdracht and supports the Toekenningenraad allocation
+    narrative. Sensitive to portfolio decisions to concentrate or broaden
+    funding and to ANBI eligibility of new partners.
+  synonyms:
+    - good causes supported
+  unit: count
+  status: Implemented
+  period: Annual
+  businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad support)
+  implementationOwner: null
+  source: DIM_BENEFICIARY
+  release: null
+  formula: null
+  slices:
+    - ALLOCATION_THEME
+    - BENEFICIARY_BK
+    - BENEFICIARY_TYPE
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - impact

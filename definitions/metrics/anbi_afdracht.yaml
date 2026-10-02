@@ -1,0 +1,33 @@
+metric:
+  name: ANBI-Directed Afdracht
+  identifier: anbi_afdracht
+  description: Portion of afdracht transferred to beneficiaries holding ANBI
+    (public benefit organisation) registration. Segmented by beneficiary and
+    ANBI status. At least 80% of total afdracht must flow to ANBI-registered
+    bodies under the charity-lottery licence, so this metric is the numerator
+    for the ANBI share compliance ratio. Excludes allocations to non-ANBI
+    partners and internal programme costs. Sensitive to changes in the
+    beneficiary portfolio and to any beneficiary losing or gaining ANBI status
+    during the year.
+  synonyms:
+    - ANBI afdracht
+  unit: EUR
+  status: Implemented
+  period: Annual
+  businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad support)
+  implementationOwner: null
+  source: DIM_BENEFICIARY
+  release: null
+  formula: null
+  slices:
+    - ANBI_STATUS
+    - BENEFICIARY_BK
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - anbi_share
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - licence

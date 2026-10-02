@@ -1,0 +1,41 @@
+metric:
+  name: Gross Inleg (Ticket Stakes)
+  identifier: gross_inleg
+  description: "Total consumer stakes across both lottery brands, computed as
+    tickets in play multiplied by lot price for each recurring subscription
+    draw. Includes standard, Plus and Premium tiers and all channels; excludes
+    gaming tax, prize value and any operating cost. This is the licence-critical
+    turnover denominator: afdracht percentage, cost ratio and prize payout ratio
+    are all expressed against gross inleg. Sensitive to ticket price changes,
+    tier mix and the stock of active recurring lots. It is the primary top-line
+    volume metric for the Postcode Lottery Group."
+  synonyms:
+    - inleg
+    - stake
+    - turnover
+  unit: EUR
+  status: Implemented
+  period: Monthly
+  businessOwner: Finance Team
+  implementationOwner: null
+  source: FIN_LEDGER
+  release: null
+  formula: null
+  slices:
+    - LOTTERY_BRAND
+    - MONTH
+    - PRODUCT_TIER
+    - PROVINCE
+    - SUBSCRIPTION_BK
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - afdracht_pct
+    - min_required_afdracht
+    - organisation_cost_ratio
+    - prize_payout_ratio
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - licence
+    - topline

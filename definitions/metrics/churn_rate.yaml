@@ -1,0 +1,48 @@
+metric:
+  name: Churn Rate
+  identifier: churn_rate
+  description: Rate of subscriber attrition, computed as cancellations divided by
+    active participants in the period. It quantifies retention pressure and,
+    combined with acquisition, determines net base momentum. Excludes single-lot
+    downgrades that retain the subscriber. Highly sensitive to price increases,
+    direct-debit failures and prize perception. A core retention KPI feeding the
+    LTV model via expected duration.
+  synonyms:
+    - attrition rate
+    - opzeg rate
+  unit: "%"
+  status: Implemented
+  period: Monthly
+  businessOwner: CRM & Participant Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula:
+    pretty: cancellations / active_participants
+    variables:
+      - cancellations
+      - active_participants
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: cancellations
+        - type: operator
+          value: /
+        - type: metric
+          value: active_participants
+  slices:
+    - CHANNEL
+    - LOTTERY_BRAND
+    - MONTH
+  excludedSlices: []
+  upstreamMetrics:
+    - active_participants
+    - cancellations
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - kpi
+    - retention

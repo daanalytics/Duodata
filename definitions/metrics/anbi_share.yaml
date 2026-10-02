@@ -1,0 +1,46 @@
+metric:
+  name: ANBI Share of Afdracht
+  identifier: anbi_share
+  description: Share of total afdracht directed to ANBI-registered beneficiaries,
+    computed as ANBI-directed afdracht divided by total afdracht. Licence rules
+    require at least 80%. It confirms that lottery proceeds predominantly reach
+    recognised public-benefit organisations. Sensitive to the beneficiary
+    portfolio composition and any status changes during the year. Reported to
+    the KSA alongside the afdracht percentage.
+  synonyms:
+    - ANBI %
+  unit: "%"
+  status: Implemented
+  period: Calendar Year (Licence)
+  businessOwner: Charities & Beneficiary Allocation Team (Toekenningenraad support)
+  implementationOwner: null
+  source: DIM_BENEFICIARY
+  release: null
+  formula:
+    pretty: anbi_afdracht / afdracht
+    variables:
+      - anbi_afdracht
+      - afdracht
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: anbi_afdracht
+        - type: operator
+          value: /
+        - type: metric
+          value: afdracht
+  slices:
+    - ANBI_STATUS
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics:
+    - afdracht
+    - anbi_afdracht
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - kpi
+    - licence

@@ -1,0 +1,25 @@
+slice:
+  name: Beneficiary
+  identifier: BENEFICIARY_BK
+  description: Grain of a good cause receiving funds (multi-year partner, one-off
+    grant, Droomfonds, cultural partner or club/association), qualified by ANBI
+    status and allocation theme.
+  synonyms:
+    - Good Cause
+    - Partner
+    - Goed Doel
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: DIM_BENEFICIARY
+  release: null
+  values: null
+  rollsUpTo:
+    - ALLOCATION_THEME
+    - ANBI_STATUS
+    - BENEFICIARY_TYPE
+    - LOTTERY_BRAND
+  tags:
+    - ANBI-Compliance
+    - CBF-Erkend
+    - Toekenningenraad

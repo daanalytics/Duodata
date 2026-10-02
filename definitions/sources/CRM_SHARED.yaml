@@ -1,0 +1,14 @@
+source:
+  name: Shared CRM Platform
+  identifier: CRM_SHARED
+  description: Cross-brand customer relationship system holding subscriber,
+    ticket, campaign and channel records for both Nationale Postcode Loterij and
+    VriendenLoterij. System of record for participant identity, acquisition and
+    churn events.
+  synonyms:
+    - CRM
+    - Subscriber System
+  type: operational-system
+  tags:
+    - Cross-Brand
+    - Participant-Growth

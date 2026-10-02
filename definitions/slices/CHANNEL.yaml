@@ -1,0 +1,22 @@
+slice:
+  name: Channel
+  identifier: CHANNEL
+  description: Dimension of the acquisition and servicing channel through which
+    participants and subscriptions are engaged.
+  synonyms:
+    - Acquisition Channel
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - TV / Media
+    - Direct Mail
+    - Online / Web
+    - Telemarketing
+    - Door-to-Door
+  rollsUpTo:
+    - LOTTERY_BRAND
+  tags:
+    - Participant-Growth

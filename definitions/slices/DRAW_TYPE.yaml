@@ -1,0 +1,25 @@
+slice:
+  name: Draw Type
+  identifier: DRAW_TYPE
+  description: Dimension of the type/cadence of draw within a brand's annual draw
+    calendar (14 draws/year for NPL, 15 for VL, plus weekly draws).
+  synonyms:
+    - Draw Cadence
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - Monthly Draw
+    - June Extra
+    - December Extra
+    - Weekly Street Prize
+    - Easter Draw
+    - Najaar Draw
+    - Christmas Draw
+    - Weekly Bingo
+  rollsUpTo:
+    - LOTTERY_BRAND
+  tags:
+    - Prize-Economics

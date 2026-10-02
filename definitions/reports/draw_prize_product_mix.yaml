@@ -1,0 +1,45 @@
+report:
+  name: Draw, Prize & Product Mix Report
+  identifier: draw_prize_product_mix
+  description: >-
+    Operations report for the Lottery Operations & Draw Team covering draw
+    throughput, prize economics and product-tier mix. It presents draws held,
+    gross and net prize value, in-kind discounts, payout ratio, Plus/Premium
+    volumes and mix, average lot price and tickets in play.
+
+
+    Reviewed monthly to balance prize attractiveness against the afdracht
+    objective and to plan special draws and upsell. Decisions include jackpot
+    sizing, supplier deals and tier promotion timing.
+  synonyms:
+    - operations report
+  questions:
+    - What is the prize payout ratio by draw type and brand?
+    - How much prize cost is offset by in-kind supplier discounts?
+    - How is the Plus/Premium mix trending and what is its effect on average
+      price?
+    - How many draws were held and how did special draws affect prize value?
+  status: Proposed
+  refreshPeriod: Monthly
+  businessOwner: null
+  implementationOwner: null
+  release: null
+  metrics:
+    - avg_ticket_price
+    - draws_held
+    - gross_prize_value
+    - in_kind_supplier_discount
+    - net_prize_cost
+    - plus_premium_mix
+    - plus_premium_tickets
+    - prize_payout_ratio
+    - tickets_in_play
+  slices:
+    - DRAW_TYPE
+    - LOTTERY_BRAND
+    - MONTH
+    - PRODUCT_TIER
+  tags:
+    - operations
+    - prizes
+    - product-mix

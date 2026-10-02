@@ -1,0 +1,13 @@
+sliceImplementations:
+  - slice: PROVINCE
+    platform: sf-postcodeloterij
+    name: DIM_GEOGRAPHY.PROVINCE
+    physicalId: POSTCODELOTERIJ.SAMPLE.DIM_GEOGRAPHY.PROVINCE
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: DIM_GEOGRAPHY
+      column: PROVINCE
+    values: null

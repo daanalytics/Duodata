@@ -1,0 +1,47 @@
+metric:
+  name: Net Participant Growth
+  identifier: net_participant_growth
+  description: Net change in the subscriber base in the period, computed as new
+    participants minus cancellations. It shows whether acquisition is outpacing
+    churn, driving the trajectory of the active base and future inleg and
+    afdracht. Excludes lot-level upsell within existing subscribers. Sensitive
+    to campaign timing and to collection-driven involuntary churn. A headline
+    growth KPI for the CRM & Participant Team.
+  synonyms:
+    - net adds
+  unit: count
+  status: Implemented
+  period: Monthly
+  businessOwner: CRM & Participant Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula:
+    pretty: new_participants - cancellations
+    variables:
+      - new_participants
+      - cancellations
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: new_participants
+        - type: operator
+          value: "-"
+        - type: metric
+          value: cancellations
+  slices:
+    - CHANNEL
+    - LOTTERY_BRAND
+    - MONTH
+  excludedSlices: []
+  upstreamMetrics:
+    - cancellations
+    - new_participants
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - growth
+    - kpi

@@ -1,0 +1,16 @@
+slice:
+  name: Quarter
+  identifier: QUARTER
+  description: Calendar quarter time level aggregating months for interim trend reporting.
+  synonyms:
+    - Calendar Quarter
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values: null
+  rollsUpTo:
+    - YEAR
+  tags:
+    - RJ640-NonProfit

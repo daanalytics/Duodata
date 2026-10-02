@@ -1,0 +1,48 @@
+metric:
+  name: Organisation Cost Ratio
+  identifier: organisation_cost_ratio
+  description: "Own-organisation operating cost as a share of gross inleg,
+    computed as operating cost divided by gross inleg. It measures fundraising
+    efficiency for the non-profit lottery: the lower the cost ratio, the more of
+    each euro can flow to prizes and afdracht. Excludes prize cost and gaming
+    tax. Sensitive to acquisition-spend intensity and shared back-office
+    allocation. Scrutinised in both statutory accounts and public accountability
+    narratives."
+  synonyms:
+    - cost ratio
+  unit: "%"
+  status: Implemented
+  period: Annual
+  businessOwner: Finance Team
+  implementationOwner: null
+  source: FIN_LEDGER
+  release: null
+  formula:
+    pretty: operating_cost / gross_inleg
+    variables:
+      - operating_cost
+      - gross_inleg
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: operating_cost
+        - type: operator
+          value: /
+        - type: metric
+          value: gross_inleg
+  slices:
+    - LEGAL_ENTITY
+    - LOTTERY_BRAND
+    - YEAR
+  excludedSlices: []
+  upstreamMetrics:
+    - gross_inleg
+    - operating_cost
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - cost
+    - kpi

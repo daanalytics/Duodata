@@ -1,0 +1,47 @@
+metric:
+  name: Plus/Premium Mix
+  identifier: plus_premium_mix
+  description: Share of tickets in play subscribed at Plus and Premium tiers,
+    computed as Plus/Premium tickets divided by total tickets in play. It is a
+    key driver of average price and therefore inleg and afdracht at Nationale
+    Postcode Loterij. Excludes standard-tier lots. Sensitive to upsell campaigns
+    and perceived tier value. Monitored by the CRM team as a monetisation lever
+    that raises stakes without new acquisition cost.
+  synonyms:
+    - product mix
+  unit: "%"
+  status: Implemented
+  period: Monthly
+  businessOwner: CRM & Participant Team
+  implementationOwner: null
+  source: DWH_FACTS
+  release: null
+  formula:
+    pretty: plus_premium_tickets / tickets_in_play
+    variables:
+      - plus_premium_tickets
+      - tickets_in_play
+    expressionAst:
+      type: root
+      value: ""
+      children:
+        - type: metric
+          value: plus_premium_tickets
+        - type: operator
+          value: /
+        - type: metric
+          value: tickets_in_play
+  slices:
+    - LOTTERY_BRAND
+    - MONTH
+    - PRODUCT_TIER
+  excludedSlices: []
+  upstreamMetrics:
+    - plus_premium_tickets
+    - tickets_in_play
+  downstreamMetrics: []
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - kpi
+    - product-mix

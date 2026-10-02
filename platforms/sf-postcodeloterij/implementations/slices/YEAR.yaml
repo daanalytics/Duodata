@@ -1,0 +1,13 @@
+sliceImplementations:
+  - slice: YEAR
+    platform: sf-postcodeloterij
+    name: DIM_DATE.YEAR
+    physicalId: POSTCODELOTERIJ.SAMPLE.DIM_DATE.YEAR
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: DIM_DATE
+      column: YEAR
+    values: null

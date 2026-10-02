@@ -1,0 +1,13 @@
+sliceImplementations:
+  - slice: CHANNEL
+    platform: sf-postcodeloterij
+    name: DIM_CHANNEL.CHANNEL_NAME
+    physicalId: POSTCODELOTERIJ.SAMPLE.DIM_CHANNEL.CHANNEL_NAME
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: DIM_CHANNEL
+      column: CHANNEL_NAME
+    values: null

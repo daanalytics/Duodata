@@ -1,0 +1,13 @@
+source:
+  name: Draw & Prize Engine
+  identifier: DRAW_PRIZE_ENGINE
+  description: System executing draws and allocating prizes, including
+    postcode/street/neighbourhood win logic and per-draw prize computation.
+    Source of draw events, prize values and gaming-tax base.
+  synonyms:
+    - Draw Engine
+    - Prize Allocation System
+  type: operational-system
+  tags:
+    - KSA-Licence
+    - Prize-Economics

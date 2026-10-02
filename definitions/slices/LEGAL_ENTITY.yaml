@@ -1,0 +1,24 @@
+slice:
+  name: Legal Entity
+  identifier: LEGAL_ENTITY
+  description: Dimension of the statutory entities of public interest under which
+    figures are reported and consolidated.
+  synonyms:
+    - N.V.
+    - Entity
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - Holding Nationale Goede Doelen Loterijen N.V.
+    - Nationale Postcode Loterij N.V.
+    - VriendenLoterij N.V.
+    - Novamedia B.V. / Postcode Lottery Group
+    - Stichting de Novamedia Fundatie
+  rollsUpTo:
+    - COUNTRY
+  tags:
+    - No-Dividend
+    - RJ640-NonProfit

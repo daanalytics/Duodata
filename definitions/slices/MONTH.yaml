@@ -1,0 +1,17 @@
+slice:
+  name: Month
+  identifier: MONTH
+  description: Calendar month time level aggregating days; grain of the
+    FCT_FINANCE_MONTH money split.
+  synonyms:
+    - Calendar Month
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values: null
+  rollsUpTo:
+    - QUARTER
+  tags:
+    - RJ640-NonProfit

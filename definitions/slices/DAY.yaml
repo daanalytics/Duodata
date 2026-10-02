@@ -1,0 +1,17 @@
+slice:
+  name: Day
+  identifier: DAY
+  description: Lowest calendar time level; a single date on which draws,
+    collections and visits occur.
+  synonyms:
+    - Date
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values: null
+  rollsUpTo:
+    - MONTH
+  tags:
+    - Participant-Growth

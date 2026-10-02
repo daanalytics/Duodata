@@ -1,0 +1,22 @@
+slice:
+  name: Beneficiary Type
+  identifier: BENEFICIARY_TYPE
+  description: Dimension categorising good causes by funding relationship and programme.
+  synonyms:
+    - Cause Type
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: null
+  release: null
+  values:
+    - Multi-Year Partner
+    - One-Off Grant
+    - Droomfonds
+    - Cultural Partner
+    - Club / Association
+  rollsUpTo:
+    - LOTTERY_BRAND
+  tags:
+    - CBF-Erkend
+    - Toekenningenraad

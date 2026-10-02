@@ -1,0 +1,38 @@
+metric:
+  name: Active Participants (Deelnemers)
+  identifier: active_participants
+  description: Distinct subscribers holding at least one active recurring lot in
+    the period, across both brands and all acquisition channels. Deduplicated on
+    participant, so a person holding multiple lots or both brands counts once
+    per brand grain. Excludes cancelled and suspended subscribers. It is the
+    denominator for tickets per participant, churn rate and afdracht per
+    participant, and is the core customer-base measure watched by the CRM team.
+    Sensitive to seasonal acquisition campaigns and collection failures that
+    trigger deactivation.
+  synonyms:
+    - deelnemers
+    - active subscribers
+  unit: count
+  status: Implemented
+  period: Monthly
+  businessOwner: CRM & Participant Team
+  implementationOwner: null
+  source: CRM_SHARED
+  release: null
+  formula: null
+  slices:
+    - CHANNEL
+    - LOTTERY_BRAND
+    - MONTH
+    - PARTICIPANT_BK
+    - PROVINCE
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - afdracht_per_participant
+    - churn_rate
+    - tickets_per_participant
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - participation

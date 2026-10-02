@@ -1,0 +1,31 @@
+metric:
+  name: Plus/Premium Tickets in Play
+  identifier: plus_premium_tickets
+  description: Stock of active lots subscribed at the higher Plus (€18.50) and
+    Premium (€21) price tiers rather than the €16 standard tier, primarily at
+    Nationale Postcode Loterij. Segmented by subscription and product tier.
+    Divided by total tickets in play it gives the Plus/Premium mix, a lever on
+    average price and therefore inleg and afdracht. Sensitive to upsell
+    campaigns and tier-benefit perception.
+  synonyms:
+    - premium lots
+  unit: count
+  status: Implemented
+  period: Monthly
+  businessOwner: CRM & Participant Team
+  implementationOwner: null
+  source: DRAW_PRIZE_ENGINE
+  release: null
+  formula: null
+  slices:
+    - MONTH
+    - PRODUCT_TIER
+    - SUBSCRIPTION_BK
+  excludedSlices: []
+  upstreamMetrics: []
+  downstreamMetrics:
+    - plus_premium_mix
+  impactedMetrics: []
+  impactingMetrics: []
+  tags:
+    - product-mix
