@@ -10,3 +10,15 @@ sliceImplementations:
       schema: SAMPLE_SCHEMA
       table: DIM_DATE
     values: null
+  - slice: MONTH
+    platform: sf-postcodeloterij
+    name: DIM_DATE.FULL_DATE
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DATE.FULL_DATE
+    description: Date column so the builder can emit DATE_TRUNC('MONTH', FULL_DATE).
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_DATE
+      column: FULL_DATE
+    values: null
