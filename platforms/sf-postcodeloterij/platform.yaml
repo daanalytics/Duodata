@@ -2,5 +2,5 @@ platform:
   name: SF_POSTCODELOTERIJ
   identifier: sf-postcodeloterij
   type: SNOWFLAKE
-  schema_source: manual
+  schema_source: git
   allow_manual_implementations: true
