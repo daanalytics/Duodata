@@ -22,6 +22,10 @@ tables:
     synonyms:
       - Draw Cadence
     dimensions:
+      - name: DRAW_KEY
+        description: Draw surrogate key. Unqualified; do not use database.schema.table.column.
+        expr: DRAW_KEY
+        data_type: NUMBER
       - name: DRAW_TYPE
         synonyms:
           - Draw Cadence
@@ -55,6 +59,10 @@ tables:
       - Brand
       - Licensed Lottery
     dimensions:
+      - name: LOTTERY_KEY
+        description: Lottery surrogate key
+        expr: LOTTERY_KEY
+        data_type: NUMBER
       - name: LOTTERY_BRAND
         synonyms:
           - Brand
@@ -78,6 +86,15 @@ tables:
         - DATE_KEY
     synonyms:
       - Calendar Month
+    dimensions:
+      - name: DATE_KEY
+        description: Surrogate date key YYYYMMDD
+        expr: DATE_KEY
+        data_type: NUMBER
+      - name: MONTH_NAME
+        description: English month name
+        expr: MONTH_NAME
+        data_type: VARCHAR
     time_dimensions:
       - name: MONTH
         synonyms:
@@ -93,11 +110,6 @@ tables:
         description: Calendar quarter
         expr: DATE_TRUNC('QUARTER', FULL_DATE)
         data_type: DATE
-    dimensions:
-      - name: MONTH_NAME
-        description: English month name
-        expr: MONTH_NAME
-        data_type: VARCHAR
   - name: PRODUCT_TIER
     description: Priced lot variant (Standard / Plus / Premium).
     base_table:
@@ -112,6 +124,10 @@ tables:
       - Lot Tier
       - Price Mix
     dimensions:
+      - name: PRODUCT_KEY
+        description: Product surrogate key
+        expr: PRODUCT_KEY
+        data_type: NUMBER
       - name: PRODUCT_TIER
         synonyms:
           - Product
@@ -137,6 +153,10 @@ tables:
       columns:
         - TICKET_DRAW_KEY
     facts:
+      - name: TICKET_DRAW_KEY
+        description: Ticket-draw surrogate key
+        expr: TICKET_DRAW_KEY
+        data_type: NUMBER
       - name: TICKET_PRICE_EUR
         description: Price billed for this ticket in this draw
         expr: TICKET_PRICE_EUR
@@ -187,6 +207,10 @@ tables:
       columns:
         - PRIZE_KEY
     facts:
+      - name: PRIZE_KEY
+        description: Prize surrogate key
+        expr: PRIZE_KEY
+        data_type: NUMBER
       - name: GROSS_PRIZE_VALUE_EUR
         description: Consumer-facing prize value
         expr: GROSS_PRIZE_VALUE_EUR
@@ -219,6 +243,10 @@ tables:
       columns:
         - FINANCE_KEY
     facts:
+      - name: FINANCE_KEY
+        description: Finance surrogate key. Use FINANCE_KEY, never POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH.FINANCE_KEY.
+        expr: FINANCE_KEY
+        data_type: NUMBER
       - name: INLEG_EUR
         description: Gross ticket sales for the month. Do not add to FCT_TICKET_DRAW.INLEG_EUR.
         expr: INLEG_EUR

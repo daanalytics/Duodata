@@ -1,8 +1,8 @@
 metricImplementations:
   - metric: gross_inleg
     platform: sf-postcodeloterij
-    name: FCT_FINANCE_MONTH.INLEG_EUR
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH.INLEG_EUR
+    name: INLEG_EUR
+    physicalId: INLEG_EUR
     description: Official / licence inleg. Do not SUM FCT_TICKET_DRAW.INLEG_EUR for statutory totals.
     deepLink: null
     schemaObjectRef:

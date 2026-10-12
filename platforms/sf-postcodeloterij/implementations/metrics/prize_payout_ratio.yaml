@@ -2,7 +2,7 @@ metricImplementations:
   - metric: prize_payout_ratio
     platform: sf-postcodeloterij
     name: FCT_FINANCE_MONTH
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH
+    physicalId: FCT_FINANCE_MONTH
     description: Uses FCT_FINANCE_MONTH facts GROSS_PRIZE_VALUE_EUR and INLEG_EUR. Not a FCT_PRIZE metric.
     deepLink: null
     schemaObjectRef:
