@@ -1,12 +1,13 @@
 metricImplementations:
   - metric: prize_payout_ratio
     platform: sf-postcodeloterij
-    name: FCT_FINANCE_MONTH
-    physicalId: FCT_FINANCE_MONTH
-    description: Uses FCT_FINANCE_MONTH facts GROSS_PRIZE_VALUE_EUR and INLEG_EUR. Not a FCT_PRIZE metric.
+    name: FINANCE_KEY
+    physicalId: FINANCE_KEY
+    description: Uses FCT_FINANCE_MONTH facts GROSS_PRIZE_VALUE_EUR and INLEG_EUR. PK is FINANCE_KEY.
     deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ
       schema: SAMPLE_SCHEMA
       table: FCT_FINANCE_MONTH
+      column: FINANCE_KEY
     technicalRule: DIV0NULL(SUM(GROSS_PRIZE_VALUE_EUR), SUM(INLEG_EUR))

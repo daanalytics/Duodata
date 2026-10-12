@@ -18,16 +18,22 @@ sourceImplementations:
   - source: DRAW_PRIZE_ENGINE
     platform: sf-postcodeloterij
     name: FCT_PRIZE
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_PRIZE
+    physicalId: FCT_PRIZE
     description: One prize awarded to one participant.
     deepLink: null
-    schemaObjectRef: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_PRIZE
     metadata: null
   - source: DRAW_PRIZE_ENGINE
     platform: sf-postcodeloterij
     name: FCT_TICKET_DRAW
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW
+    physicalId: FCT_TICKET_DRAW
     description: Ticket billed in a draw; tickets in play.
     deepLink: null
-    schemaObjectRef: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
     metadata: null

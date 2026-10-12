@@ -1,8 +1,8 @@
 metricImplementations:
   - metric: net_prize_cost
     platform: sf-postcodeloterij
-    name: FCT_PRIZE.NET_PRIZE_COST_EUR
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_PRIZE.NET_PRIZE_COST_EUR
+    name: NET_PRIZE_COST_EUR
+    physicalId: NET_PRIZE_COST_EUR
     description: P&L prize cost after in-kind discounts, at prize grain.
     deepLink: null
     schemaObjectRef:

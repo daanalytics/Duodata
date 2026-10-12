@@ -1,9 +1,9 @@
 metricImplementations:
   - metric: plus_premium_tickets
     platform: sf-postcodeloterij
-    name: DIM_PRODUCT.IS_UPGRADE
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT.IS_UPGRADE
-    description: Physical IS_UPGRADE column. Prefer the FCT_TICKET_DRAW.IS_UPGRADE fact in the Semantic View (1 per Plus/Premium ticket).
+    name: IS_UPGRADE
+    physicalId: IS_UPGRADE
+    description: Physical IS_UPGRADE column on DIM_PRODUCT. Prefer the FCT_TICKET_DRAW.IS_UPGRADE fact in the Semantic View.
     deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ

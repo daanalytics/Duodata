@@ -1,0 +1,24 @@
+sliceImplementations:
+  - slice: FCT_FINANCE_MONTH
+    platform: sf-postcodeloterij
+    name: FCT_FINANCE_MONTH
+    physicalId: FCT_FINANCE_MONTH
+    description: Logical table FCT_FINANCE_MONTH. Primary key FINANCE_KEY from OSF. Do not qualify the key.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_FINANCE_MONTH
+    values: null
+  - slice: FCT_FINANCE_MONTH
+    platform: sf-postcodeloterij
+    name: FINANCE_KEY
+    physicalId: FINANCE_KEY
+    description: Unqualified primary key. Snowflake PRIMARY KEY must be FINANCE_KEY, not database.schema.table.column.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_FINANCE_MONTH
+      column: FINANCE_KEY
+    values: null

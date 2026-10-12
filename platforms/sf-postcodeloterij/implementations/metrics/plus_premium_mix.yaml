@@ -1,12 +1,13 @@
 metricImplementations:
   - metric: plus_premium_mix
     platform: sf-postcodeloterij
-    name: FCT_TICKET_DRAW
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW
+    name: TICKET_DRAW_KEY
+    physicalId: TICKET_DRAW_KEY
     description: Uses FCT_TICKET_DRAW facts IS_UPGRADE and TICKET_DRAW_KEY. Not a FCT_PRIZE metric.
     deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ
       schema: SAMPLE_SCHEMA
       table: FCT_TICKET_DRAW
+      column: TICKET_DRAW_KEY
     technicalRule: DIV0NULL(SUM(IS_UPGRADE), COUNT(TICKET_DRAW_KEY))

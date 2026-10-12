@@ -1,8 +1,8 @@
 metricImplementations:
   - metric: gross_prize_value
     platform: sf-postcodeloterij
-    name: FCT_PRIZE.GROSS_PRIZE_VALUE_EUR
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_PRIZE.GROSS_PRIZE_VALUE_EUR
+    name: GROSS_PRIZE_VALUE_EUR
+    physicalId: GROSS_PRIZE_VALUE_EUR
     description: Consumer-facing prize value at prize grain.
     deepLink: null
     schemaObjectRef:
@@ -13,8 +13,8 @@ metricImplementations:
     technicalRule: SUM(GROSS_PRIZE_VALUE_EUR)
   - metric: gross_prize_value
     platform: sf-postcodeloterij
-    name: FCT_FINANCE_MONTH.GROSS_PRIZE_VALUE_EUR
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH.GROSS_PRIZE_VALUE_EUR
+    name: GROSS_PRIZE_VALUE_EUR
+    physicalId: GROSS_PRIZE_VALUE_EUR
     description: Monthly prize pot for prize_payout_ratio. Do not add to FCT_PRIZE.
     deepLink: null
     schemaObjectRef:

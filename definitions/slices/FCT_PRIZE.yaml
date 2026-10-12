@@ -1,0 +1,20 @@
+slice:
+  name: Prize fact
+  identifier: FCT_PRIZE
+  description: >-
+    Grain of one prize awarded to one participant. Primary key is PRIZE_KEY.
+  synonyms:
+    - Prize award
+  status: Proposed
+  businessOwner: null
+  implementationOwner: null
+  source: DRAW_PRIZE_ENGINE
+  release: null
+  values: null
+  rollsUpTo:
+    - DRAW_TYPE
+    - LOTTERY_BRAND
+    - MONTH
+    - PRODUCT_TIER
+  tags:
+    - Prize-Economics

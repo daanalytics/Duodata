@@ -1,0 +1,24 @@
+sliceImplementations:
+  - slice: FCT_TICKET_DRAW
+    platform: sf-postcodeloterij
+    name: FCT_TICKET_DRAW
+    physicalId: FCT_TICKET_DRAW
+    description: Logical table FCT_TICKET_DRAW. Primary key TICKET_DRAW_KEY from OSF. Do not qualify the key.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+    values: null
+  - slice: FCT_TICKET_DRAW
+    platform: sf-postcodeloterij
+    name: TICKET_DRAW_KEY
+    physicalId: TICKET_DRAW_KEY
+    description: Unqualified primary key. Snowflake PRIMARY KEY must be TICKET_DRAW_KEY.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+      column: TICKET_DRAW_KEY
+    values: null

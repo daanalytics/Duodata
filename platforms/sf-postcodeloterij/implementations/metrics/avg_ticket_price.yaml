@@ -1,8 +1,8 @@
 metricImplementations:
   - metric: avg_ticket_price
     platform: sf-postcodeloterij
-    name: FCT_TICKET_DRAW.TICKET_PRICE_EUR
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW.TICKET_PRICE_EUR
+    name: TICKET_PRICE_EUR
+    physicalId: TICKET_PRICE_EUR
     description: Row-level fact for average lot price.
     deepLink: null
     schemaObjectRef:

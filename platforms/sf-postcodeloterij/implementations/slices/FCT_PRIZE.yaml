@@ -1,0 +1,24 @@
+sliceImplementations:
+  - slice: FCT_PRIZE
+    platform: sf-postcodeloterij
+    name: FCT_PRIZE
+    physicalId: FCT_PRIZE
+    description: Logical table FCT_PRIZE. Primary key PRIZE_KEY from OSF. Do not qualify the key.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_PRIZE
+    values: null
+  - slice: FCT_PRIZE
+    platform: sf-postcodeloterij
+    name: PRIZE_KEY
+    physicalId: PRIZE_KEY
+    description: Unqualified primary key. Snowflake PRIMARY KEY must be PRIZE_KEY.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_PRIZE
+      column: PRIZE_KEY
+    values: null
