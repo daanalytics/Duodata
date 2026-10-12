@@ -1,0 +1,12 @@
+reportImplementations:
+  - report: charity_allocation_impact
+    platform: sf-postcodeloterij
+    name: CHARITY_LOTTERIES
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.CHARITY_LOTTERIES
+    description: FCT_AFDRACHT and DIM_BENEFICIARY.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: CHARITY_LOTTERIES
+    platformUrl: null

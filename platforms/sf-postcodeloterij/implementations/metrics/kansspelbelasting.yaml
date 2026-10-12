@@ -1,0 +1,13 @@
+metricImplementations:
+  - metric: kansspelbelasting
+    platform: sf-postcodeloterij
+    name: FCT_FINANCE_MONTH.KANSSPELBELASTING_EUR
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH.KANSSPELBELASTING_EUR
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_FINANCE_MONTH
+      column: KANSSPELBELASTING_EUR
+    technicalRule: SUM(KANSSPELBELASTING_EUR)

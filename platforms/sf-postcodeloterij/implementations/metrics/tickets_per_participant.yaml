@@ -1,0 +1,12 @@
+metricImplementations:
+  - metric: tickets_per_participant
+    platform: sf-postcodeloterij
+    name: tickets_per_participant
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+    technicalRule: DIV0NULL(COUNT(*), COUNT(DISTINCT PARTICIPANT_KEY))

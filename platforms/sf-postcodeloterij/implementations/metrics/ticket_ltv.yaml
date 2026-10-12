@@ -1,0 +1,12 @@
+metricImplementations:
+  - metric: ticket_ltv
+    platform: sf-postcodeloterij
+    name: ticket_ltv
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW
+    description: Not stored. Needs remaining-tenure times price, or a cohort inleg model.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+    technicalRule: null

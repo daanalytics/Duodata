@@ -1,0 +1,37 @@
+sourceImplementations:
+  - source: INCASSO_SYS
+    platform: sf-postcodeloterij
+    name: FCT_TICKET_DRAW.IS_COLLECTED
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW.IS_COLLECTED
+    description: Direct-debit success flag. No dedicated payment-attempt table.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+      column: IS_COLLECTED
+    metadata: null
+  - source: INCASSO_SYS
+    platform: sf-postcodeloterij
+    name: FCT_TICKET_DRAW.COLLECTION_EUR
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW.COLLECTION_EUR
+    description: Amount actually collected.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+      column: COLLECTION_EUR
+    metadata: null
+  - source: INCASSO_SYS
+    platform: sf-postcodeloterij
+    name: FCT_SUBSCRIPTION_EVENT.EVENT_TYPE
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_SUBSCRIPTION_EVENT.EVENT_TYPE
+    description: payment_failed events.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_SUBSCRIPTION_EVENT
+      column: EVENT_TYPE
+    metadata: null

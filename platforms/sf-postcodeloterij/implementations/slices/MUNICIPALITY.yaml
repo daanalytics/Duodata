@@ -1,0 +1,13 @@
+sliceImplementations:
+  - slice: MUNICIPALITY
+    platform: sf-postcodeloterij
+    name: DIM_GEOGRAPHY.MUNICIPALITY
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_GEOGRAPHY.MUNICIPALITY
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_GEOGRAPHY
+      column: MUNICIPALITY
+    values: null

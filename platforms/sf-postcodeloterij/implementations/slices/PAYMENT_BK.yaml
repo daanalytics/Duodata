@@ -1,0 +1,13 @@
+sliceImplementations:
+  - slice: PAYMENT_BK
+    platform: sf-postcodeloterij
+    name: FCT_TICKET_DRAW.TICKET_DRAW_KEY
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW.TICKET_DRAW_KEY
+    description: No dedicated payment id; one billed draw is one collection attempt.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+      column: TICKET_DRAW_KEY
+    values: null

@@ -1,0 +1,13 @@
+sliceImplementations:
+  - slice: DRAW_BK
+    platform: sf-postcodeloterij
+    name: DIM_DRAW.DRAW_ID
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DRAW.DRAW_ID
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_DRAW
+      column: DRAW_ID
+    values: null

@@ -1,0 +1,13 @@
+sliceImplementations:
+  - slice: PRIZE_BK
+    platform: sf-postcodeloterij
+    name: FCT_PRIZE.PRIZE_KEY
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_PRIZE.PRIZE_KEY
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_PRIZE
+      column: PRIZE_KEY
+    values: null

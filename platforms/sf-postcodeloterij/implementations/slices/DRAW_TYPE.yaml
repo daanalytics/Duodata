@@ -1,0 +1,13 @@
+sliceImplementations:
+  - slice: DRAW_TYPE
+    platform: sf-postcodeloterij
+    name: DIM_DRAW.DRAW_TYPE
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DRAW.DRAW_TYPE
+    description: Sample values are monthly | extra only.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_DRAW
+      column: DRAW_TYPE
+    values: null

@@ -1,0 +1,13 @@
+sliceImplementations:
+  - slice: ALLOCATION_BK
+    platform: sf-postcodeloterij
+    name: FCT_AFDRACHT.AFDRACHT_KEY
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_AFDRACHT.AFDRACHT_KEY
+    description: The fact row is the allocation; there is no separate allocation dimension.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_AFDRACHT
+      column: AFDRACHT_KEY
+    values: null

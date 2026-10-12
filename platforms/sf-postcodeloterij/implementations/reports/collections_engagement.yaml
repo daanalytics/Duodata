@@ -1,0 +1,12 @@
+reportImplementations:
+  - report: collections_engagement
+    platform: sf-postcodeloterij
+    name: CHARITY_LOTTERIES
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.CHARITY_LOTTERIES
+    description: FCT_TICKET_DRAW and FCT_VIP_REDEMPTION.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: CHARITY_LOTTERIES
+    platformUrl: null

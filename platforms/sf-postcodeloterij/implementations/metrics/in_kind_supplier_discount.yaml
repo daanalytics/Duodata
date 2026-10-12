@@ -1,0 +1,13 @@
+metricImplementations:
+  - metric: in_kind_supplier_discount
+    platform: sf-postcodeloterij
+    name: FCT_PRIZE.SUPPLIER_DISCOUNT_EUR
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_PRIZE.SUPPLIER_DISCOUNT_EUR
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_PRIZE
+      column: SUPPLIER_DISCOUNT_EUR
+    technicalRule: SUM(SUPPLIER_DISCOUNT_EUR)

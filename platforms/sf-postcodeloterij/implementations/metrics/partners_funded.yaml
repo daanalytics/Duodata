@@ -1,0 +1,13 @@
+metricImplementations:
+  - metric: partners_funded
+    platform: sf-postcodeloterij
+    name: partners_funded
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_AFDRACHT.BENEFICIARY_KEY
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_AFDRACHT
+      column: BENEFICIARY_KEY
+    technicalRule: COUNT(DISTINCT BENEFICIARY_KEY)

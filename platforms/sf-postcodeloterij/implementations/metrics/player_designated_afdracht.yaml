@@ -1,0 +1,13 @@
+metricImplementations:
+  - metric: player_designated_afdracht
+    platform: sf-postcodeloterij
+    name: player_designated_afdracht
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_AFDRACHT.AFDRACHT_EUR
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_AFDRACHT
+      column: AFDRACHT_EUR
+    technicalRule: SUM(AFDRACHT_EUR) WHERE ALLOCATION_TYPE = 'player_choice'

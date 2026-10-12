@@ -1,0 +1,15 @@
+sliceImplementations:
+  - slice: PAYMENT_STATUS
+    platform: sf-postcodeloterij
+    name: FCT_TICKET_DRAW.IS_COLLECTED
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW.IS_COLLECTED
+    description: 'Value map: TRUE → Successful, FALSE → Failed.'
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+      column: IS_COLLECTED
+    values:
+      - 'TRUE'
+      - 'FALSE'

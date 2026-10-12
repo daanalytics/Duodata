@@ -1,0 +1,13 @@
+metricImplementations:
+  - metric: organisation_cost_ratio
+    platform: sf-postcodeloterij
+    name: organisation_cost_ratio
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_FINANCE_MONTH
+    technicalRule: DIV0NULL(SUM(WERVINGSKOSTEN_EUR + ORGANISATIEKOSTEN_EUR + PERSONEELSKOSTEN_EUR + AFSCHRIJVINGEN_EUR),
+      SUM(INLEG_EUR))

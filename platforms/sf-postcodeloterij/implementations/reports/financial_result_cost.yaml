@@ -1,0 +1,12 @@
+reportImplementations:
+  - report: financial_result_cost
+    platform: sf-postcodeloterij
+    name: CHARITY_LOTTERIES
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.CHARITY_LOTTERIES
+    description: Statutory money-split from FCT_FINANCE_MONTH.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: CHARITY_LOTTERIES
+    platformUrl: null

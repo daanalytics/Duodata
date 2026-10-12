@@ -1,0 +1,13 @@
+metricImplementations:
+  - metric: successful_collections
+    platform: sf-postcodeloterij
+    name: successful_collections
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW.IS_COLLECTED
+    description: null
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+      column: IS_COLLECTED
+    technicalRule: COUNT_IF(IS_COLLECTED)
