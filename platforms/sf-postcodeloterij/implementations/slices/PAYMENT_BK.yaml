@@ -1,0 +1,13 @@
+sliceImplementations:
+  - slice: PAYMENT_BK
+    platform: sf-postcodeloterij
+    name: TICKET_DRAW_KEY
+    physicalId: TICKET_DRAW_KEY
+    description: Unqualified primary key of FCT_TICKET_DRAW.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+      column: TICKET_DRAW_KEY
+    values: null

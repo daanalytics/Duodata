@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: cac_total
+    platform: sf-postcodeloterij
+    name: cac_total
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH.WERVINGSKOSTEN_EUR
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: SUM(WERVINGSKOSTEN_EUR)

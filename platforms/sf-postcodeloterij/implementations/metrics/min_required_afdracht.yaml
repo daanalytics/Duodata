@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: min_required_afdracht
+    platform: sf-postcodeloterij
+    name: min_required_afdracht
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH.INLEG_EUR
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: SUM(INLEG_EUR) * 0.40

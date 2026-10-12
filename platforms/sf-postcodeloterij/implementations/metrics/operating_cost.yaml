@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: operating_cost
+    platform: sf-postcodeloterij
+    name: operating_cost
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: SUM(WERVINGSKOSTEN_EUR + ORGANISATIEKOSTEN_EUR + PERSONEELSKOSTEN_EUR + AFSCHRIJVINGEN_EUR)

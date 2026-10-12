@@ -1,0 +1,26 @@
+sliceImplementations:
+  - slice: DRAW_TYPE
+    platform: sf-postcodeloterij
+    name: DIM_DRAW
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DRAW
+    description: Logical table DRAW_TYPE is DIM_DRAW. Primary key DRAW_KEY.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_DRAW
+    values: null
+  - slice: DRAW_TYPE
+    platform: sf-postcodeloterij
+    name: DIM_DRAW.DRAW_TYPE
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DRAW.DRAW_TYPE
+    description: Column-level slice. monthly or extra.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_DRAW
+      column: DRAW_TYPE
+    values:
+      - monthly
+      - extra

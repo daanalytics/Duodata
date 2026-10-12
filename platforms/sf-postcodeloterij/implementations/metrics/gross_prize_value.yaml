@@ -2,12 +2,24 @@ metricImplementations:
   - metric: gross_prize_value
     platform: sf-postcodeloterij
     name: GROSS_PRIZE_VALUE_EUR
-    physicalId: null
-    description: null
-    deepLink: https://app.snowflake.com/Postcodeloterij/BV77588-AWS_US_WEST_ZTS/#/data/databases/POSTCODELOTERIJ/schemas/SAMPLE_SCHEMA/view/FCT_PRIZE/columns
+    physicalId: GROSS_PRIZE_VALUE_EUR
+    description: Consumer-facing prize value at prize grain.
+    deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ
       schema: SAMPLE_SCHEMA
       table: FCT_PRIZE
       column: GROSS_PRIZE_VALUE_EUR
-    technicalRule: null
+    technicalRule: SUM(GROSS_PRIZE_VALUE_EUR)
+  - metric: gross_prize_value
+    platform: sf-postcodeloterij
+    name: GROSS_PRIZE_VALUE_EUR
+    physicalId: GROSS_PRIZE_VALUE_EUR
+    description: Monthly prize pot on FCT_FINANCE_MONTH so prize_payout_ratio can SUM(GROSS_PRIZE_VALUE_EUR). Do not add to FCT_PRIZE.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_FINANCE_MONTH
+      column: GROSS_PRIZE_VALUE_EUR
+    technicalRule: SUM(GROSS_PRIZE_VALUE_EUR)

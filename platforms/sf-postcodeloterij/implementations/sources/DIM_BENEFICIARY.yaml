@@ -1,0 +1,17 @@
+sourceImplementations:
+  - source: DIM_BENEFICIARY
+    platform: sf-postcodeloterij
+    name: FCT_AFDRACHT
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_AFDRACHT
+    description: Afdracht allocated to one beneficiary in one lottery-month.
+    deepLink: null
+    schemaObjectRef: null
+    metadata: null
+  - source: DIM_BENEFICIARY
+    platform: sf-postcodeloterij
+    name: DIM_BENEFICIARY
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_BENEFICIARY
+    description: Charity, club or Droomfonds partner dimension.
+    deepLink: null
+    schemaObjectRef: null
+    metadata: null

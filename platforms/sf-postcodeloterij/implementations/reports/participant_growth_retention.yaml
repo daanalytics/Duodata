@@ -1,0 +1,9 @@
+reportImplementations:
+  - report: participant_growth_retention
+    platform: sf-postcodeloterij
+    name: CHARITY_LOTTERIES
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.CHARITY_LOTTERIES
+    description: FCT_TICKET_DRAW, FCT_SUBSCRIPTION_EVENT and DIM_PARTICIPANT.
+    deepLink: null
+    schemaObjectRef: null
+    platformUrl: null

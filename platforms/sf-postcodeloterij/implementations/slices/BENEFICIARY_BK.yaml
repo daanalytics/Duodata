@@ -1,0 +1,9 @@
+sliceImplementations:
+  - slice: BENEFICIARY_BK
+    platform: sf-postcodeloterij
+    name: DIM_BENEFICIARY.BENEFICIARY_ID
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_BENEFICIARY.BENEFICIARY_ID
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    values: null

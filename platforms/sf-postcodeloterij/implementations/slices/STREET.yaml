@@ -1,0 +1,9 @@
+sliceImplementations:
+  - slice: STREET
+    platform: sf-postcodeloterij
+    name: DIM_GEOGRAPHY.STREET_NAME
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_GEOGRAPHY.STREET_NAME
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    values: null

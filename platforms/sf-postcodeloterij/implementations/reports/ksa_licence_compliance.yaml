@@ -1,0 +1,9 @@
+reportImplementations:
+  - report: ksa_licence_compliance
+    platform: sf-postcodeloterij
+    name: CHARITY_LOTTERIES
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.CHARITY_LOTTERIES
+    description: Licence totals from FCT_FINANCE_MONTH and FCT_AFDRACHT via the semantic view.
+    deepLink: null
+    schemaObjectRef: null
+    platformUrl: null

@@ -1,0 +1,13 @@
+metricImplementations:
+  - metric: tickets_in_play
+    platform: sf-postcodeloterij
+    name: TICKETS_IN_PLAY
+    physicalId: TICKETS_IN_PLAY
+    description: Fact name must be TICKETS_IN_PLAY so plus_premium_mix can SUM it. COUNT of billed ticket-draw rows.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+      column: TICKET_DRAW_KEY
+    technicalRule: COUNT(*)

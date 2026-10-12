@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: new_participants
+    platform: sf-postcodeloterij
+    name: new_participants
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_SUBSCRIPTION_EVENT.EVENT_TYPE
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: COUNT(*) WHERE EVENT_TYPE = 'acquired'
