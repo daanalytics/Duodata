@@ -1,17 +1,12 @@
 sliceImplementations:
   - slice: DRAW_TYPE
     platform: sf-postcodeloterij
-    name: DIM_DRAW.DRAW_KEY
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DRAW.DRAW_KEY
-    description: Primary key binding for Semantic View Builder (DIM_DRAW.DRAW_KEY).
+    name: DIM_DRAW
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DRAW
+    description: Logical table DRAW_TYPE is DIM_DRAW. Primary key DRAW_KEY.
     deepLink: null
-    schemaObjectRef: null
-    values: null
-  - slice: DRAW_TYPE
-    platform: sf-postcodeloterij
-    name: DIM_DRAW.DRAW_TYPE
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DRAW.DRAW_TYPE
-    description: Sample values are monthly | extra only.
-    deepLink: null
-    schemaObjectRef: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_DRAW
     values: null

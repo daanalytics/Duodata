@@ -1,17 +1,12 @@
 sliceImplementations:
   - slice: PRODUCT_TIER
     platform: sf-postcodeloterij
-    name: DIM_PRODUCT.PRODUCT_KEY
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT.PRODUCT_KEY
-    description: Primary key binding for Semantic View Builder (DIM_PRODUCT.PRODUCT_KEY).
+    name: DIM_PRODUCT
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT
+    description: Logical table PRODUCT_TIER is DIM_PRODUCT. Primary key PRODUCT_KEY.
     deepLink: null
-    schemaObjectRef: null
-    values: null
-  - slice: PRODUCT_TIER
-    platform: sf-postcodeloterij
-    name: DIM_PRODUCT.PRODUCT_NAME
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT.PRODUCT_NAME
-    description: null
-    deepLink: null
-    schemaObjectRef: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_PRODUCT
     values: null

@@ -1,17 +1,12 @@
 sliceImplementations:
   - slice: MONTH
     platform: sf-postcodeloterij
-    name: DIM_DATE.DATE_KEY
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DATE.DATE_KEY
-    description: Primary key binding for Semantic View Builder (DIM_DATE.DATE_KEY).
+    name: DIM_DATE
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DATE
+    description: Logical table MONTH is DIM_DATE. Primary key DATE_KEY.
     deepLink: null
-    schemaObjectRef: null
-    values: null
-  - slice: MONTH
-    platform: sf-postcodeloterij
-    name: DIM_DATE.MONTH
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DATE.MONTH
-    description: null
-    deepLink: null
-    schemaObjectRef: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_DATE
     values: null
