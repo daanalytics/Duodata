@@ -1,12 +1,12 @@
 metricImplementations:
   - metric: tickets_in_play
     platform: sf-postcodeloterij
-    name: FCT_TICKET_DRAW
+    name: FCT_TICKET_DRAW.TICKET_COUNT
     physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW
-    description: Grain is one ticket billed in one draw.
+    description: SUM of the TICKET_COUNT fact (1 per billed ticket-draw row).
     deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ
       schema: SAMPLE_SCHEMA
       table: FCT_TICKET_DRAW
-    technicalRule: COUNT(*)
+    technicalRule: SUM(TICKET_COUNT)

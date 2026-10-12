@@ -157,6 +157,24 @@ tables:
         description: True on the first draw this ticket is billed
         expr: IS_NEW_TICKET
         data_type: BOOLEAN
+      - name: TICKET_COUNT
+        description: One per billed ticket-draw row. SUM is tickets in play.
+        expr: 1
+        data_type: NUMBER
+      - name: IS_UPGRADE
+        description: 1 when the ticket is Plus or Premium (from DIM_PRODUCT).
+        expr: IFF((SELECT p.IS_UPGRADE FROM POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT p WHERE p.PRODUCT_KEY = PRODUCT_KEY), 1, 0)
+        data_type: NUMBER
+    metrics:
+      - name: TICKETS_IN_PLAY
+        description: Tickets billed in the draw
+        expr: SUM(TICKET_COUNT)
+      - name: PLUS_PREMIUM_TICKETS
+        description: Plus and Premium tickets billed in the draw
+        expr: SUM(IS_UPGRADE)
+      - name: PLUS_PREMIUM_MIX
+        description: Plus/Premium tickets as a share of tickets in play
+        expr: DIV0NULL(SUM(IS_UPGRADE), SUM(TICKET_COUNT))
   - name: FCT_PRIZE
     description: >-
       One prize awarded to one participant. GROSS is consumer-facing value; NET
@@ -213,6 +231,17 @@ tables:
         description: P&L prize cost after in-kind discounts
         expr: NET_PRIZE_COST_EUR
         data_type: NUMBER
+      - name: GROSS_INLEG_EUR
+        description: Alias of INLEG_EUR so prize_payout_ratio can divide two facts on this table.
+        expr: INLEG_EUR
+        data_type: NUMBER
+    metrics:
+      - name: GROSS_INLEG
+        description: Official monthly inleg. Do not add FCT_TICKET_DRAW.INLEG_EUR.
+        expr: SUM(INLEG_EUR)
+      - name: PRIZE_PAYOUT_RATIO
+        description: Gross prize pot as a share of official monthly inleg
+        expr: DIV0NULL(SUM(GROSS_PRIZE_VALUE_EUR), SUM(INLEG_EUR))
 relationships:
   - name: TICKET_DRAW_TO_DRAW_TYPE
     left_table: FCT_TICKET_DRAW

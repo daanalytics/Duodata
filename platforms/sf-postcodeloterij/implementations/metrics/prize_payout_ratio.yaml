@@ -3,7 +3,7 @@ metricImplementations:
     platform: sf-postcodeloterij
     name: FCT_FINANCE_MONTH
     physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH
-    description: Official monthly money-split. Do not mix with FCT_TICKET_DRAW inleg.
+    description: Both operands are facts on FCT_FINANCE_MONTH so the builder can emit SQL.
     deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ

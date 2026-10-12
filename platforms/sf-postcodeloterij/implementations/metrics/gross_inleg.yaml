@@ -5,5 +5,9 @@ metricImplementations:
     physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH.INLEG_EUR
     description: Official / licence inleg. Do not SUM FCT_TICKET_DRAW.INLEG_EUR for statutory totals.
     deepLink: null
-    schemaObjectRef: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_FINANCE_MONTH
+      column: INLEG_EUR
     technicalRule: SUM(INLEG_EUR)
