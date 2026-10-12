@@ -57,15 +57,26 @@ tables:
           for inleg, prizes and payout ratio. Primary key is FINANCE_KEY.
         expr: FINANCE_KEY
         data_type: NUMBER
+    facts:
+      - name: GROSS_PRIZE_VALUE_EUR
+        description: Consumer-facing prize pot for the month
+        expr: GROSS_PRIZE_VALUE_EUR
+        data_type: NUMBER
+      - name: INLEG_EUR
+        description: Official monthly inleg. Do not add FCT_TICKET_DRAW.INLEG_EUR.
+        expr: INLEG_EUR
+        data_type: NUMBER
+      - name: GROSS_INLEG
+        description: Alias of INLEG_EUR so prize_payout_ratio can SUM(GROSS_INLEG).
+        expr: INLEG_EUR
+        data_type: NUMBER
+      - name: GROSS_PRIZE_VALUE
+        description: Alias of GROSS_PRIZE_VALUE_EUR so prize_payout_ratio can SUM(GROSS_PRIZE_VALUE).
+        expr: GROSS_PRIZE_VALUE_EUR
+        data_type: NUMBER
     metrics:
       - name: PRIZE_PAYOUT_RATIO
-        description: Consumer-facing prize value as a share of gross inleg, computed as
-          gross prize value divided by gross inleg. For a charity lottery this
-          sits alongside the 40% afdracht floor rather than competing with it,
-          and communicates winnable value to participants. Excludes supplier
-          discounts and gaming tax. Sensitive to jackpot design and special
-          draws. Watched by operations to balance attractiveness against the
-          afdracht objective.
+        description: Consumer-facing prize value as a share of official monthly inleg.
         expr: DIV0NULL(SUM(GROSS_PRIZE_VALUE_EUR), SUM(INLEG_EUR))
   - name: LOTTERY_BRAND
     description: Dimension distinguishing the two licensed lottery brands operated
@@ -123,6 +134,18 @@ tables:
         expr: PRIZE_KEY
         data_type: NUMBER
     facts:
+      - name: GROSS_PRIZE_VALUE_EUR
+        description: Consumer-facing prize value
+        expr: GROSS_PRIZE_VALUE_EUR
+        data_type: NUMBER
+      - name: SUPPLIER_DISCOUNT_EUR
+        description: Discount on in-kind prizes
+        expr: SUPPLIER_DISCOUNT_EUR
+        data_type: NUMBER
+      - name: NET_PRIZE_COST_EUR
+        description: P&L prize cost after in-kind discounts
+        expr: NET_PRIZE_COST_EUR
+        data_type: NUMBER
       - name: IN_KIND_SUPPLIER_DISCOUNT_ON_PRIZES
         description: Value of discounts, sponsorships and in-kind supply that reduce the
           actual cash cost of prizes below their consumer-facing gross value
@@ -133,6 +156,10 @@ tables:
           versus cash prizes in each draw.
         expr: SUPPLIER_DISCOUNT_EUR
         data_type: NUMBER
+    metrics:
+      - name: NET_PRIZE_COST
+        description: Actual cost of prizes borne by the lottery.
+        expr: SUM(GROSS_PRIZE_VALUE_EUR - SUPPLIER_DISCOUNT_EUR)
   - name: PRODUCT_TIER
     description: Dimension for the priced lot variant a subscription holds, driving
       the price component of the inleg identity and Plus/Premium mix.
@@ -174,27 +201,12 @@ tables:
         expr: TICKET_DRAW_KEY
         data_type: NUMBER
     facts:
-      - name: GROSS_INLEG_TICKET_STAKES
-        description: "Total consumer stakes across both lottery brands, computed as
-          tickets in play multiplied by lot price for each recurring
-          subscription draw. Includes standard, Plus and Premium tiers and all
-          channels; excludes gaming tax, prize value and any operating cost.
-          This is the licence-critical turnover denominator: afdracht
-          percentage, cost ratio and prize payout ratio are all expressed
-          against gross inleg. Sensitive to ticket price changes, tier mix and
-          the stock of active recurring lots. It is the primary top-line volume
-          metric for the Postcode Lottery Group."
-        expr: INLEG_EUR
-        data_type: NUMBER
       - name: PLUS_PREMIUM_TICKETS_IN_PLAY
         description: Stock of active lots subscribed at the higher Plus (€18.50) and
-          Premium (€21) price tiers rather than the €16 standard tier, primarily
-          at Nationale Postcode Loterij. Segmented by subscription and product
-          tier. Divided by total tickets in play it gives the Plus/Premium mix,
-          a lever on average price and therefore inleg and afdracht. Sensitive
-          to upsell campaigns and tier-benefit perception.
-        expr: IS_UPGRADE
-        data_type: BOOLEAN
+          Premium (€21) price tiers rather than the €16 standard tier.
+        expr: IFF((SELECT p.IS_UPGRADE FROM POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT p
+          WHERE p.PRODUCT_KEY = PRODUCT_KEY), 1, 0)
+        data_type: NUMBER
       - name: AVERAGE_LOT_PRICE
         description: Average consumer price per recurring lot, weighted by tickets in
           play across the standard (€16), Plus (€18.50) and Premium (€21) tiers
@@ -221,16 +233,16 @@ tables:
         expr: IFF((SELECT p.IS_UPGRADE FROM POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT p
           WHERE p.PRODUCT_KEY = PRODUCT_KEY), 1, 0)
         data_type: NUMBER
+      - name: PLUS_PREMIUM_TICKETS
+        description: 1 when the billed ticket is Plus or Premium.
+        expr: IFF((SELECT p.IS_UPGRADE FROM POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT p
+          WHERE p.PRODUCT_KEY = PRODUCT_KEY), 1, 0)
+        data_type: NUMBER
+      - name: TICKETS_IN_PLAY
+        description: One per billed ticket-draw row.
+        expr: 1
+        data_type: NUMBER
     metrics:
-      - name: NET_PRIZE_COST
-        description: Actual cost of prizes borne by the lottery, computed as gross prize
-          value minus in-kind supplier discounts. It reflects real cash and
-          goods outflow after sponsorships, and feeds the statutory net result.
-          Excludes gaming tax, which is tracked separately. Sensitive to the
-          proportion of in-kind versus cash prizes and to supplier deal quality.
-          Distinct from the consumer-facing gross prize value used for
-          perception and payout ratio.
-        expr: SUM(GROSS_PRIZE_VALUE_EUR - SUPPLIER_DISCOUNT_EUR)
       - name: PLUS_PREMIUM_MIX
         description: Share of tickets in play subscribed at Plus and Premium tiers,
           computed as Plus/Premium tickets divided by total tickets in play. It

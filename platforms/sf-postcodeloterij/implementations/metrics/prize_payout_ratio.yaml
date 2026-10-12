@@ -3,10 +3,10 @@ metricImplementations:
     platform: sf-postcodeloterij
     name: PRIZE_PAYOUT_RATIO
     physicalId: PRIZE_PAYOUT_RATIO
-    description: Derived as SUM(GROSS_PRIZE_VALUE) / SUM(GROSS_INLEG) on FCT_FINANCE_MONTH.
+    description: On FCT_FINANCE_MONTH / FINANCE_MONTH. Requires facts GROSS_PRIZE_VALUE_EUR and INLEG_EUR on that table.
     deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ
       schema: SAMPLE_SCHEMA
       table: FCT_FINANCE_MONTH
-    technicalRule: DIV0NULL(SUM(GROSS_PRIZE_VALUE), SUM(GROSS_INLEG))
+    technicalRule: DIV0NULL(SUM(GROSS_PRIZE_VALUE_EUR), SUM(INLEG_EUR))

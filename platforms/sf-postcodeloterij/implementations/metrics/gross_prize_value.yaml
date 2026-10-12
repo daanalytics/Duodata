@@ -13,9 +13,9 @@ metricImplementations:
     technicalRule: SUM(GROSS_PRIZE_VALUE_EUR)
   - metric: gross_prize_value
     platform: sf-postcodeloterij
-    name: GROSS_PRIZE_VALUE
-    physicalId: GROSS_PRIZE_VALUE
-    description: Monthly prize pot. Fact name GROSS_PRIZE_VALUE so prize_payout_ratio can SUM it. Do not add to FCT_PRIZE.
+    name: GROSS_PRIZE_VALUE_EUR
+    physicalId: GROSS_PRIZE_VALUE_EUR
+    description: Monthly prize pot on FCT_FINANCE_MONTH so prize_payout_ratio can SUM(GROSS_PRIZE_VALUE_EUR). Do not add to FCT_PRIZE.
     deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ

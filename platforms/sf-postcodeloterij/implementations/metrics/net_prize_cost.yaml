@@ -1,13 +1,24 @@
 metricImplementations:
   - metric: net_prize_cost
     platform: sf-postcodeloterij
-    name: NET_PRIZE_COST_EUR
-    physicalId: NET_PRIZE_COST_EUR
-    description: P&L prize cost after in-kind discounts, at prize grain.
+    name: NET_PRIZE_COST
+    physicalId: NET_PRIZE_COST
+    description: Must live on FCT_PRIZE / PRIZE_FACT with facts GROSS_PRIZE_VALUE_EUR and SUPPLIER_DISCOUNT_EUR. Not TICKET_DRAW.
     deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ
       schema: SAMPLE_SCHEMA
       table: FCT_PRIZE
-      column: NET_PRIZE_COST_EUR
-    technicalRule: SUM(NET_PRIZE_COST_EUR)
+    technicalRule: SUM(GROSS_PRIZE_VALUE_EUR - SUPPLIER_DISCOUNT_EUR)
+  - metric: net_prize_cost
+    platform: sf-postcodeloterij
+    name: GROSS_PRIZE_VALUE_EUR
+    physicalId: GROSS_PRIZE_VALUE_EUR
+    description: Physical prize-value column so NET_PRIZE_COST can reference it.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_PRIZE
+      column: GROSS_PRIZE_VALUE_EUR
+    technicalRule: SUM(GROSS_PRIZE_VALUE_EUR)

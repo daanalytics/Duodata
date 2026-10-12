@@ -1,9 +1,9 @@
 metricImplementations:
   - metric: gross_inleg
     platform: sf-postcodeloterij
-    name: GROSS_INLEG
-    physicalId: GROSS_INLEG
-    description: Fact name GROSS_INLEG so prize_payout_ratio can SUM(GROSS_INLEG). Maps to INLEG_EUR.
+    name: INLEG_EUR
+    physicalId: INLEG_EUR
+    description: Official monthly inleg on FCT_FINANCE_MONTH only. Do not bind to FCT_TICKET_DRAW.INLEG_EUR.
     deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ
