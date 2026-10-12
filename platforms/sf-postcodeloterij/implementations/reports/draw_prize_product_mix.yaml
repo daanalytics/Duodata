@@ -1,9 +1,9 @@
 reportImplementations:
   - report: draw_prize_product_mix
     platform: sf-postcodeloterij
-    name: CHARITY_LOTTERIES
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.CHARITY_LOTTERIES
-    description: FCT_TICKET_DRAW, FCT_PRIZE, DIM_DRAW and DIM_PRODUCT.
+    name: SV_DRAW_PRIZE_PRODUCT_MIX_REPORT
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.SV_DRAW_PRIZE_PRODUCT_MIX_REPORT
+    description: Snowflake Semantic View YAML at platforms/sf-postcodeloterij/semantic_views/SV_DRAW_PRIZE_PRODUCT_MIX_REPORT.yaml.
     deepLink: null
     schemaObjectRef: null
     platformUrl: null

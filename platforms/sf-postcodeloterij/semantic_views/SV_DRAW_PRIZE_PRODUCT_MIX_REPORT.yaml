@@ -1,0 +1,221 @@
+name: SV_DRAW_PRIZE_PRODUCT_MIX_REPORT
+description: >-
+  Operations report for the Lottery Operations & Draw Team covering draw
+  throughput, prize economics and product-tier mix. It presents draws held,
+  gross and net prize value, in-kind discounts, payout ratio, Plus/Premium
+  volumes and mix, average lot price and tickets in play.
+
+
+  Reviewed monthly to balance prize attractiveness against the afdracht
+  objective and to plan special draws and upsell. Decisions include jackpot
+  sizing, supplier deals and tier promotion timing.
+tables:
+  - name: DRAW_TYPE
+    description: Official lottery draw. Extra draws sit besides monthly draws.
+    base_table:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_DRAW
+    primary_key:
+      columns:
+        - DRAW_KEY
+    synonyms:
+      - Draw Cadence
+    dimensions:
+      - name: DRAW_TYPE
+        synonyms:
+          - Draw Cadence
+        description: monthly or extra
+        expr: DRAW_TYPE
+        data_type: VARCHAR
+        is_enum: true
+      - name: DRAW_NAME
+        description: Public draw name
+        expr: DRAW_NAME
+        data_type: VARCHAR
+      - name: LOTTERY_CODE
+        description: NPL or VL on the draw
+        expr: LOTTERY_CODE
+        data_type: VARCHAR
+    time_dimensions:
+      - name: DRAW_DATE
+        description: Draw date, typically month-end
+        expr: DRAW_DATE
+        data_type: DATE
+  - name: LOTTERY_BRAND
+    description: Dimension distinguishing the two licensed lottery brands.
+    base_table:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_LOTTERY
+    primary_key:
+      columns:
+        - LOTTERY_KEY
+    synonyms:
+      - Brand
+      - Licensed Lottery
+    dimensions:
+      - name: LOTTERY_BRAND
+        synonyms:
+          - Brand
+          - Licensed Lottery
+        description: Public brand name
+        expr: LOTTERY_NAME
+        data_type: VARCHAR
+        is_enum: true
+      - name: LOTTERY_CODE
+        description: NPL or VL
+        expr: LOTTERY_CODE
+        data_type: VARCHAR
+  - name: MONTH
+    description: Calendar date dimension. Grain of monthly money-split and draw date.
+    base_table:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_DATE
+    primary_key:
+      columns:
+        - DATE_KEY
+    synonyms:
+      - Calendar Month
+    time_dimensions:
+      - name: MONTH
+        synonyms:
+          - Calendar Month
+        description: Calendar month
+        expr: DATE_TRUNC('MONTH', FULL_DATE)
+        data_type: DATE
+      - name: YEAR
+        description: Calendar year
+        expr: DATE_TRUNC('YEAR', FULL_DATE)
+        data_type: DATE
+      - name: QUARTER
+        description: Calendar quarter
+        expr: DATE_TRUNC('QUARTER', FULL_DATE)
+        data_type: DATE
+    dimensions:
+      - name: MONTH_NAME
+        description: English month name
+        expr: MONTH_NAME
+        data_type: VARCHAR
+  - name: PRODUCT_TIER
+    description: Priced lot variant (Standard / Plus / Premium).
+    base_table:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: DIM_PRODUCT
+    primary_key:
+      columns:
+        - PRODUCT_KEY
+    synonyms:
+      - Product
+      - Lot Tier
+      - Price Mix
+    dimensions:
+      - name: PRODUCT_TIER
+        synonyms:
+          - Product
+          - Lot Tier
+          - Price Mix
+        description: Product name (Standard, Plus, Premium)
+        expr: PRODUCT_NAME
+        data_type: VARCHAR
+        is_enum: true
+      - name: IS_UPGRADE
+        description: True for Plus and Premium
+        expr: IS_UPGRADE
+        data_type: BOOLEAN
+  - name: FCT_TICKET_DRAW
+    description: >-
+      One ticket billed in one draw. Use for tickets in play, average lot price
+      and Plus/Premium mix. Do not add INLEG_EUR to FCT_FINANCE_MONTH.
+    base_table:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+    primary_key:
+      columns:
+        - TICKET_DRAW_KEY
+  - name: FCT_PRIZE
+    description: >-
+      One prize awarded to one participant. GROSS is consumer-facing value; NET
+      is P&L cost after in-kind supplier discounts.
+    base_table:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_PRIZE
+    primary_key:
+      columns:
+        - PRIZE_KEY
+  - name: FCT_FINANCE_MONTH
+    description: >-
+      One lottery in one calendar month. Official money-split for payout ratio.
+      Do not add INLEG_EUR to FCT_TICKET_DRAW.
+    base_table:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_FINANCE_MONTH
+    primary_key:
+      columns:
+        - FINANCE_KEY
+relationships:
+  - name: TICKET_DRAW_TO_DRAW_TYPE
+    left_table: FCT_TICKET_DRAW
+    right_table: DRAW_TYPE
+    relationship_columns:
+      - left_column: DRAW_KEY
+        right_column: DRAW_KEY
+  - name: TICKET_DRAW_TO_MONTH
+    left_table: FCT_TICKET_DRAW
+    right_table: MONTH
+    relationship_columns:
+      - left_column: DATE_KEY
+        right_column: DATE_KEY
+  - name: TICKET_DRAW_TO_LOTTERY_BRAND
+    left_table: FCT_TICKET_DRAW
+    right_table: LOTTERY_BRAND
+    relationship_columns:
+      - left_column: LOTTERY_KEY
+        right_column: LOTTERY_KEY
+  - name: TICKET_DRAW_TO_PRODUCT_TIER
+    left_table: FCT_TICKET_DRAW
+    right_table: PRODUCT_TIER
+    relationship_columns:
+      - left_column: PRODUCT_KEY
+        right_column: PRODUCT_KEY
+  - name: PRIZE_TO_DRAW_TYPE
+    left_table: FCT_PRIZE
+    right_table: DRAW_TYPE
+    relationship_columns:
+      - left_column: DRAW_KEY
+        right_column: DRAW_KEY
+  - name: PRIZE_TO_MONTH
+    left_table: FCT_PRIZE
+    right_table: MONTH
+    relationship_columns:
+      - left_column: DATE_KEY
+        right_column: DATE_KEY
+  - name: PRIZE_TO_LOTTERY_BRAND
+    left_table: FCT_PRIZE
+    right_table: LOTTERY_BRAND
+    relationship_columns:
+      - left_column: LOTTERY_KEY
+        right_column: LOTTERY_KEY
+  - name: PRIZE_TO_PRODUCT_TIER
+    left_table: FCT_PRIZE
+    right_table: PRODUCT_TIER
+    relationship_columns:
+      - left_column: PRODUCT_KEY
+        right_column: PRODUCT_KEY
+  - name: FINANCE_MONTH_TO_MONTH
+    left_table: FCT_FINANCE_MONTH
+    right_table: MONTH
+    relationship_columns:
+      - left_column: DATE_KEY
+        right_column: DATE_KEY
+  - name: FINANCE_MONTH_TO_LOTTERY_BRAND
+    left_table: FCT_FINANCE_MONTH
+    right_table: LOTTERY_BRAND
+    relationship_columns:
+      - left_column: LOTTERY_KEY
+        right_column: LOTTERY_KEY
