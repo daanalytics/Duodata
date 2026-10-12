@@ -1,9 +1,9 @@
 metricImplementations:
   - metric: tickets_in_play
     platform: sf-postcodeloterij
-    name: TICKET_DRAW_KEY
-    physicalId: TICKET_DRAW_KEY
-    description: Physical PK column so the builder emits a fact on FCT_TICKET_DRAW. COUNT is tickets in play.
+    name: TICKETS_IN_PLAY
+    physicalId: TICKETS_IN_PLAY
+    description: Fact name must be TICKETS_IN_PLAY so plus_premium_mix can SUM it. COUNT of billed ticket-draw rows.
     deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ

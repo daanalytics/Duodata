@@ -128,6 +128,14 @@ tables:
         description: Consumer-facing prize pot for the month
         expr: GROSS_PRIZE_VALUE_EUR
         data_type: NUMBER
+      - name: GROSS_INLEG
+        description: Official monthly inleg. Alias so prize_payout_ratio can SUM(GROSS_INLEG).
+        expr: INLEG_EUR
+        data_type: NUMBER
+      - name: GROSS_PRIZE_VALUE
+        description: Monthly prize pot. Alias so prize_payout_ratio can SUM(GROSS_PRIZE_VALUE).
+        expr: GROSS_PRIZE_VALUE_EUR
+        data_type: NUMBER
       - name: GROSS_INLEG_TICKET_STAKES
         description: "Total consumer stakes across both lottery brands, computed as
           tickets in play multiplied by lot price for each recurring
@@ -143,7 +151,7 @@ tables:
     metrics:
       - name: PRIZE_PAYOUT_RATIO
         description: Consumer-facing prize value as a share of official monthly inleg.
-        expr: DIV0NULL(SUM(GROSS_PRIZE_VALUE_EUR), SUM(INLEG_EUR))
+        expr: DIV0NULL(SUM(GROSS_PRIZE_VALUE), SUM(GROSS_INLEG))
   - name: FCT_TICKET_DRAW
     description: "Grain: one ticket billed in one draw. Use for inleg, tickets in
       play, participants and collection. Do not use for official afdracht% —
@@ -186,10 +194,19 @@ tables:
         expr: IFF((SELECT p.IS_UPGRADE FROM POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT p
           WHERE p.PRODUCT_KEY = PRODUCT_KEY), 1, 0)
         data_type: NUMBER
+      - name: PLUS_PREMIUM_TICKETS
+        description: 1 when the billed ticket is Plus or Premium. Same expression as IS_UPGRADE so plus_premium_mix can SUM(PLUS_PREMIUM_TICKETS).
+        expr: IFF((SELECT p.IS_UPGRADE FROM POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT p
+          WHERE p.PRODUCT_KEY = PRODUCT_KEY), 1, 0)
+        data_type: NUMBER
+      - name: TICKETS_IN_PLAY
+        description: One per billed ticket-draw row. SUM is tickets in play.
+        expr: 1
+        data_type: NUMBER
     metrics:
       - name: PLUS_PREMIUM_MIX
         description: Plus/Premium tickets as a share of tickets in play.
-        expr: DIV0NULL(SUM(IS_UPGRADE), COUNT(TICKET_DRAW_KEY))
+        expr: DIV0NULL(SUM(PLUS_PREMIUM_TICKETS), SUM(TICKETS_IN_PLAY))
   - name: FCT_PRIZE
     description: "Grain: one prize awarded to one participant. GROSS is
       consumer-facing value; NET is P&L cost after in-kind supplier discounts.

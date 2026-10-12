@@ -1,9 +1,9 @@
 metricImplementations:
   - metric: gross_inleg
     platform: sf-postcodeloterij
-    name: INLEG_EUR
-    physicalId: INLEG_EUR
-    description: Official / licence inleg. Do not SUM FCT_TICKET_DRAW.INLEG_EUR for statutory totals.
+    name: GROSS_INLEG
+    physicalId: GROSS_INLEG
+    description: Fact name GROSS_INLEG so prize_payout_ratio can SUM(GROSS_INLEG). Maps to INLEG_EUR.
     deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ
