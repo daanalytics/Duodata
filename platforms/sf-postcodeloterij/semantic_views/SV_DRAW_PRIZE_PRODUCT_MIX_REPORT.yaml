@@ -215,8 +215,7 @@ tables:
         data_type: NUMBER
       - name: PLUS_PREMIUM_TICKETS_IN_PLAY
         description: Stock of active lots subscribed at Plus and Premium.
-        expr: IFF((SELECT p.IS_UPGRADE FROM POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT p
-          WHERE p.PRODUCT_KEY = PRODUCT_KEY), 1, 0)
+        expr: IFF(PRODUCT_KEY IN (2, 3), 1, 0)
         data_type: NUMBER
       - name: AVERAGE_LOT_PRICE
         description: Average consumer price per recurring lot, weighted by tickets in
@@ -240,9 +239,8 @@ tables:
         expr: TICKET_DRAW_KEY
         data_type: NUMBER
       - name: IS_UPGRADE
-        description: Is this an upgrade?
-        expr: IFF((SELECT p.IS_UPGRADE FROM POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT p
-          WHERE p.PRODUCT_KEY = PRODUCT_KEY), 1, 0)
+        description: 1 for Plus (PRODUCT_KEY 2) and Premium (PRODUCT_KEY 3). No subquery — Semantic View facts cannot use SELECT.
+        expr: IFF(PRODUCT_KEY IN (2, 3), 1, 0)
         data_type: NUMBER
       - name: TICKETS_IN_PLAY
         description: One per billed ticket-draw row. SUM is tickets in play.
