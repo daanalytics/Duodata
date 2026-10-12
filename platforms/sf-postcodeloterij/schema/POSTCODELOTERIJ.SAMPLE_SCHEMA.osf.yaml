@@ -1,0 +1,239 @@
+osf: 2.0
+schemas:
+    - source:
+        database: POSTCODELOTERIJ
+        schema: SAMPLE_SCHEMA
+        type: snowflake
+      meta:
+        generated_at: 2026-10-12T08:09:17Z
+        generated_by: osf-go/2.0.0
+        synced_by: postcodeloterij
+      tables:
+        DIM_DATE:
+            columns:
+                DATE_KEY: {type: NUMBER, is: [pk, notnull]}
+                DAY_NAME: {type: TEXT}
+                DAY_OF_MONTH: {type: NUMBER}
+                FULL_DATE: {type: DATE}
+                IS_MONTH_END: {type: BOOLEAN}
+                IS_YEAR_END: {type: BOOLEAN}
+                MONTH: {type: NUMBER}
+                MONTH_NAME: {type: TEXT}
+                MONTH_NAME_NL: {type: TEXT}
+                QUARTER: {type: NUMBER}
+                YEAR: {type: NUMBER}
+            primary_key: DATE_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DATE (
+                	DATE_KEY NUMBER(8,0) NOT NULL COMMENT 'Surrogate date key YYYYMMDD',
+                	FULL_DATE DATE COMMENT 'Calendar date',
+                	YEAR NUMBER(4,0) COMMENT 'Calendar year',
+                	QUARTER NUMBER(1,0) COMMENT 'Calendar quarter 1-4',
+                	MONTH NUMBER(2,0) COMMENT 'Calendar month 1-12',
+                	MONTH_NAME VARCHAR(20) COMMENT 'English month name',
+                	MONTH_NAME_NL VARCHAR(20) COMMENT 'Dutch month name',
+                	DAY_OF_MONTH NUMBER(2,0) COMMENT 'Day of month',
+                	DAY_NAME VARCHAR(12) COMMENT 'Weekday name',
+                	IS_MONTH_END BOOLEAN COMMENT 'True on last day of month (typical draw day)',
+                	IS_YEAR_END BOOLEAN COMMENT 'True on 31 December',
+                	constraint PK_DIM_DATE primary key (DATE_KEY)
+                )COMMENT='Calendar date dimension. Use DATE_KEY to join facts. Calendar year is the licence reporting grain.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        DIM_DRAW:
+            columns:
+                DRAW_DATE: {type: DATE}
+                DRAW_ID: {type: TEXT}
+                DRAW_KEY: {type: NUMBER, is: [pk, notnull]}
+                DRAW_MONTH: {type: NUMBER}
+                DRAW_NAME: {type: TEXT}
+                DRAW_TYPE: {type: TEXT}
+                DRAW_YEAR: {type: NUMBER}
+                LOTTERY_CODE: {type: TEXT}
+            primary_key: DRAW_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DRAW (
+                	DRAW_KEY NUMBER(10,0) NOT NULL COMMENT 'Draw surrogate key',
+                	DRAW_ID VARCHAR(24) COMMENT 'Business draw id',
+                	LOTTERY_CODE VARCHAR(8) COMMENT 'NPL or VL',
+                	DRAW_TYPE VARCHAR(16) COMMENT 'monthly or extra',
+                	DRAW_DATE DATE COMMENT 'Draw date, typically month-end',
+                	DRAW_YEAR NUMBER(4,0) COMMENT 'Draw calendar year',
+                	DRAW_MONTH NUMBER(2,0) COMMENT 'Draw calendar month',
+                	DRAW_NAME VARCHAR(40) COMMENT 'Public draw name',
+                	constraint PK_DIM_DRAW primary key (DRAW_KEY)
+                )COMMENT='Official lottery draw. Operational time grain. Extra draws sit besides monthly draws.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        DIM_GEOGRAPHY:
+            columns:
+                GEOGRAPHY_KEY: {type: NUMBER, is: [pk, notnull]}
+                MUNICIPALITY: {type: TEXT}
+                POSTCODE: {type: TEXT}
+                POSTCODE4: {type: TEXT}
+                PROVINCE: {type: TEXT}
+                STREET_NAME: {type: TEXT}
+            primary_key: GEOGRAPHY_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_GEOGRAPHY (
+                	GEOGRAPHY_KEY NUMBER(10,0) NOT NULL COMMENT 'Geography surrogate key',
+                	POSTCODE VARCHAR(6) COMMENT 'Dutch PC6 postcode',
+                	POSTCODE4 VARCHAR(4) COMMENT 'Dutch PC4',
+                	STREET_NAME VARCHAR(40) COMMENT 'Street name',
+                	MUNICIPALITY VARCHAR(40) COMMENT 'Municipality',
+                	PROVINCE VARCHAR(30) COMMENT 'Province',
+                	constraint PK_DIM_GEOGRAPHY primary key (GEOGRAPHY_KEY)
+                )COMMENT='Dutch geography. For Postcode Loterij the postcode is also the ticket number and win mechanic.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        DIM_LOTTERY:
+            columns:
+                DRAWS_PER_YEAR: {type: NUMBER}
+                FOUNDED_YEAR: {type: NUMBER}
+                LEGAL_ENTITY_NAME: {type: TEXT}
+                LOTTERY_CODE: {type: TEXT}
+                LOTTERY_KEY: {type: NUMBER, is: [pk, notnull]}
+                LOTTERY_NAME: {type: TEXT}
+                MISSION_THEME: {type: TEXT}
+                STANDARD_TICKET_PRICE_EUR: {type: NUMBER}
+                WEBSITE: {type: TEXT}
+            primary_key: LOTTERY_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_LOTTERY (
+                	LOTTERY_KEY NUMBER(10,0) NOT NULL COMMENT 'Lottery surrogate key',
+                	LOTTERY_CODE VARCHAR(8) COMMENT 'NPL or VL',
+                	LOTTERY_NAME VARCHAR(80) COMMENT 'Public brand name',
+                	LEGAL_ENTITY_NAME VARCHAR(120) COMMENT 'Licensed N.V. name',
+                	MISSION_THEME VARCHAR(80) COMMENT 'Charity mission theme',
+                	DRAWS_PER_YEAR NUMBER(2,0) COMMENT 'Official draws per year excluding weekly extras',
+                	STANDARD_TICKET_PRICE_EUR NUMBER(10,2) COMMENT 'Standard ticket price',
+                	FOUNDED_YEAR NUMBER(4,0) COMMENT 'Year the lottery started',
+                	WEBSITE VARCHAR(80) COMMENT 'Public website',
+                	constraint PK_DIM_LOTTERY primary key (LOTTERY_KEY)
+                )COMMENT='Lottery brand and legal entity. Always slice metrics by lottery. Two licences, shared operations.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        DIM_PARTICIPANT:
+            columns:
+                AGE_BAND: {type: TEXT}
+                DISPLAY_NAME: {type: TEXT}
+                GENDER: {type: TEXT}
+                HAS_DIGITAL_ACCOUNT: {type: BOOLEAN}
+                HOUSEHOLD_ID: {type: TEXT}
+                LOTTERY_CODE: {type: TEXT}
+                PARTICIPANT_ID: {type: TEXT}
+                PARTICIPANT_KEY: {type: NUMBER, is: [pk, notnull]}
+                TENURE_START_DATE: {type: DATE}
+            primary_key: PARTICIPANT_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PARTICIPANT (
+                	PARTICIPANT_KEY NUMBER(10,0) NOT NULL COMMENT 'Participant surrogate key',
+                	PARTICIPANT_ID VARCHAR(20) COMMENT 'Business participant id',
+                	DISPLAY_NAME VARCHAR(80) COMMENT 'Synthetic display name',
+                	LOTTERY_CODE VARCHAR(8) COMMENT 'Primary lottery of this participant record',
+                	AGE_BAND VARCHAR(12) COMMENT 'Age band',
+                	GENDER VARCHAR(12) COMMENT 'Gender',
+                	HOUSEHOLD_ID VARCHAR(20) COMMENT 'Household used to measure NPL-VL overlap',
+                	TENURE_START_DATE DATE COMMENT 'First ticket start date',
+                	HAS_DIGITAL_ACCOUNT BOOLEAN COMMENT 'Has Mijn Postcode Loterij / Mijn VriendenLoterij',
+                	constraint PK_DIM_PARTICIPANT primary key (PARTICIPANT_KEY)
+                )COMMENT='Lottery participant (person 18+). HOUSEHOLD_ID links NPL and VL players in the same household.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        DIM_PRIZE_TYPE:
+            columns:
+                IS_SHARED_BY_POSTCODE: {type: BOOLEAN}
+                LOTTERY_CODE: {type: TEXT}
+                PRIZE_CLASS: {type: TEXT}
+                PRIZE_TYPE_CODE: {type: TEXT}
+                PRIZE_TYPE_KEY: {type: NUMBER, is: [pk, notnull]}
+                PRIZE_TYPE_NAME: {type: TEXT}
+            primary_key: PRIZE_TYPE_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRIZE_TYPE (
+                	PRIZE_TYPE_KEY NUMBER(10,0) NOT NULL COMMENT 'Prize type surrogate key',
+                	PRIZE_TYPE_CODE VARCHAR(24) COMMENT 'Prize type code',
+                	PRIZE_TYPE_NAME VARCHAR(60) COMMENT 'Prize type name',
+                	PRIZE_CLASS VARCHAR(12) COMMENT 'cash or in_kind',
+                	IS_SHARED_BY_POSTCODE BOOLEAN COMMENT 'True when neighbours in a postcode share the prize',
+                	LOTTERY_CODE VARCHAR(8) COMMENT 'NPL, VL or BOTH',
+                	constraint PK_DIM_PRIZE_TYPE primary key (PRIZE_TYPE_KEY)
+                )COMMENT='Prize catalogue: cash versus in-kind, shared postcode prizes versus individual prizes.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        DIM_PRODUCT:
+            columns:
+                IS_UPGRADE: {type: BOOLEAN}
+                LOTTERY_CODE: {type: TEXT}
+                PRODUCT_CODE: {type: TEXT}
+                PRODUCT_KEY: {type: NUMBER, is: [pk, notnull]}
+                PRODUCT_NAME: {type: TEXT}
+                TICKET_PRICE_EUR: {type: NUMBER}
+                UPGRADE_SURCHARGE_EUR: {type: NUMBER}
+            primary_key: PRODUCT_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PRODUCT (
+                	PRODUCT_KEY NUMBER(10,0) NOT NULL COMMENT 'Product surrogate key',
+                	PRODUCT_CODE VARCHAR(20) COMMENT 'Stable product code',
+                	PRODUCT_NAME VARCHAR(40) COMMENT 'Product name',
+                	LOTTERY_CODE VARCHAR(8) COMMENT 'NPL or VL',
+                	TICKET_PRICE_EUR NUMBER(10,2) COMMENT 'Price per draw',
+                	IS_UPGRADE BOOLEAN COMMENT 'True for Plus and Premium',
+                	UPGRADE_SURCHARGE_EUR NUMBER(10,2) COMMENT 'Surcharge versus standard lot',
+                	constraint PK_DIM_PRODUCT primary key (PRODUCT_KEY)
+                )COMMENT='Ticket product. Postcode Loterij Standard, Plus and Premium; VriendenLoterij Standard.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        FCT_PRIZE:
+            columns:
+                DATE_KEY: {type: NUMBER}
+                DRAW_KEY: {type: NUMBER}
+                GEOGRAPHY_KEY: {type: NUMBER}
+                GROSS_PRIZE_VALUE_EUR: {type: NUMBER}
+                IS_IN_KIND: {type: BOOLEAN}
+                KANSSPELBELASTING_EUR: {type: NUMBER}
+                LOTTERY_KEY: {type: NUMBER}
+                NET_PRIZE_COST_EUR: {type: NUMBER}
+                PARTICIPANT_KEY: {type: NUMBER}
+                PRIZE_KEY: {type: NUMBER, is: [pk, notnull]}
+                PRIZE_TYPE_KEY: {type: NUMBER}
+                PRODUCT_KEY: {type: NUMBER}
+                SUPPLIER_DISCOUNT_EUR: {type: NUMBER}
+                WINNERS_IN_POSTCODE: {type: NUMBER}
+            primary_key: PRIZE_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_PRIZE (
+                	PRIZE_KEY NUMBER(18,0) NOT NULL COMMENT 'Prize fact key',
+                	DRAW_KEY NUMBER(10,0) COMMENT 'Draw key',
+                	DATE_KEY NUMBER(8,0) COMMENT 'Draw date key',
+                	LOTTERY_KEY NUMBER(10,0) COMMENT 'Lottery key',
+                	PRODUCT_KEY NUMBER(10,0) COMMENT 'Winning ticket product',
+                	PARTICIPANT_KEY NUMBER(10,0) COMMENT 'Winner',
+                	GEOGRAPHY_KEY NUMBER(10,0) COMMENT 'Winning postcode',
+                	PRIZE_TYPE_KEY NUMBER(10,0) COMMENT 'Prize type',
+                	GROSS_PRIZE_VALUE_EUR NUMBER(14,2) COMMENT 'Consumer-facing prize value',
+                	SUPPLIER_DISCOUNT_EUR NUMBER(14,2) COMMENT 'Discount on in-kind prizes',
+                	NET_PRIZE_COST_EUR NUMBER(14,2) COMMENT 'P&L prize cost after discounts',
+                	KANSSPELBELASTING_EUR NUMBER(14,2) COMMENT 'Gaming tax paid by the lottery, not the player',
+                	IS_IN_KIND BOOLEAN COMMENT 'True for natura prizes',
+                	WINNERS_IN_POSTCODE NUMBER(8,0) COMMENT 'How many tickets in the winning postcode shared this prize',
+                	constraint PK_FCT_PRIZE primary key (PRIZE_KEY)
+                )COMMENT='Grain: one prize awarded to one participant. GROSS is consumer-facing value; NET is P&L cost after in-kind supplier discounts. Lottery pays kansspelbelasting on prizes above 449 euro.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
