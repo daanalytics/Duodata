@@ -1,9 +1,0 @@
-metricImplementations:
-  - metric: net_participant_growth
-    platform: sf-postcodeloterij
-    name: net_participant_growth
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_SUBSCRIPTION_EVENT.TICKETS_DELTA
-    description: null
-    deepLink: null
-    schemaObjectRef: null
-    technicalRule: SUM(TICKETS_DELTA)

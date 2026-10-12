@@ -1,9 +1,0 @@
-sliceImplementations:
-  - slice: ALLOCATION_THEME
-    platform: sf-postcodeloterij
-    name: DIM_BENEFICIARY.THEME
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_BENEFICIARY.THEME
-    description: null
-    deepLink: null
-    schemaObjectRef: null
-    values: null

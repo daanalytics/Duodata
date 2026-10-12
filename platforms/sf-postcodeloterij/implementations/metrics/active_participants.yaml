@@ -1,9 +1,0 @@
-metricImplementations:
-  - metric: active_participants
-    platform: sf-postcodeloterij
-    name: active_participants
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW.PARTICIPANT_KEY
-    description: null
-    deepLink: null
-    schemaObjectRef: null
-    technicalRule: COUNT(DISTINCT PARTICIPANT_KEY)

@@ -1,9 +1,0 @@
-sliceImplementations:
-  - slice: POSTCODE
-    platform: sf-postcodeloterij
-    name: DIM_GEOGRAPHY.POSTCODE
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_GEOGRAPHY.POSTCODE
-    description: null
-    deepLink: null
-    schemaObjectRef: null
-    values: null

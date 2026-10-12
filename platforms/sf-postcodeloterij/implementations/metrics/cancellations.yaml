@@ -1,9 +1,0 @@
-metricImplementations:
-  - metric: cancellations
-    platform: sf-postcodeloterij
-    name: cancellations
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_SUBSCRIPTION_EVENT.EVENT_TYPE
-    description: null
-    deepLink: null
-    schemaObjectRef: null
-    technicalRule: COUNT(*) WHERE EVENT_TYPE = 'cancelled'

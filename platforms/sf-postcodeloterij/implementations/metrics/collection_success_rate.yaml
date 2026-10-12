@@ -1,9 +1,0 @@
-metricImplementations:
-  - metric: collection_success_rate
-    platform: sf-postcodeloterij
-    name: collection_success_rate
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW
-    description: null
-    deepLink: null
-    schemaObjectRef: null
-    technicalRule: DIV0NULL(SUM(COLLECTION_EUR), SUM(INLEG_EUR))

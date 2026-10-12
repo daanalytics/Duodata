@@ -1,9 +1,0 @@
-sliceImplementations:
-  - slice: SUBSCRIPTION_BK
-    platform: sf-postcodeloterij
-    name: FCT_TICKET_DRAW.TICKET_ID
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW.TICKET_ID
-    description: null
-    deepLink: null
-    schemaObjectRef: null
-    values: null

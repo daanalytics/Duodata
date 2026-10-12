@@ -27,7 +27,6 @@ report:
   metrics:
     - avg_ticket_price
     - draws_held
-    - gross_inleg
     - gross_prize_value
     - in_kind_supplier_discount
     - net_prize_cost
@@ -37,9 +36,6 @@ report:
     - tickets_in_play
   slices:
     - DRAW_TYPE
-    - FCT_FINANCE_MONTH
-    - FCT_PRIZE
-    - FCT_TICKET_DRAW
     - LOTTERY_BRAND
     - MONTH
     - PRODUCT_TIER
