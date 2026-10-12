@@ -1,12 +1,13 @@
 metricImplementations:
   - metric: tickets_in_play
     platform: sf-postcodeloterij
-    name: FCT_TICKET_DRAW.TICKET_COUNT
-    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW
-    description: SUM of the TICKET_COUNT fact (1 per billed ticket-draw row).
+    name: FCT_TICKET_DRAW.TICKET_DRAW_KEY
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW.TICKET_DRAW_KEY
+    description: Physical column so the builder emits a fact on FCT_TICKET_DRAW. COUNT is tickets in play.
     deepLink: null
     schemaObjectRef:
       database: POSTCODELOTERIJ
       schema: SAMPLE_SCHEMA
       table: FCT_TICKET_DRAW
-    technicalRule: SUM(TICKET_COUNT)
+      column: TICKET_DRAW_KEY
+    technicalRule: COUNT(*)
