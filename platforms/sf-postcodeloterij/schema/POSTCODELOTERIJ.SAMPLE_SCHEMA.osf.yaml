@@ -5,10 +5,77 @@ schemas:
         schema: SAMPLE_SCHEMA
         type: snowflake
       meta:
-        generated_at: 2026-10-12T08:09:17Z
+        generated_at: 2026-10-12T09:00:36Z
         generated_by: osf-go/2.0.0
         synced_by: postcodeloterij
       tables:
+        DIM_BENEFICIARY:
+            columns:
+                BENEFICIARY_ID: {type: TEXT}
+                BENEFICIARY_KEY: {type: NUMBER, is: [pk, notnull]}
+                BENEFICIARY_NAME: {type: TEXT}
+                BENEFICIARY_TYPE: {type: TEXT}
+                IS_ANBI: {type: BOOLEAN}
+                LOTTERY_CODE: {type: TEXT}
+                MUNICIPALITY: {type: TEXT}
+                THEME: {type: TEXT}
+            primary_key: BENEFICIARY_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_BENEFICIARY (
+                	BENEFICIARY_KEY NUMBER(10,0) NOT NULL COMMENT 'Beneficiary surrogate key',
+                	BENEFICIARY_ID VARCHAR(20) COMMENT 'Business beneficiary id',
+                	BENEFICIARY_NAME VARCHAR(80) COMMENT 'Organisation name',
+                	BENEFICIARY_TYPE VARCHAR(24) COMMENT 'multi_year_partner, one_off, droomfonds or club',
+                	THEME VARCHAR(24) COMMENT 'nature, people, culture, sport or wellbeing',
+                	IS_ANBI BOOLEAN COMMENT 'Has ANBI status. Licence requires >=80% of afdracht to ANBIs.',
+                	LOTTERY_CODE VARCHAR(8) COMMENT 'Primary lottery funding this beneficiary',
+                	MUNICIPALITY VARCHAR(40) COMMENT 'Home municipality, mainly for clubs',
+                	constraint PK_DIM_BENEFICIARY primary key (BENEFICIARY_KEY)
+                )COMMENT='Charity, cultural partner, Droomfonds project or local club receiving afdracht.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        DIM_CAMPAIGN:
+            columns:
+                CAMPAIGN_CODE: {type: TEXT}
+                CAMPAIGN_KEY: {type: NUMBER, is: [pk, notnull]}
+                CAMPAIGN_NAME: {type: TEXT}
+                CAMPAIGN_TYPE: {type: TEXT}
+                LOTTERY_CODE: {type: TEXT}
+            primary_key: CAMPAIGN_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_CAMPAIGN (
+                	CAMPAIGN_KEY NUMBER(10,0) NOT NULL COMMENT 'Campaign surrogate key',
+                	CAMPAIGN_CODE VARCHAR(24) COMMENT 'Campaign code',
+                	CAMPAIGN_NAME VARCHAR(80) COMMENT 'Campaign name',
+                	CAMPAIGN_TYPE VARCHAR(20) COMMENT 'tv, door_to_door, digital or event',
+                	LOTTERY_CODE VARCHAR(8) COMMENT 'NPL, VL or BOTH',
+                	constraint PK_DIM_CAMPAIGN primary key (CAMPAIGN_KEY)
+                )COMMENT='Marketing campaign, TV show or event that acquired the ticket.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        DIM_CHANNEL:
+            columns:
+                CHANNEL_CODE: {type: TEXT}
+                CHANNEL_GROUP: {type: TEXT}
+                CHANNEL_KEY: {type: NUMBER, is: [pk, notnull]}
+                CHANNEL_NAME: {type: TEXT}
+            primary_key: CHANNEL_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_CHANNEL (
+                	CHANNEL_KEY NUMBER(10,0) NOT NULL COMMENT 'Channel surrogate key',
+                	CHANNEL_CODE VARCHAR(20) COMMENT 'Channel code',
+                	CHANNEL_NAME VARCHAR(40) COMMENT 'Channel name',
+                	CHANNEL_GROUP VARCHAR(20) COMMENT 'direct, digital, media or partner',
+                	constraint PK_DIM_CHANNEL primary key (CHANNEL_KEY)
+                )COMMENT='Acquisition and service channel of the ticket subscription.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
         DIM_DATE:
             columns:
                 DATE_KEY: {type: NUMBER, is: [pk, notnull]}
@@ -198,6 +265,78 @@ schemas:
             provenance:
                 pk_source: ddl
                 has_ddl: true
+        FCT_AFDRACHT:
+            columns:
+                AFDRACHT_EUR: {type: NUMBER}
+                AFDRACHT_KEY: {type: NUMBER, is: [pk, notnull]}
+                ALLOCATION_TYPE: {type: TEXT}
+                BENEFICIARY_KEY: {type: NUMBER}
+                DATE_KEY: {type: NUMBER}
+                INLEG_BASE_EUR: {type: NUMBER}
+                IS_ANBI: {type: BOOLEAN}
+                LOTTERY_KEY: {type: NUMBER}
+            primary_key: AFDRACHT_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_AFDRACHT (
+                	AFDRACHT_KEY NUMBER(18,0) NOT NULL COMMENT 'Afdracht fact key',
+                	DATE_KEY NUMBER(8,0) COMMENT 'Month-end date key of the allocation',
+                	LOTTERY_KEY NUMBER(10,0) COMMENT 'Lottery key',
+                	BENEFICIARY_KEY NUMBER(10,0) COMMENT 'Beneficiary key',
+                	INLEG_BASE_EUR NUMBER(14,2) COMMENT 'Share of inleg this allocation is based on',
+                	AFDRACHT_EUR NUMBER(14,2) COMMENT 'Amount granted to the beneficiary',
+                	ALLOCATION_TYPE VARCHAR(20) COMMENT 'regular, player_choice, droomfonds or default_pool',
+                	IS_ANBI BOOLEAN COMMENT 'True when this allocation goes to an ANBI',
+                	constraint PK_FCT_AFDRACHT primary key (AFDRACHT_KEY)
+                )COMMENT='Grain: charity contribution allocated to one beneficiary in one lottery-month. Sum equals official afdracht when grouped to lottery and year. Licence floor is 40% of gross inleg; at least 80% must go to ANBIs.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        FCT_FINANCE_MONTH:
+            columns:
+                AFDRACHT_EUR: {type: NUMBER}
+                AFDRACHT_PCT: {type: NUMBER}
+                AFSCHRIJVINGEN_EUR: {type: NUMBER}
+                DATE_KEY: {type: NUMBER}
+                FINANCE_KEY: {type: NUMBER, is: [pk, notnull]}
+                FINANCIAL_INCOME_EUR: {type: NUMBER}
+                GROSS_PRIZE_VALUE_EUR: {type: NUMBER}
+                INLEG_EUR: {type: NUMBER}
+                KANSSPELBELASTING_EUR: {type: NUMBER}
+                LOTTERY_KEY: {type: NUMBER}
+                MONTH: {type: NUMBER}
+                NET_PRIZE_COST_EUR: {type: NUMBER}
+                ORGANISATIEKOSTEN_EUR: {type: NUMBER}
+                PERSONEELSKOSTEN_EUR: {type: NUMBER}
+                RESULT_EUR: {type: NUMBER}
+                WERVINGSKOSTEN_EUR: {type: NUMBER}
+                YEAR: {type: NUMBER}
+            primary_key: FINANCE_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH (
+                	FINANCE_KEY NUMBER(10,0) NOT NULL COMMENT 'Finance fact key',
+                	DATE_KEY NUMBER(8,0) COMMENT 'Month-start date key',
+                	LOTTERY_KEY NUMBER(10,0) COMMENT 'Lottery key',
+                	YEAR NUMBER(4,0) COMMENT 'Calendar year, the licence reporting grain',
+                	MONTH NUMBER(2,0) COMMENT 'Calendar month',
+                	INLEG_EUR NUMBER(14,2) COMMENT 'Gross ticket sales for the month',
+                	AFDRACHT_EUR NUMBER(14,2) COMMENT 'Charity contribution for the month',
+                	AFDRACHT_PCT NUMBER(8,6) COMMENT 'Afdracht / inleg. Licence floor is 0.40.',
+                	GROSS_PRIZE_VALUE_EUR NUMBER(14,2) COMMENT 'Consumer-facing prize pot',
+                	NET_PRIZE_COST_EUR NUMBER(14,2) COMMENT 'P&L prize cost after in-kind discounts',
+                	KANSSPELBELASTING_EUR NUMBER(14,2) COMMENT 'Gaming tax paid by the lottery',
+                	WERVINGSKOSTEN_EUR NUMBER(14,2) COMMENT 'Acquisition / marketing cost',
+                	ORGANISATIEKOSTEN_EUR NUMBER(14,2) COMMENT 'Organisation cost excluding staff',
+                	PERSONEELSKOSTEN_EUR NUMBER(14,2) COMMENT 'Staff cost',
+                	AFSCHRIJVINGEN_EUR NUMBER(14,2) COMMENT 'Depreciation',
+                	FINANCIAL_INCOME_EUR NUMBER(14,2) COMMENT 'Interest income on cash held for prizes and afdracht',
+                	RESULT_EUR NUMBER(14,2) COMMENT 'Result after tax. Near zero by design; this is not a profit-seeking business.',
+                	constraint PK_FCT_FINANCE_MONTH primary key (FINANCE_KEY)
+                )COMMENT='Grain: one lottery in one calendar month. Management-reporting table that matches how the annual accounts describe inleg, afdracht, prizes and costs. Use this for official money-split and afdracht% questions. Do not add inleg from this table to FCT_TICKET_DRAW inleg — they describe the same sales at different grains.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
         FCT_PRIZE:
             columns:
                 DATE_KEY: {type: NUMBER}
@@ -233,6 +372,109 @@ schemas:
                 	WINNERS_IN_POSTCODE NUMBER(8,0) COMMENT 'How many tickets in the winning postcode shared this prize',
                 	constraint PK_FCT_PRIZE primary key (PRIZE_KEY)
                 )COMMENT='Grain: one prize awarded to one participant. GROSS is consumer-facing value; NET is P&L cost after in-kind supplier discounts. Lottery pays kansspelbelasting on prizes above 449 euro.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        FCT_SUBSCRIPTION_EVENT:
+            columns:
+                CAMPAIGN_KEY: {type: NUMBER}
+                CHANNEL_KEY: {type: NUMBER}
+                DATE_KEY: {type: NUMBER}
+                EVENT_KEY: {type: NUMBER, is: [pk, notnull]}
+                EVENT_TYPE: {type: TEXT}
+                LOTTERY_KEY: {type: NUMBER}
+                PARTICIPANT_KEY: {type: NUMBER}
+                PRODUCT_KEY: {type: NUMBER}
+                TICKETS_DELTA: {type: NUMBER}
+                TICKET_ID: {type: TEXT}
+            primary_key: EVENT_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_SUBSCRIPTION_EVENT (
+                	EVENT_KEY NUMBER(18,0) NOT NULL COMMENT 'Event fact key',
+                	DATE_KEY NUMBER(8,0) COMMENT 'Event date key',
+                	LOTTERY_KEY NUMBER(10,0) COMMENT 'Lottery key',
+                	PRODUCT_KEY NUMBER(10,0) COMMENT 'Product after the event',
+                	PARTICIPANT_KEY NUMBER(10,0) COMMENT 'Participant key',
+                	CHANNEL_KEY NUMBER(10,0) COMMENT 'Channel key',
+                	CAMPAIGN_KEY NUMBER(10,0) COMMENT 'Campaign key; 0 if none',
+                	TICKET_ID VARCHAR(20) COMMENT 'Ticket id',
+                	EVENT_TYPE VARCHAR(20) COMMENT 'acquired, upgraded, cancelled or payment_failed',
+                	TICKETS_DELTA NUMBER(6,0) COMMENT '+1 acquire, -1 cancel, 0 otherwise',
+                	constraint PK_FCT_SUBSCRIPTION_EVENT primary key (EVENT_KEY)
+                )COMMENT='Grain: one subscription lifecycle event (acquired, upgraded, cancelled, payment_failed). Use for acquisition, churn and upgrades, not for inleg.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        FCT_TICKET_DRAW:
+            columns:
+                BENEFICIARY_KEY: {type: NUMBER}
+                CAMPAIGN_KEY: {type: NUMBER}
+                CHANNEL_KEY: {type: NUMBER}
+                COLLECTION_EUR: {type: NUMBER}
+                DATE_KEY: {type: NUMBER}
+                DRAW_KEY: {type: NUMBER}
+                GEOGRAPHY_KEY: {type: NUMBER}
+                INLEG_EUR: {type: NUMBER}
+                IS_COLLECTED: {type: BOOLEAN}
+                IS_NEW_TICKET: {type: BOOLEAN}
+                LOTTERY_KEY: {type: NUMBER}
+                PARTICIPANT_KEY: {type: NUMBER}
+                PRODUCT_KEY: {type: NUMBER}
+                TICKET_AGE_DRAWS: {type: NUMBER}
+                TICKET_DRAW_KEY: {type: NUMBER, is: [pk, notnull]}
+                TICKET_ID: {type: TEXT}
+                TICKET_PRICE_EUR: {type: NUMBER}
+            primary_key: TICKET_DRAW_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW (
+                	TICKET_DRAW_KEY NUMBER(18,0) NOT NULL COMMENT 'Fact key',
+                	TICKET_ID VARCHAR(20) COMMENT 'Subscription / lot id',
+                	DRAW_KEY NUMBER(10,0) COMMENT 'Draw key',
+                	DATE_KEY NUMBER(8,0) COMMENT 'Draw date key',
+                	LOTTERY_KEY NUMBER(10,0) COMMENT 'Lottery key',
+                	PRODUCT_KEY NUMBER(10,0) COMMENT 'Product key',
+                	PARTICIPANT_KEY NUMBER(10,0) COMMENT 'Participant key',
+                	GEOGRAPHY_KEY NUMBER(10,0) COMMENT 'Participant postcode key',
+                	CHANNEL_KEY NUMBER(10,0) COMMENT 'Acquisition channel of the ticket',
+                	CAMPAIGN_KEY NUMBER(10,0) COMMENT 'Acquisition campaign of the ticket; 0 if none',
+                	BENEFICIARY_KEY NUMBER(10,0) COMMENT 'VL player-chosen beneficiary; 0 for NPL default pool',
+                	TICKET_PRICE_EUR NUMBER(12,2) COMMENT 'Price billed for this ticket in this draw',
+                	INLEG_EUR NUMBER(12,2) COMMENT 'Ticket sales amount. Equals ticket price when billed.',
+                	COLLECTION_EUR NUMBER(12,2) COMMENT 'Amount actually collected by direct debit',
+                	IS_COLLECTED BOOLEAN COMMENT 'True when direct debit succeeded',
+                	IS_NEW_TICKET BOOLEAN COMMENT 'True on the first draw this ticket is billed',
+                	TICKET_AGE_DRAWS NUMBER(6,0) COMMENT 'How many draws this ticket has already played including this one',
+                	constraint PK_FCT_TICKET_DRAW primary key (TICKET_DRAW_KEY)
+                )COMMENT='Grain: one ticket billed in one draw. Use for inleg, tickets in play, participants and collection. Do not use for official afdracht% — that lives on FCT_FINANCE_MONTH.'
+                ;
+            provenance:
+                pk_source: ddl
+                has_ddl: true
+        FCT_VIP_REDEMPTION:
+            columns:
+                DATE_KEY: {type: NUMBER}
+                DISCOUNT_EUR: {type: NUMBER}
+                IS_FREE_ENTRY: {type: BOOLEAN}
+                LOTTERY_KEY: {type: NUMBER}
+                PARTICIPANT_KEY: {type: NUMBER}
+                REDEMPTION_KEY: {type: NUMBER, is: [pk, notnull]}
+                VENUE_NAME: {type: TEXT}
+                VENUE_TYPE: {type: TEXT}
+            primary_key: REDEMPTION_KEY
+            ddl: |
+                create or replace TABLE POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_VIP_REDEMPTION (
+                	REDEMPTION_KEY NUMBER(18,0) NOT NULL COMMENT 'Redemption fact key',
+                	DATE_KEY NUMBER(8,0) COMMENT 'Visit date key',
+                	LOTTERY_KEY NUMBER(10,0) COMMENT 'Always VL',
+                	PARTICIPANT_KEY NUMBER(10,0) COMMENT 'Participant key',
+                	VENUE_TYPE VARCHAR(20) COMMENT 'museum, theatre, zoo, cinema or castle',
+                	VENUE_NAME VARCHAR(80) COMMENT 'Venue name',
+                	DISCOUNT_EUR NUMBER(10,2) COMMENT 'Discount or free-entry value',
+                	IS_FREE_ENTRY BOOLEAN COMMENT 'True for free museum entry',
+                	constraint PK_FCT_VIP_REDEMPTION primary key (REDEMPTION_KEY)
+                )COMMENT='Grain: one VriendenLoterij VIP-KAART visit. Only VL participants have VIP cards.'
                 ;
             provenance:
                 pk_source: ddl
