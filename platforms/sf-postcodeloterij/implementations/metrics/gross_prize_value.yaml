@@ -11,3 +11,15 @@ metricImplementations:
       table: FCT_PRIZE
       column: GROSS_PRIZE_VALUE_EUR
     technicalRule: SUM(GROSS_PRIZE_VALUE_EUR)
+  - metric: gross_prize_value
+    platform: sf-postcodeloterij
+    name: FCT_FINANCE_MONTH.GROSS_PRIZE_VALUE_EUR
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH.GROSS_PRIZE_VALUE_EUR
+    description: Monthly prize pot for prize_payout_ratio. Do not add to FCT_PRIZE.
+    deepLink: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_FINANCE_MONTH
+      column: GROSS_PRIZE_VALUE_EUR
+    technicalRule: SUM(GROSS_PRIZE_VALUE_EUR)
