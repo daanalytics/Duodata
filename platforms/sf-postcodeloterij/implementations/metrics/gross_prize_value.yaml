@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: gross_prize_value
+    platform: sf-postcodeloterij
+    name: FCT_PRIZE.GROSS_PRIZE_VALUE_EUR
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_PRIZE.GROSS_PRIZE_VALUE_EUR
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: SUM(GROSS_PRIZE_VALUE_EUR)

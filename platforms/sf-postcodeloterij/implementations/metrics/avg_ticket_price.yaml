@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: avg_ticket_price
+    platform: sf-postcodeloterij
+    name: FCT_TICKET_DRAW.TICKET_PRICE_EUR
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW.TICKET_PRICE_EUR
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: DIV0NULL(SUM(TICKET_PRICE_EUR), COUNT(*))

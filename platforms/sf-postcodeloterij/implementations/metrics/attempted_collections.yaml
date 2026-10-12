@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: attempted_collections
+    platform: sf-postcodeloterij
+    name: attempted_collections
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: COUNT(*)

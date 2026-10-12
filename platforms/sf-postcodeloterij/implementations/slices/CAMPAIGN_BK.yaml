@@ -1,0 +1,9 @@
+sliceImplementations:
+  - slice: CAMPAIGN_BK
+    platform: sf-postcodeloterij
+    name: DIM_CAMPAIGN.CAMPAIGN_CODE
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_CAMPAIGN.CAMPAIGN_CODE
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    values: null

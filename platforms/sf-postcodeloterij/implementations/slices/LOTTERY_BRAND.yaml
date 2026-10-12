@@ -1,0 +1,17 @@
+sliceImplementations:
+  - slice: LOTTERY_BRAND
+    platform: sf-postcodeloterij
+    name: DIM_LOTTERY.LOTTERY_KEY
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_LOTTERY.LOTTERY_KEY
+    description: Primary key binding for Semantic View Builder (DIM_LOTTERY.LOTTERY_KEY).
+    deepLink: null
+    schemaObjectRef: null
+    values: null
+  - slice: LOTTERY_BRAND
+    platform: sf-postcodeloterij
+    name: DIM_LOTTERY.LOTTERY_NAME
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_LOTTERY.LOTTERY_NAME
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    values: null

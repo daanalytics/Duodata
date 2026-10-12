@@ -1,0 +1,9 @@
+sourceImplementations:
+  - source: FIN_LEDGER
+    platform: sf-postcodeloterij
+    name: FCT_FINANCE_MONTH
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH
+    description: Statutory money-split stand-in; there is no GL in the sample.
+    deepLink: null
+    schemaObjectRef: null
+    metadata: null

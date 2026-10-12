@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: anbi_share
+    platform: sf-postcodeloterij
+    name: anbi_share
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_AFDRACHT
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: DIV0NULL(SUM(IFF(IS_ANBI, AFDRACHT_EUR, 0)), SUM(AFDRACHT_EUR))

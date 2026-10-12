@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: net_prize_cost
+    platform: sf-postcodeloterij
+    name: FCT_FINANCE_MONTH.NET_PRIZE_COST_EUR
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_FINANCE_MONTH.NET_PRIZE_COST_EUR
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: SUM(NET_PRIZE_COST_EUR)

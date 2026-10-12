@@ -1,0 +1,9 @@
+sliceImplementations:
+  - slice: COHORT
+    platform: sf-postcodeloterij
+    name: DIM_PARTICIPANT.TENURE_START_DATE
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_PARTICIPANT.TENURE_START_DATE
+    description: YEAR(TENURE_START_DATE) is the acquisition cohort.
+    deepLink: null
+    schemaObjectRef: null
+    values: null

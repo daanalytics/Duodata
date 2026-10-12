@@ -1,0 +1,9 @@
+metricImplementations:
+  - metric: draws_held
+    platform: sf-postcodeloterij
+    name: draws_held
+    physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.DIM_DRAW.DRAW_KEY
+    description: null
+    deepLink: null
+    schemaObjectRef: null
+    technicalRule: COUNT(DISTINCT DRAW_KEY)
