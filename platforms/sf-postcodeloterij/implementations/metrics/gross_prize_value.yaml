@@ -3,7 +3,11 @@ metricImplementations:
     platform: sf-postcodeloterij
     name: FCT_PRIZE.GROSS_PRIZE_VALUE_EUR
     physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_PRIZE.GROSS_PRIZE_VALUE_EUR
-    description: null
+    description: Consumer-facing prize value at prize grain.
     deepLink: null
-    schemaObjectRef: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_PRIZE
+      column: GROSS_PRIZE_VALUE_EUR
     technicalRule: SUM(GROSS_PRIZE_VALUE_EUR)

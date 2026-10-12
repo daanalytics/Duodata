@@ -136,6 +136,27 @@ tables:
     primary_key:
       columns:
         - TICKET_DRAW_KEY
+    facts:
+      - name: TICKET_PRICE_EUR
+        description: Price billed for this ticket in this draw
+        expr: TICKET_PRICE_EUR
+        data_type: NUMBER
+      - name: INLEG_EUR
+        description: Ticket sales amount. Equals ticket price when billed.
+        expr: INLEG_EUR
+        data_type: NUMBER
+      - name: COLLECTION_EUR
+        description: Amount actually collected by direct debit
+        expr: COLLECTION_EUR
+        data_type: NUMBER
+      - name: IS_COLLECTED
+        description: True when direct debit succeeded
+        expr: IS_COLLECTED
+        data_type: BOOLEAN
+      - name: IS_NEW_TICKET
+        description: True on the first draw this ticket is billed
+        expr: IS_NEW_TICKET
+        data_type: BOOLEAN
   - name: FCT_PRIZE
     description: >-
       One prize awarded to one participant. GROSS is consumer-facing value; NET
@@ -147,6 +168,27 @@ tables:
     primary_key:
       columns:
         - PRIZE_KEY
+    facts:
+      - name: GROSS_PRIZE_VALUE_EUR
+        description: Consumer-facing prize value
+        expr: GROSS_PRIZE_VALUE_EUR
+        data_type: NUMBER
+      - name: NET_PRIZE_COST_EUR
+        description: P&L prize cost after in-kind supplier discounts
+        expr: NET_PRIZE_COST_EUR
+        data_type: NUMBER
+      - name: SUPPLIER_DISCOUNT_EUR
+        description: Discount on in-kind prizes
+        expr: SUPPLIER_DISCOUNT_EUR
+        data_type: NUMBER
+      - name: KANSSPELBELASTING_EUR
+        description: Gaming tax paid by the lottery, not the player
+        expr: KANSSPELBELASTING_EUR
+        data_type: NUMBER
+      - name: IS_IN_KIND
+        description: True for natura prizes
+        expr: IS_IN_KIND
+        data_type: BOOLEAN
   - name: FCT_FINANCE_MONTH
     description: >-
       One lottery in one calendar month. Official money-split for payout ratio.
@@ -158,6 +200,19 @@ tables:
     primary_key:
       columns:
         - FINANCE_KEY
+    facts:
+      - name: INLEG_EUR
+        description: Gross ticket sales for the month. Do not add to FCT_TICKET_DRAW.INLEG_EUR.
+        expr: INLEG_EUR
+        data_type: NUMBER
+      - name: GROSS_PRIZE_VALUE_EUR
+        description: Consumer-facing prize pot for the month
+        expr: GROSS_PRIZE_VALUE_EUR
+        data_type: NUMBER
+      - name: NET_PRIZE_COST_EUR
+        description: P&L prize cost after in-kind discounts
+        expr: NET_PRIZE_COST_EUR
+        data_type: NUMBER
 relationships:
   - name: TICKET_DRAW_TO_DRAW_TYPE
     left_table: FCT_TICKET_DRAW

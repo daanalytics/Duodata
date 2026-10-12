@@ -3,7 +3,11 @@ metricImplementations:
     platform: sf-postcodeloterij
     name: FCT_TICKET_DRAW.TICKET_PRICE_EUR
     physicalId: POSTCODELOTERIJ.SAMPLE_SCHEMA.FCT_TICKET_DRAW.TICKET_PRICE_EUR
-    description: null
+    description: Row-level fact for average lot price.
     deepLink: null
-    schemaObjectRef: null
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE_SCHEMA
+      table: FCT_TICKET_DRAW
+      column: TICKET_PRICE_EUR
     technicalRule: DIV0NULL(SUM(TICKET_PRICE_EUR), COUNT(*))
