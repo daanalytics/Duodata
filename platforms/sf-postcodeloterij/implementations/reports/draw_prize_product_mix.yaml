@@ -1,12 +1,34 @@
 reportImplementations:
   - report: draw_prize_product_mix
     platform: sf-postcodeloterij
-    name: CHARITY_LOTTERIES
-    physicalId: POSTCODELOTERIJ.SAMPLE.CHARITY_LOTTERIES
-    description: FCT_TICKET_DRAW, FCT_PRIZE, DIM_DRAW and DIM_PRODUCT.
-    deepLink: null
+    name: DIM_PRIZE_TYPE
+    physicalId: null
+    description: null
+    deepLink: https://app.snowflake.com/Postcodeloterij/BV77588-AWS_US_WEST_ZTS/#/data/databases/POSTCODELOTERIJ/schemas/SAMPLE/view/DIM_PRIZE_TYPE/columns
     schemaObjectRef:
       database: POSTCODELOTERIJ
       schema: SAMPLE
-      table: CHARITY_LOTTERIES
+      table: DIM_PRIZE_TYPE
+    platformUrl: null
+  - report: draw_prize_product_mix
+    platform: sf-postcodeloterij
+    name: DIM_PRODUCT
+    physicalId: null
+    description: null
+    deepLink: https://app.snowflake.com/Postcodeloterij/BV77588-AWS_US_WEST_ZTS/#/data/databases/POSTCODELOTERIJ/schemas/SAMPLE/view/DIM_PRODUCT/columns
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: DIM_PRODUCT
+    platformUrl: null
+  - report: draw_prize_product_mix
+    platform: sf-postcodeloterij
+    name: FCT_PRIZE
+    physicalId: null
+    description: null
+    deepLink: https://app.snowflake.com/Postcodeloterij/BV77588-AWS_US_WEST_ZTS/#/data/databases/POSTCODELOTERIJ/schemas/SAMPLE/view/FCT_PRIZE/columns
+    schemaObjectRef:
+      database: POSTCODELOTERIJ
+      schema: SAMPLE
+      table: FCT_PRIZE
     platformUrl: null
